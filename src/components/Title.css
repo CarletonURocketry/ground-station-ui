@@ -1,0 +1,12 @@
+#title {
+  display: flex;
+  gap: 2rem;
+  padding: var(--top-pad) var(--side-pad);
+  justify-content: left;
+  align-items: baseline;
+}
+
+#title img {
+  object-fit: contain;
+  height: 2rem;
+}
