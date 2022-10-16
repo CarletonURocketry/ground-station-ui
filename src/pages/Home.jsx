@@ -2,7 +2,18 @@ import React from "react";
 import "./Home.css";
 import ReactEcharts from "echarts-for-react";
 
-export default function Home() {
+export default function Home({ data }) {
+  // Unpack data
+  var altitude = null;
+  var acceleration = null;
+  var position = null;
+
+  if (data) {
+    altitude = data.altitude_data;
+    acceleration = data.acceleration_data;
+    position = data.position_data;
+  }
+
   const option = {
     xAxis: {
       type: "category",
