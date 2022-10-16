@@ -1,18 +1,33 @@
 import React from "react";
 import "./Home.css";
+import ReactEcharts from "echarts-for-react";
 
 export default function Home() {
+  const option = {
+    xAxis: {
+      type: "category",
+      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    },
+    yAxis: {
+      type: "value",
+    },
+    series: [
+      {
+        data: [120, 200, 150, 80, 70, 110, 130],
+        type: "bar",
+      },
+    ],
+  };
+
   return (
     <main id="home">
       <h1>Main Dashboard</h1>
       <section id="graphs">
-        <div className="card" id="1"></div>
-        <div className="card" id="2"></div>
-        <div className="card" id="3"></div>
-        <div className="card" id="4"></div>
-        <div className="card" id="5"></div>
-        <div className="card" id="6"></div>
-        <div className="card" id="7"></div>
+        <ReactEcharts className="card" option={option} />
+        <ReactEcharts className="card" option={option} />
+        <ReactEcharts className="card" option={option} />
+        <ReactEcharts className="card" option={option} />
+        <ReactEcharts className="card" option={option} />
       </section>
     </main>
   );

@@ -11,12 +11,22 @@
   align-items: left;
 }
 
+#chart {
+  background-color: var(--tertiary);
+  width: 600px;
+  height: 400px;
+  margin-top: 2rem;
+}
+
 .card {
   background-color: var(--tertiary);
-  min-width: 180px;
+  min-width: 400px;
   min-height: 100px;
   flex: auto;
   border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Text */

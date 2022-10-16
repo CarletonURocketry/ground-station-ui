@@ -18,7 +18,7 @@ function App() {
   console.log(data);
 
   // Current page
-  const [currentPage, setCurrentPage] = useState("/"); // To Do
+  const [currentPage, setCurrentPage] = useState("/"); // To Do: Have the current page link highlighted red
 
   return (
     <div id="App">
