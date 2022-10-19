@@ -3,7 +3,7 @@ import "./Navbar.css";
 
 export default function Navbar({ version, org, status, children }) {
   // Unpack data
-  var board_connected = "no"; // Assume disconnect
+  var board_connected = false; // Assume disconnect
   var call_sign = "Nonexistent";
   var status_code = "-1";
   var status_name = "Dead";
@@ -14,7 +14,7 @@ export default function Navbar({ version, org, status, children }) {
     status_name = status.rocket.status_name;
   }
 
-  const connection = board_connected == "yes" ? "connected" : "disconnected";
+  const connection = board_connected ? "connected" : "disconnected";
 
   return (
     <nav>
