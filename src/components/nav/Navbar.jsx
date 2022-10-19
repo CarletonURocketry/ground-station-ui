@@ -1,6 +1,8 @@
 import React from "react";
 import "./Navbar.css";
 
+import { clear_telemetry } from "../../utils/storage";
+
 export default function Navbar({ version, org, status, children }) {
   // Unpack data
   var board_connected = false; // Assume disconnect
@@ -36,6 +38,7 @@ export default function Navbar({ version, org, status, children }) {
           {connection}
         </p>
       </div>
+      <button onClick={clear_telemetry}>Clear storage (debug)</button>
       <div id="nav-links">{children}</div>
     </nav>
   );
