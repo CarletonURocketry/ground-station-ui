@@ -1,7 +1,12 @@
 import React from "react";
 
 // Utilities
-import { GrowingX, GrowingY } from "../../utils/chart-options";
+import {
+  LineStyle,
+  DotStyle,
+  GrowingX,
+  GrowingY,
+} from "../../utils/chart-options";
 
 // Hooks
 import { useStorage } from "../../hooks/useStorage";
@@ -26,6 +31,8 @@ export default function AltitudeGraph({ className }) {
       {
         data: y,
         type: "line",
+        ...LineStyle(1, 3, "solid"),
+        ...DotStyle(1, 7),
       },
     ],
   };
