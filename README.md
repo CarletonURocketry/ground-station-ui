@@ -14,6 +14,8 @@ A dashboard design with visualization for rocket data. Numerical values are plot
 
 The UI fundamentally makes use of a websocket connection to the [Python backend](https://github.com/CarletonURocketry/ground-station), which sends telemetry data in real-time as it receives it from the rocket transmission chip. This data is sent in JSON format, where it is unpacked and displayed in chart components.
 
+Please see [websocket.json](https://github.com/CarletonURocketry/ground-station/blob/main/static/websocket.json) for an example of incoming data.
+
 Importantly, a buffer of historical data is saved to local storage to provide seamless display. If the connection with the ground station or backend is interrupted, the display will statically display the historical data while it attempts to reconnect. As soon as a connection is possible, the UI reconnects and continues real-time display.
 
 Hotkey commands are available to send commands to the backend. These commands are not yet implemented.
@@ -28,9 +30,8 @@ The UI also supports flight replay. The backend can send the UI recorded flight 
 
 ## Documentation
 
-- [Developer documentation](./docs/dev/DevDocs.md)
-- [User documentation](./docs/user/UserDocs.md)
+Please visit [the repository's wiki](https://github.com/CarletonURocketry/ground-station-ui/wiki) to view the documentation for this project.
 
 ## Contribution
 
-To contribute to this project, please view the [contribution guidelines](./docs/dev/tutorials/Contributing.md) listed in the [developer documentation](./docs/dev/DevDocs.md).
+To contribute to this project, please view the [contribution guidelines](https://github.com/CarletonURocketry/ground-station-ui/wiki/Tutorials#contributing-guidelines) on the [repository's wiki](https://github.com/CarletonURocketry/ground-station-ui/wiki).
