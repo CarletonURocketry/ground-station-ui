@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-
+/**
+ * Connects to a websocket and receives incoming data
+ * @author Matteo Golin <matteo.golin@gmail.com>
+ * @param {*} websocket_address
+ * @returns Latest data as a state variable and its setter function
+ */
 export function useWebsocket(websocket_address) {
   // Initialize data as null until info is received from websocket
   const [data, setData] = useState(null);

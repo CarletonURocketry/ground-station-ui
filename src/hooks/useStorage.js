@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { read_telemetry } from "../utils/storage";
 
-// Returns x and y data whenever the local storage is updated
+/**
+ * Fetches x and y data from historical telemetry data in local storage
+ * @author Matteo Golin <matteo.golin@gmail.com>
+ * @param {function} x_cb Callback function specifying how to map a list of telemetry data packets to a list of required x data points
+ * @param {function} y_cb Callback funtion specifying how to map a list of telemetry data packets to a list of required y data points
+ * @returns X and Y data point arrays as state variables
+ */
 export function useStorage(x_cb, y_cb) {
   // Store the x and y data as a state variable that is updated with every change
   const [x, setX] = useState([]);
@@ -27,7 +33,7 @@ export function useStorage(x_cb, y_cb) {
     window.addEventListener("storage", get_x_y); // Trigger writing to state variables when local storage is updated
 
     return () => {
-      window.removeEventListener("storage", get_x_y); // Cleanup event listener
+      window.removeEventListener("storage", get_x_y); // Remove event listener when host component is not rendered
     };
   }, []);
 
