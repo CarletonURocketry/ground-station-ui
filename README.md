@@ -1,4 +1,8 @@
-# CUInSpace Ground Station UI
+<img width="140px" align="left" style="padding: 15px" src="https://github.com/CarletonURocketry/ground-station-ui/blob/main/public/colour_logo.png?raw=true"/>
+<h1>Ground Station UI</h1>
+<h3>CUInSpace</h3>
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-FF2D00.svg)](https://opensource.org/licenses/MIT)
 
 Displays data pertaining to the CUInSpace rocket in real-time during launch using a series of graphs and maps. Allows for commands to be sent to the backend and then passed to the ground station.
 
