@@ -8,4 +8,4 @@ For instructions on how to get started with contributing, please see the tutoria
 - [Components]()
 - [Hooks](./hooks/Hooks.md)
 - [Utility Modules]()
-- [Tutorials](./dev/tutorials/Tutorials.md)
+- [Tutorials](./tutorials/Tutorials.md)
