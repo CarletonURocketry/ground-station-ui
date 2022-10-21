@@ -53,3 +53,4 @@ Some coding standards to ensure that all the code is compatible and consistent.
 - Document all functions and variables in utility modules
 - Use comments to make code more readable in confusing operations
 - Use descriptive variable and function names
+- Document all functions using JSDocs, and _include your name as the author_
