@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 /**
  * Maps the modifier name to the event variable specifying if it was pressed
