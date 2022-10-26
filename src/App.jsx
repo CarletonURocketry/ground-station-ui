@@ -22,7 +22,7 @@ import Home from "./pages/Home";
 
 function App() {
   // Websocket data
-  const [data, setData] = useWebsocket("ws://localhost:33845/websocket");
+  const data = useWebsocket("ws://localhost:33845/websocket");
 
   // Unpack and distribute data
   var version = "X.X.X";

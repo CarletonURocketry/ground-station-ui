@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 /**
  * Connects to a websocket and receives incoming data
  * @author Matteo Golin <matteo.golin@gmail.com>
- * @param {*} websocket_address
- * @returns Latest data as a state variable and its setter function
+ * @param {string} websocket_address
+ * @returns Latest data as a state variable
  */
 export function useWebsocket(websocket_address) {
-  // Initialize data as null until info is received from websocket
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(null); // Initialize data as null until info is received from websocket
+  const [reconnect, setReconnect] = useState(true); // Reconnection is attempted everytime this value is flipped
 
   useEffect(() => {
-    // Connect to websocket
+    // Create websocket
     var websocket = new WebSocket(websocket_address);
 
     // Open connection
@@ -27,8 +27,9 @@ export function useWebsocket(websocket_address) {
     websocket.onclose = () => {
       console.log("Disconnected from websocket server.");
       setData(null); // Reset data to null so there is indication that the connection was closed
+      setReconnect((reconnect) => !reconnect);
     };
-  }, []);
+  }, [reconnect]);
 
-  return [data, setData];
+  return data;
 }
