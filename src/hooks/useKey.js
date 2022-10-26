@@ -1,6 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 
-// Maps the modifier key string to the event variable specifying whether it was pressed or not
+/**
+ * Maps the modifier name to the event variable specifying if it was pressed
+ * @author Matteo Golin <matteo.golin@gmail.com>
+ * @param {event} event
+ * @returns Modifier key names to booleans values representing whether or not they were pressed during the passed event
+ */
 const modifier_pressed = (event) => {
   return {
     ctrl: event.ctrlKey,
@@ -12,9 +17,10 @@ const modifier_pressed = (event) => {
 
 /**
  * Calls a callback when a specific key combination is pressed
- * @param {string} key The keycode for the main key used in the combination
+ * @author Matteo Golin <matteo.golin@gmail.com>
+ * @param {string} key The JavaScript keycode for the main key used in the combination
  * @param {string} modifier The name of the modifier key used in the combination (alt, shift or ctrl)
- * @param {function} callback The callback function to be executed when the combination is pressed
+ * @param {function} callback The callback function, taking an event as a parameter, to be executed when the combination is pressed
  */
 export function useKey(key, modifier, callback) {
   // No modifier specified
