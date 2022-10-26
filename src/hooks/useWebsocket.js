@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 /**
  * Connects to a websocket and receives incoming data
  * @author Matteo Golin <matteo.golin@gmail.com>
- * @param {string} websocket_address
+ * @param {string} websocket_address The URL address where the websocket is located
  * @returns Latest data as a state variable
  */
 export function useWebsocket(websocket_address) {
