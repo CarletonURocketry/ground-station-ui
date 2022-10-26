@@ -10,7 +10,7 @@ export default function Navbar({ version, org, status, children }) {
   var status_code = "-1";
   var status_name = "Dead";
   if (status) {
-    board_connected = status.board.connected;
+    board_connected = status.rn2483_radio.connected;
     call_sign = status.rocket.call_sign;
     status_code = status.rocket.status_code;
     status_name = status.rocket.status_name;
