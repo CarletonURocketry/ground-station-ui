@@ -4,9 +4,9 @@ import { read_telemetry } from "../utils/storage";
 /**
  * Fetches x and y data from historical telemetry data in local storage
  * @author Matteo Golin <matteo.golin@gmail.com>
- * @param {function} x_cb Callback function specifying how to map a list of telemetry data packets to a list of required x data points
- * @param {function} y_cb Callback funtion specifying how to map a list of telemetry data packets to a list of required y data points
- * @returns X and Y data point arrays as state variables
+ * @param {function} x_cb Callback function that takes an array of telemetry packets as input and maps it to an array of data points to be returned
+ * @param {function} y_cb Callback function that takes an array of telemetry packets as input and maps it to an array of data points to be returned
+ * @returns An array of X data points and an array of Y data points, both as React state variables.
  */
 export function useStorage(x_cb, y_cb) {
   // Store the x and y data as a state variable that is updated with every change
