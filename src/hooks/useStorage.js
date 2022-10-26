@@ -23,7 +23,12 @@ export function useStorage(x_cb, y_cb) {
 
   // Returns the result of the callback functions that parse historical data into their x and y components
   const get_x_y = () => {
-    const historical_data = read_telemetry();
+    var historical_data = read_telemetry();
+
+    // Never pass null data to mapping functions
+    if (historical_data == null) {
+      historical_data = [];
+    }
 
     setX(x_call.current(historical_data));
     setY(y_call.current(historical_data));
