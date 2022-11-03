@@ -1,0 +1,68 @@
+/* Font Import */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/* Root variables */
+:root {
+  /* Colours */
+  --primary: #25282d;
+  --secondary: #fcfffe;
+  --tertiary: #2e3138;
+  --quaternary: #5c6270;
+
+  --accent-one: #cc0018;
+  --accent-two: #e05200;
+  --accent-three: #f79e1b;
+  --accent-four: #ffe6a7;
+
+  /* Sizing */
+  --top-pad: 2rem;
+  --side-pad: 4rem;
+
+  /* All rem value are based off of this size */
+  font-size: 24px;
+}
+
+/* Resets */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Base styles */
+html {
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+
+  color: var(--secondary);
+  background-color: var(--primary);
+}
+
+/* Scrollbar styling */
+
+/* Media queries */
