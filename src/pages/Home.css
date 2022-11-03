@@ -47,3 +47,41 @@
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
+#home {
+  margin: 0 var(--side-pad);
+  margin-bottom: var(--top-pad);
+}
+
+#graphs {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: left;
+}
+
+#chart {
+  background-color: var(--tertiary);
+  width: 600px;
+  height: 400px;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: var(--tertiary);
+  min-width: 400px;
+  min-height: 100px;
+  flex: auto;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Text */
+#home h1 {
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
