@@ -50,7 +50,7 @@ const xSpacer = {
 
 const ySpacer = {
   ...hideOverlap,
-  nameGap: 60,
+  nameGap: 50,
 };
 
 const textStyle = (font_weight) => {
