@@ -12,8 +12,7 @@ export default function Navbar({ version, org, status, children }) {
   if (status) {
     board_connected = status.rn2483_radio.connected;
     call_sign = status.rocket.call_sign;
-    status_code = status.rocket.status_code;
-    status_name = status.rocket.status_name;
+    status_name = status.rocket.status.status_name;
   }
 
   const connection = board_connected ? "connected" : "disconnected";
@@ -32,7 +31,7 @@ export default function Navbar({ version, org, status, children }) {
             <h1 id="org">{org}</h1>
             <p id="version">{`v${version}`}</p>
           </div>
-          <p>{`${call_sign} | ${status_code} | ${status_name}`}</p>
+          <p>{`${call_sign} | ${status_name}`}</p>
         </div>
         <p id="connection-status" className={connection}>
           {connection}
