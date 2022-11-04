@@ -6,9 +6,10 @@ export default function MissionTimer({ mission_time }) {
 
   return (
     <div id="mission-timer">
-      <p
-        style={{ fontWeight: 200, fontSize: "0.6rem" }}
-      >{`Duration: ${mission_duration}`}</p>
+      <p style={{ fontWeight: 200, fontSize: "0.8rem" }}>
+        <strong style={{ fontWeight: 400 }}>Mission duration: </strong>
+        {mission_duration}
+      </p>
     </div>
   );
 }

@@ -36,8 +36,8 @@ export default function Navbar({ version, org, status, children }) {
             <h1 id="org">{org}</h1>
             <p id="version">{`v${version}`}</p>
           </div>
-          <p>{`${call_sign} | ${status_name}`}</p>
           <MissionTimer mission_time={mission_time} />
+          <p>{`${call_sign} | ${status_name}`}</p>
         </div>
         <p id="connection-status" className={connection}>
           {connection}
