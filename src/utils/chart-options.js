@@ -27,6 +27,10 @@ export function accentColours() {
   return ACCENTS_NAMES.map((text) => root.getPropertyValue(text));
 }
 
+export function create_series(x_data, y_data) {
+  return x_data.map((x_val, index) => [x_val, y_data[index]]);
+}
+
 // Components
 const hideOverlap = {
   axisLabel: {
@@ -50,10 +54,9 @@ const ySpacer = {
 
 // Parameterized components
 
-export const GrowingX = (x_data, title) => {
+export const GrowingX = (title) => {
   return {
     type: "value",
-    data: x_data,
     scale: true,
     name: title,
     nameLocation: "center",
