@@ -6,6 +6,7 @@ import {
   DotStyle,
   GrowingX,
   GrowingY,
+  create_series,
 } from "../../utils/chart-options";
 
 // Hooks
@@ -25,11 +26,11 @@ export default function AltitudeGraph({ className }) {
   const [x, y] = useStorage(get_x, get_y); // Get updated x and y
 
   const options = {
-    xAxis: GrowingX(x, "Time (ms)"),
+    xAxis: GrowingX("Time (s)"),
     yAxis: GrowingY("Altitude (m)"),
     series: [
       {
-        data: y,
+        data: create_series(x, y),
         type: "line",
         ...LineStyle(1, 3, "solid"),
         ...DotStyle(1, 7),
