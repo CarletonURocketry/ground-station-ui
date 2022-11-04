@@ -27,6 +27,11 @@ export function accentColours() {
   return ACCENTS_NAMES.map((text) => root.getPropertyValue(text));
 }
 
+export function fontFamily() {
+  const root = getComputedStyle(document.documentElement);
+  return root.getPropertyValue("--font");
+}
+
 export function create_series(x_data, y_data) {
   return x_data.map((x_val, index) => [x_val, y_data[index]]);
 }
@@ -52,8 +57,31 @@ const ySpacer = {
   },
 };
 
-// Parameterized components
+const textStyle = (font_weight) => {
+  return {
+    textStyle: {
+      color: mainColours()[1],
+      fontFamily: fontFamily(),
+      fontWeight: font_weight,
+    },
+  };
+};
 
+const axisLineStyle = {
+  axisLine: {
+    lineStyle: {
+      color: mainColours()[1],
+    },
+  },
+};
+
+const axisLabelStyle = {
+  axisLabel: {
+    ...textStyle(100).textStyle,
+  },
+};
+
+// Parameterized components
 export const GrowingX = (title) => {
   return {
     type: "value",
@@ -61,6 +89,11 @@ export const GrowingX = (title) => {
     name: title,
     nameLocation: "center",
     ...xSpacer,
+    nameTextStyle: {
+      ...textStyle(300).textStyle,
+    },
+    ...axisLineStyle,
+    ...axisLabelStyle,
   };
 };
 
@@ -71,6 +104,11 @@ export const GrowingY = (title) => {
     name: title,
     nameLocation: "center",
     ...ySpacer,
+    nameTextStyle: {
+      ...textStyle(300).textStyle,
+    },
+    ...axisLineStyle,
+    ...axisLabelStyle,
   };
 };
 
@@ -90,5 +128,16 @@ export const DotStyle = (accent_num, size) => {
       color: accentColours()[accent_num - 1],
     },
     symbolSize: size,
+  };
+};
+
+export const CenteredTitle = (title) => {
+  return {
+    title: {
+      text: title,
+      ...textStyle(500),
+      left: "50%",
+      top: "5%",
+    },
   };
 };

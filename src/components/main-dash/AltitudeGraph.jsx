@@ -6,6 +6,7 @@ import {
   DotStyle,
   GrowingX,
   GrowingY,
+  CenteredTitle,
   create_series,
 } from "../../utils/chart-options";
 
@@ -26,6 +27,7 @@ export default function AltitudeGraph({ className }) {
   const [x, y] = useStorage(get_x, get_y); // Get updated x and y
 
   const options = {
+    ...CenteredTitle("Altitude"),
     xAxis: GrowingX("Time (s)"),
     yAxis: GrowingY("Altitude (m)"),
     series: [
