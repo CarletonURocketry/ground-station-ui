@@ -45,16 +45,12 @@ const hideOverlap = {
 
 const xSpacer = {
   ...hideOverlap,
-  nameTextStyle: {
-    lineHeight: 50,
-  },
+  nameGap: 35,
 };
 
 const ySpacer = {
   ...hideOverlap,
-  nameTextStyle: {
-    lineHeight: 75,
-  },
+  nameGap: 60,
 };
 
 const textStyle = (font_weight) => {
@@ -82,6 +78,22 @@ const axisLabelStyle = {
 };
 
 // Parameterized components
+export const DashGraph = (title, x_title, y_title, x_data, y_data) => {
+  return {
+    ...CenteredTitle(title),
+    xAxis: GrowingX(x_title),
+    yAxis: GrowingY(y_title),
+    series: [
+      {
+        data: create_series(x_data, y_data),
+        type: "line",
+        ...LineStyle(1, 3, "solid"),
+        ...DotStyle(1, 7),
+      },
+    ],
+  };
+};
+
 export const GrowingX = (title) => {
   return {
     type: "value",
