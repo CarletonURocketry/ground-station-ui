@@ -15,14 +15,15 @@ export default function DashboardGraph({
   y_title,
   x_cb,
   y_cb,
+  options,
 }) {
   // Getting x and y data using callbacks
   const [x, y] = useStorage(x_cb, y_cb);
 
-  return (
-    <ReactEcharts
-      className="card"
-      option={DashGraph(title, x_title, y_title, x, y)}
-    />
-  );
+  // Use dashboard preset by default
+  if (!options) {
+    options = DashGraph(title, x_title, y_title, x, y);
+  }
+
+  return <ReactEcharts className="card" option={options} />;
 }
