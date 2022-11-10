@@ -8,6 +8,7 @@ import { useStorage } from "../../hooks/useStorage";
 
 // Components
 import ReactEcharts from "echarts-for-react";
+import Temp from "./Temp";
 
 export default function DashboardGraph({
   title,
@@ -24,5 +25,7 @@ export default function DashboardGraph({
       className="card"
       option={DashGraph(title, x_title, y_title, x, y)}
     />
+    
+
   );
 }

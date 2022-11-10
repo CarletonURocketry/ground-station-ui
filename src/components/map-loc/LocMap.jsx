@@ -12,6 +12,12 @@ import L from "leaflet";
 import "leaflet.offline";
 import "./TileLayerOffline";
 import "./ControlSaveTiles";
+import localforage from 'localforage';
+
+//Searching on map library 
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+
+
 
 // Hooks
 import { useStorage } from "../../hooks/useStorage";
@@ -84,6 +90,22 @@ function Offline(){
   return null;
 }
 
+function ComponentDidMount() {
+  //Defining the offline layer for the map
+    const map = useMap();
+    const offlineLayer = L.tileLayer.offline('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', localforage, {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    subdomains: 'abc',
+    minZoom: 13,
+    maxZoom: 19,
+    crossOrigin: true
+});
+    offlineLayer.addTo(map);//add the offline layer
+    //map.zoomControl.remove();
+
+}
+
+
 
 const RecenterAutomatically = ({lat,lng}) => {
   const map = useMap();
@@ -114,11 +136,13 @@ export default function LocMap(){
     y_pos = y[y.length - 1];
   }
 
+  
+
     
   return(
     <MapContainer center={[x_pos,y_pos]} zoom={13} >
           <MyComponent/>
-            <Offline/>
+            <ComponentDidMount/>
             {<TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/> }

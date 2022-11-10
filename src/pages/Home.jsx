@@ -2,17 +2,27 @@ import React from "react";
 import "./Home.css";
 
 // Components
-import AltitudeGraph from "../components/main-dash/AltitudeGraph";
-import AccerlerationGraph from "../components/main-dash/AccerlerationGraph";
 import DashboardGraph from "../components/main-dash/DashboardGraph";
+import Temp2 from "../components/main-dash/Temp";
 
 export default function Home() {
+  // Altitude data callbacks
+  const get_altitude_mission_time = (data) => {
+    return data.map((packet) => packet.altitude.mission_time / 1000);
+  };
+  const get_altitude_y = (data) => {
+    return data.map((packet) => packet.altitude.altitude.metres);
+  };
+
+  // Pressure data callbacks
+  const get_pressure_y = (data) => {
+    return data.map((packet) => packet.altitude.pressure.kilopascals);
+  };
+
   return (
     <main id="home">
       <h1>Main Dashboard</h1>
       <section id="graphs">
-        <AltitudeGraph className="card" />
-        <AccerlerationGraph className = "card1"/>
         <DashboardGraph
           title="Altitude"
           x_title="Time (s)"
@@ -27,8 +37,8 @@ export default function Home() {
           x_cb={get_altitude_mission_time}
           y_cb={get_pressure_y}
         />
+        <Temp2 className = "card"/>
       </section>
     </main>
   );
 }
-

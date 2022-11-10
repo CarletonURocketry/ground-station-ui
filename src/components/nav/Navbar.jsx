@@ -16,8 +16,6 @@ export default function Navbar({ version, org, status, children }) {
   if (status) {
     board_connected = status.rn2483_radio.connected;
     call_sign = status.rocket.call_sign;
-    status_code = status.rocket.status.status_code;
-    status_name = status.rocket.status.status_name;
     status_name = status.rocket.status.status_name;
     mission_time = status.rocket.last_mission_time;
   }
