@@ -14,6 +14,9 @@
   --accent-three: #f79e1b;
   --accent-four: #ffe6a7;
 
+  /* Font */
+  --font: "Poppins", sans-serif;
+
   /* Sizing */
   --top-pad: 2rem;
   --side-pad: 4rem;
@@ -47,7 +50,7 @@ a {
 
 /* Base styles */
 html {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font);
   scroll-behavior: smooth;
   height: 100vh;
   overflow-x: hidden;

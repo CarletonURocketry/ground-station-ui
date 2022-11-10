@@ -101,7 +101,7 @@ nav {
 }
 
 #sub-info > p {
-  font-size: 0.8rem;
+  font-size: 0.6rem;
 }
 
 #org {
@@ -112,7 +112,7 @@ nav {
 
 #logo img {
   object-fit: contain;
-  height: 3rem;
+  height: 4rem;
 }
 
 /* Board connection status */

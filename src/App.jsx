@@ -23,7 +23,8 @@ import Map from "./pages/Map";
 
 function App() {
   // Websocket data
-  const data = useWebsocket("ws://localhost:33845/websocket");
+  const [data, websocket] = useWebsocket("ws://localhost:33845/websocket");
+  console.log(data);
 
   // Unpack and distribute data
   var version = "X.X.X";
