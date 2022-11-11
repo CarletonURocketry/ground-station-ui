@@ -2,28 +2,24 @@ import "./App.css";
 
 // Hooks
 import { useWebsocket } from "./hooks/useWebsocket";
+import { useKey } from "./hooks/useKey";
 import { useEffect, useState } from "react";
 
 // Components
-import { Routes, Route, json } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/nav/Navbar";
 import PageLink from "./components/nav/PageLink";
 
 // Utilities
-import {
-  read_telemetry,
-  write_telemetry,
-  set_resolution,
-  clear_telemetry,
-} from "./utils/storage";
+import { write_telemetry, set_resolution } from "./utils/storage";
 
 // Pages
 import Home from "./pages/Home";
+import Replays from "./pages/Replays";
 
 function App() {
   // Websocket data
   const [data, websocket] = useWebsocket("ws://localhost:33845/websocket");
-  console.log(data);
 
   // Unpack and distribute data
   var version = "X.X.X";
@@ -47,13 +43,23 @@ function App() {
   // Current page
   const [currentPage, setCurrentPage] = useState("/"); // To Do: Have the current page link highlighted red
 
+  // Update, connect and disconnect commands
+  useKey("KeyK", "shift", () => {
+    websocket.current.send("serial rn2483_radio connect test");
+  });
+  useKey("KeyD", "shift", () => {
+    websocket.current.send("serial rn2483_radio disconnect");
+  });
+
   return (
     <div id="App">
       <Navbar version={version} org={organization} status={status}>
         <PageLink to="/">Home</PageLink>
+        <PageLink to="/replays">Replays</PageLink>
       </Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/replays" element={<Replays websocket={websocket} />} />
       </Routes>
     </div>
   );

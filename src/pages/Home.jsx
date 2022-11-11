@@ -19,7 +19,7 @@ export default function Home() {
   };
 
   return (
-    <main id="home">
+    <main id="home" className="page-main">
       <h1>Main Dashboard</h1>
       <section id="graphs">
         <DashboardGraph
