@@ -24,6 +24,11 @@ export default function Home() {
     return data.map((packet) => packet.altitude.temperature.celsius);
   };
 
+  //
+  const get_velocity_y = (data) => {
+    return data.map((packet) => packet.gnss.speed);
+  };
+
   
 
   return (
@@ -42,17 +47,29 @@ export default function Home() {
         x_cb ={get_altitude_mission_time }
         y_cb = {get_temp_y}
         unit = "°C"
+        min = {0}
+        max = {100}
         colour1 = "blue"
         colour2= "red"
-        className = "card" />
+        className = "card" /> 
 
        <GaugeGraph
        x_cb={get_altitude_mission_time}
        y_cb={get_pressure_y}
        unit = "KPa"
+       min = {0}
+       max = {120}
        colour1 = "red"
        colour2 = "green"
        className = "card"/>
+
+       <DashboardGraph
+       title="Veloctiy"
+       x_title="Time (s)"
+       y_title="Velocity (m/s)"
+       x_cb={get_altitude_mission_time}
+       y_cb={get_velocity_y}
+      />
 
       </section>
     </main>

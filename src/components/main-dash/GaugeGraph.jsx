@@ -7,10 +7,12 @@ import { useStorage } from "../../hooks/useStorage";
 import ReactEcharts from "echarts-for-react";
 
 //Create GaugeGraph component 
-//unit is the unit of the x value
+//unit is the unit of the y axis
+//min and is the min and max of the gauge graph respectively 
 //colour1 is the start colour for gradient 
 //colour2 is the end colour for the gradient
-export default function GaugeGraph({x_cb, y_cb, unit, colour1, colour2,className}){
+//className is passed to follow the same formatting as the rest of the other comps on the page
+export default function GaugeGraph({x_cb, y_cb, unit, min, max, colour1, colour2,className}){
 
     var x_pos;
     var y_pos;
@@ -22,19 +24,20 @@ export default function GaugeGraph({x_cb, y_cb, unit, colour1, colour2,className
     y_pos = y[0];
 
     //Creates the specific gauge meter using the options that are aavialable in the library
-    //There is two 
+    //There is two gauage lines, the inner and outer lines
     const options = { series: [
-        
+        //the thicker inner gauge line 
         {
           type: 'gauge',
           center: ['50%', '60%'],
           startAngle: 200,
           endAngle: -20,
-          min: 0,
-          max: 100,
+          min: min,
+          max: max,
           splitNumber: 10,
           itemStyle: {
             color:{
+              //creates the gradient between the two colours passed in the comp
               type: 'linear',
               x: 0,
               y: 0,
@@ -45,20 +48,21 @@ export default function GaugeGraph({x_cb, y_cb, unit, colour1, colour2,className
               }, {
                   offset: 1, color: colour2 // color at 100%
               }],
-              global: false // default is false
             }
           
           },
+          //to show the current progress of the value
           progress: {
             show: true,
-            width: 30
+            width: 25
           },
           pointer: {
             show: false
           },
+          // to change the thickness/width of the inner line
           axisLine: {
             lineStyle: {
-              width: 30
+              width: 25
             }
           },
           axisTick: {
@@ -88,6 +92,7 @@ export default function GaugeGraph({x_cb, y_cb, unit, colour1, colour2,className
           title: {
             show: false
           },
+          //formatting of showing the gauage data 
           detail: {
             valueAnimation: true,
             width: '60%',
@@ -96,26 +101,32 @@ export default function GaugeGraph({x_cb, y_cb, unit, colour1, colour2,className
             offsetCenter: [0, '-15%'],
             fontSize: 35,
             fontWeight: 'bolder',
+            //prints the value and the unit in the middle of the gauage meter
             formatter: '{value}' +unit,
             color: '#cccccc'
           },
+          //data being passed to the graph
           data: [
             {
+              //rounds the value to a decimal place
               value: Math.round(y_pos*10)/10,
             }
           ]
         },
-
+        // the outer gauge line
         {
           type: 'gauge',
           center: ['50%', '60%'],
           startAngle: 200,
           endAngle: -20,
-          min: 0,
-          max: 100,
+          min: min,
+          max: max,
+
           itemStyle: {
-            color: '#00b386'
+            color: '#00b386' // the colour of the outer gauge line
           },
+          
+          //to show the current progress of the value
           progress: {
             show: true,
             width: 8
@@ -138,8 +149,10 @@ export default function GaugeGraph({x_cb, y_cb, unit, colour1, colour2,className
           detail: {
             show: false
           },
+          //data being passed to the graph
           data: [
             {
+              //rounds the value to one decimal place
               value: Math.round(y_pos*10)/10,
             }
           ]

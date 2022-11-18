@@ -22,6 +22,7 @@ export function useWebsocket(websocket_address) {
   const onMessage = (event) => {
     if (event.data) {
       write_telemetry(JSON.parse(event.data).telemetry_data); // Write to local storage
+      console.log(JSON.parse(event.data).telemetry_data);
     }
   };
 
