@@ -19,26 +19,13 @@ import Replays from "./pages/Replays";
 
 function App() {
   // Websocket data
-  const [data, websocket] = useWebsocket("ws://localhost:33845/websocket");
+  set_resolution(10); // Keep 10 historical points
+  const websocket = useWebsocket("ws://localhost:33845/websocket");
 
   // Unpack and distribute data
   var version = "X.X.X";
   var organization = "CU InSpace";
   var status = null;
-
-  if (data) {
-    version = data.version;
-    organization = data.org;
-    status = data.status;
-  }
-
-  // Write the newest data to local storage so it can be accessed anywhere
-  set_resolution(10);
-  useEffect(() => {
-    if (data) {
-      write_telemetry(data.telemetry_data);
-    }
-  }, [data]);
 
   // Current page
   const [currentPage, setCurrentPage] = useState("/"); // To Do: Have the current page link highlighted red
@@ -61,6 +48,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/replays" element={<Replays websocket={websocket} />} />
       </Routes>
+      <button
+        onClick={() =>
+          websocket.current.send("telemetry replay play Devil The Rocket")
+        }
+      >
+        Send Test Data
+      </button>
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import { useEffect, useState, useRef } from "react";
+import { write_telemetry } from "../utils/storage";
+
 /**
  * Connects to a websocket and receives incoming data
  * @author Matteo Golin <matteo.golin@gmail.com>
@@ -6,31 +8,53 @@ import { useEffect, useState, useRef } from "react";
  * @returns Latest data as a state variable and a reference to the websocket
  */
 export function useWebsocket(websocket_address) {
-  const [data, setData] = useState(null); // Initialize data as null until info is received from websocket
-  const [reconnect, setReconnect] = useState(true); // Reconnection is attempted everytime this value is flipped
-  const websocket = useRef();
+  const websocketRef = useRef(null);
+  const [waitingForReconnect, setWaitingForReconnect] = useState(null);
+  const [isOpen, setIsOpen] = useState(null);
+
+  // Open connection
+  const onOpen = () => {
+    setIsOpen(true);
+    console.log("Connected to websocket server.");
+  };
+
+  // Receiving data
+  const onMessage = (event) => {
+    if (event.data) {
+      write_telemetry(JSON.parse(event.data).telemetry_data); // Write to local storage
+    }
+  };
 
   useEffect(() => {
-    // Create websocket
-    websocket.current = new WebSocket(websocket_address);
+    if (waitingForReconnect) {
+      return;
+    }
+    setIsOpen(false);
 
-    // Open connection
-    websocket.current.onopen = () => {
-      console.log("Connected to websocket server.");
-    };
+    if (!websocketRef.current) {
+      const websocket = new WebSocket(websocket_address);
+      websocketRef.current = websocket;
 
-    // Receiving data
-    websocket.current.onmessage = (event) => {
-      setData(JSON.parse(event.data));
-    };
+      websocket.onopen = onOpen;
+      websocket.onmessage = onMessage;
+      websocket.onclose = () => {
+        if (waitingForReconnect) {
+          return;
+        }
 
-    // Closing connection
-    websocket.current.onclose = () => {
-      console.log("Disconnected from websocket server.");
-      setData(null); // Reset data to null so there is indication that the connection was closed
-      setReconnect((reconnect) => !reconnect);
-    };
-  }, [reconnect]);
+        console.log("Disconnected from websocket.");
 
-  return [data, websocket];
+        setIsOpen(false);
+        setWaitingForReconnect(true);
+        setTimeout(() => setWaitingForReconnect(null), 2000);
+      };
+
+      return () => {
+        websocketRef.current = null;
+        websocket.close();
+      };
+    }
+  }, [waitingForReconnect]);
+
+  return websocketRef;
 }
