@@ -24,7 +24,7 @@ export default function Home() {
     return data.map((packet) => packet.altitude.temperature.celsius);
   };
 
-  //
+  //Velocity data callbacks
   const get_velocity_y = (data) => {
     return data.map((packet) => packet.gnss.speed);
   };

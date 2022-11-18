@@ -13,6 +13,7 @@ import localforage from 'localforage';
 
 // Hooks
 import { useStorage } from "../../hooks/useStorage";
+import { removeTile } from 'leaflet.offline';
 
 //Creates the map componenet 
 function MyComponent() {
@@ -73,7 +74,6 @@ export default function LocMap(){
   return(
     <MapContainer center={[x_pos,y_pos]} zoom={13} >
           <MyComponent/>
-            <ComponentDidMount/>
             {<TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/> }
