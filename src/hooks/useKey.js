@@ -32,7 +32,7 @@ export function useKey(key, modifier, callback) {
   const callbackRef = useRef(callback);
   useEffect(() => {
     callbackRef.current = callback;
-  }, []);
+  });
 
   useEffect(() => {
     // Keypress event handler function

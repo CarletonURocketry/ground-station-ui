@@ -1,2 +1,12 @@
+.page-main {
+  margin: 0 var(--side-pad);
+  margin-bottom: var(--top-pad);
+}
 
-
+/* Text */
+.page-main h1 {
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}

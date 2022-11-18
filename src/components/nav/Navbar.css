@@ -78,6 +78,11 @@ nav {
   align-items: center;
 }
 
+#nav-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
 #rocket-info {
   display: flex;
   gap: 0.5rem;
