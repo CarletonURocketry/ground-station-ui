@@ -5,24 +5,54 @@ import { write_telemetry } from "../utils/storage";
  * Connects to a websocket and receives incoming data
  * @author Matteo Golin <matteo.golin@gmail.com>
  * @param {string} websocket_address The URL address where the websocket is located
- * @returns Latest data as a state variable and a reference to the websocket
+ * @returns A reference to the current websocket instance and a state variable with status information
  */
 export function useWebsocket(websocket_address) {
   const websocketRef = useRef(null);
   const [waitingForReconnect, setWaitingForReconnect] = useState(null);
-  const [isOpen, setIsOpen] = useState(null);
+
+  // Define structure of status object with default values for before connection
+  const [status, setStatus] = useState({
+    version: "X.X.X",
+    org: "CUInSpace",
+    status: {
+      rocket: {
+        call_sign: "Flightless",
+        status: {
+          status_name: "Grounded",
+        },
+        last_mission_time: 0,
+      },
+      rn2483_radio: {
+        connected: false,
+      },
+    },
+  });
 
   // Open connection
   const onOpen = () => {
-    setIsOpen(true);
     console.log("Connected to websocket server.");
   };
 
   // Receiving data
   const onMessage = (event) => {
     if (event.data) {
-      write_telemetry(JSON.parse(event.data).telemetry_data); // Write to local storage
-      console.log(JSON.parse(event.data).telemetry_data);
+      var data = JSON.parse(event.data); // Parse incoming data
+
+      // Only write non-empty packets
+      if (data.version != undefined) {
+        console.log(data);
+        write_telemetry(data.telemetry_data); // Write to local storage
+        setStatus((oldStatus) => {
+          oldStatus = {
+            ...oldStatus,
+            version: data.version,
+            org: data.org,
+            status: data.status,
+          };
+        });
+        // console.log(JSON.parse(event.data));
+      }
     }
   };
 
@@ -30,7 +60,6 @@ export function useWebsocket(websocket_address) {
     if (waitingForReconnect) {
       return;
     }
-    setIsOpen(false);
 
     if (!websocketRef.current) {
       const websocket = new WebSocket(websocket_address);
@@ -45,7 +74,6 @@ export function useWebsocket(websocket_address) {
 
         console.log("Disconnected from websocket.");
 
-        setIsOpen(false);
         setWaitingForReconnect(true);
         setTimeout(() => setWaitingForReconnect(null), 2000);
       };
@@ -57,5 +85,5 @@ export function useWebsocket(websocket_address) {
     }
   }, [waitingForReconnect]);
 
-  return websocketRef;
+  return [websocketRef, status];
 }
