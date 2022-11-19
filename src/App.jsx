@@ -42,7 +42,10 @@ function App() {
       </Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/replays" element={<Replays websocket={websocketRef} />} />
+        <Route
+          path="/replays"
+          element={<Replays websocketRef={websocketRef} />}
+        />
       </Routes>
       <button
         onClick={() =>
