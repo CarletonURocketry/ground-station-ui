@@ -1,0 +1,10 @@
+.replay-item:hover {
+  color: var(--accent-two);
+  cursor: pointer;
+  list-style: "---> ";
+}
+
+.replay-item {
+  width: fit-content;
+  list-style: "--> ";
+}

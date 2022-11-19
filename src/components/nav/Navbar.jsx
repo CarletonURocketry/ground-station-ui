@@ -28,7 +28,7 @@ export default function Navbar({ version, org, status, children }) {
             <p id="version">{`v${version}`}</p>
           </div>
           <MissionTimer mission_time={status.rocket.last_mission_time} />
-          <p>{`${status.rocket.call_sign} | ${status.rocket.status.status_name}`}</p>
+          <p>{`${status.rocket.call_sign} | ${status.rocket.status.state}`}</p>
         </div>
         <p id="connection-status" className={connection}>
           {connection}

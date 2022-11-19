@@ -2,8 +2,7 @@ import "./App.css";
 
 // Hooks
 import { useWebsocket } from "./hooks/useWebsocket";
-import { useKey } from "./hooks/useKey";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Components
 import { Routes, Route } from "react-router-dom";
@@ -21,18 +20,9 @@ function App() {
   // Websocket data
   set_resolution(10); // Keep 10 historical points
   const [websocketRef, status] = useWebsocket("ws://localhost:33845/websocket");
-  console.log(status);
 
   // Current page
   const [currentPage, setCurrentPage] = useState("/"); // To Do: Have the current page link highlighted red
-
-  // Update, connect and disconnect commands
-  useKey("KeyK", "shift", () => {
-    websocketRef.current.send("serial rn2483_radio connect test");
-  });
-  useKey("KeyD", "shift", () => {
-    websocketRef.current.send("serial rn2483_radio disconnect");
-  });
 
   return (
     <div id="App">
@@ -47,13 +37,6 @@ function App() {
           element={<Replays websocketRef={websocketRef} />}
         />
       </Routes>
-      <button
-        onClick={() =>
-          websocketRef.current.send("telemetry replay play Devil The Rocket")
-        }
-      >
-        Send Test Data
-      </button>
     </div>
   );
 }

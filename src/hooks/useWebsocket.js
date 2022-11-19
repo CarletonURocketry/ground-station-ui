@@ -5,9 +5,10 @@ import { write_telemetry } from "../utils/storage";
  * Connects to a websocket and receives incoming data
  * @author Matteo Golin <matteo.golin@gmail.com>
  * @param {string} websocket_address The URL address where the websocket is located
+ * @param {boolean} debug Triggers data logging to console when true
  * @returns A reference to the current websocket instance and a state variable with status information
  */
-export function useWebsocket(websocket_address) {
+export function useWebsocket(websocket_address, debug = false) {
   const websocketRef = useRef(null);
   const [waitingForReconnect, setWaitingForReconnect] = useState(null);
 
@@ -19,7 +20,7 @@ export function useWebsocket(websocket_address) {
       rocket: {
         call_sign: "Flightless",
         status: {
-          status_name: "Grounded",
+          state: "Grounded",
         },
         last_mission_time: 0,
       },
@@ -36,23 +37,23 @@ export function useWebsocket(websocket_address) {
 
   // Receiving data
   const onMessage = (event) => {
-    if (event.data) {
-      var data = JSON.parse(event.data); // Parse incoming data
+    var data = JSON.parse(event.data); // Parse incoming data
 
-      // Only write non-empty packets
-      if (data.version != undefined) {
-        console.log(data);
-        write_telemetry(data.telemetry_data); // Write to local storage
-        setStatus((oldStatus) => {
-          oldStatus = {
-            ...oldStatus,
-            version: data.version,
-            org: data.org,
-            status: data.status,
-          };
-        });
-        // console.log(JSON.parse(event.data));
-      }
+    if (debug) {
+      console.log(data); // Data logging on debug
+    }
+
+    // Only write non-empty packets
+    if (data.version != undefined) {
+      write_telemetry(data.telemetry_data); // Write to local storage
+      setStatus((oldStatus) => {
+        return {
+          ...oldStatus,
+          version: data.version,
+          org: data.org,
+          status: data.status,
+        };
+      });
     }
   };
 
