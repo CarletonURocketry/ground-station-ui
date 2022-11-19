@@ -29,8 +29,6 @@ export default function Home() {
     return data.map((packet) => packet.gnss.speed);
   };
 
-  
-
   return (
     <main id="home" className="page-main">
       <h1>Main Dashboard</h1>
@@ -42,35 +40,36 @@ export default function Home() {
           x_cb={get_altitude_mission_time}
           y_cb={get_altitude_y}
         />
-      
-      < GaugeGraph 
-        x_cb ={get_altitude_mission_time }
-        y_cb = {get_temp_y}
-        unit = "°C"
-        min = {0}
-        max = {100}
-        colour1 = "blue"
-        colour2= "red"
-        className = "card" /> 
 
-       <GaugeGraph
-       x_cb={get_altitude_mission_time}
-       y_cb={get_pressure_y}
-       unit = "KPa"
-       min = {0}
-       max = {120}
-       colour1 = "red"
-       colour2 = "green"
-       className = "card"/>
+        <GaugeGraph
+          x_cb={get_altitude_mission_time}
+          y_cb={get_temp_y}
+          unit="°C"
+          min={0}
+          max={100}
+          colour1="blue"
+          colour2="red"
+          className="card"
+        />
 
-       <DashboardGraph
-       title="Veloctiy"
-       x_title="Time (s)"
-       y_title="Velocity (m/s)"
-       x_cb={get_altitude_mission_time}
-       y_cb={get_velocity_y}
-      />
+        <GaugeGraph
+          x_cb={get_altitude_mission_time}
+          y_cb={get_pressure_y}
+          unit="KPa"
+          min={0}
+          max={120}
+          colour1="red"
+          colour2="green"
+          className="card"
+        />
 
+        <DashboardGraph
+          title="Velocity"
+          x_title="Time (s)"
+          y_title="Velocity (m/s)"
+          x_cb={get_altitude_mission_time}
+          y_cb={get_velocity_y}
+        />
       </section>
     </main>
   );

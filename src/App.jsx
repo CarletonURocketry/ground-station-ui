@@ -11,7 +11,7 @@ import Navbar from "./components/nav/Navbar";
 import PageLink from "./components/nav/PageLink";
 
 // Utilities
-import { write_telemetry, set_resolution } from "./utils/storage";
+import { set_resolution } from "./utils/storage";
 
 // Pages
 import Home from "./pages/Home";
