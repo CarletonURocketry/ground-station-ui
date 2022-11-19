@@ -15,7 +15,6 @@ import { write_telemetry, set_resolution } from "./utils/storage";
 
 // Pages
 import Home from "./pages/Home";
-import Map from "./pages/Map";
 import Replays from "./pages/Replays";
 
 function App() {
@@ -43,12 +42,10 @@ function App() {
     <div id="App">
       <Navbar version={version} org={organization} status={status}>
         <PageLink to="/">Home</PageLink>
-        <PageLink to="/map">Map</PageLink>
         <PageLink to="/replays">Replays</PageLink>
       </Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/map"element ={<Map />} />
         <Route path="/replays" element={<Replays websocket={websocket} />} />
       </Routes>
       <button
