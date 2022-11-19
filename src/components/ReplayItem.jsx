@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function ReplayItem({ name, websocket }) {
+export default function ReplayItem({ name, websocketRef }) {
   const command = (event) => {
-    websocket.current.send(`replay ${name}`);
+    websocketRef.current.send(`telemetry replay play ${name}`);
   };
 
   return <p onClick={command}>{name}</p>;
