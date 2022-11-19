@@ -15,10 +15,10 @@
 
 .card {
   background-color: var(--tertiary);
-  min-width: 400px;
-  min-height: 100px;
+  min-width: 700px;
+  min-height: 200px;
   flex: auto;
-  border-radius: 1rem;
+  border-radius: 10rem;
   display: flex;
   justify-content: center;
   align-items: center;

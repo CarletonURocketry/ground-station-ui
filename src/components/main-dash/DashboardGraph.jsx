@@ -6,7 +6,6 @@ import { DashGraph } from "../../utils/chart-options";
 // Hooks
 import { useStorage } from "../../hooks/useStorage";
 
-// Components
 import ReactEcharts from "echarts-for-react";
 
 export default function DashboardGraph({

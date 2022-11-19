@@ -7,6 +7,77 @@ nav {
   align-items: center;
 }
 
+#nav-links{
+  display:flex;
+  gap:0.5rem;
+}
+
+#rocket-info {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: left;
+  align-items: center;
+}
+
+#sub-info {
+  margin-left: 1rem;
+}
+
+#sub-info div {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: left;
+  align-items: baseline;
+}
+
+#sub-info p {
+  font-weight: 200;
+}
+
+#sub-info > p {
+  font-size: 0.8rem;
+}
+
+#org {
+  font-size: 2rem;
+}
+
+/* Logo image */
+
+#logo img {
+  object-fit: contain;
+  height: 3rem;
+}
+
+/* Board connection status */
+#connection-status {
+  text-transform: uppercase;
+  color: var(--primary);
+  height: max-content;
+  border-radius: 4rem;
+  padding: 0.2rem 0.3rem;
+  margin-left: 0.5rem;
+
+  font-size: 0.5rem;
+  font-weight: 600;
+}
+
+#connection-status.connected {
+  background-color: rgb(0, 132, 0);
+}
+
+#connection-status.disconnected {
+  background-color: rgb(181, 0, 0);
+}
+/* Basic styles */
+nav {
+  padding: var(--top-pad) var(--side-pad);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 #nav-links {
   display: flex;
   gap: 0.5rem;
