@@ -3,6 +3,7 @@ import "./App.css";
 // Hooks
 import { useWebsocket } from "./hooks/useWebsocket";
 import { useState } from "react";
+import { useKey } from "./hooks/useKey";
 
 // Components
 import { Routes, Route } from "react-router-dom";
@@ -19,9 +20,12 @@ import Replays from "./pages/Replays";
 function App() {
   // Websocket data
   set_resolution(10); // Keep 10 historical points
-  const [websocketRef, status] = useWebsocket("ws://localhost:33845/websocket");
+  const [websocketRef, status] = useWebsocket(
+    "ws://localhost:33845/websocket",
+    true
+  );
 
-  // Current page
+  // Current pageS
   const [currentPage, setCurrentPage] = useState("/"); // To Do: Have the current page link highlighted red
 
   return (
