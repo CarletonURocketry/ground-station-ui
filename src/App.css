@@ -10,3 +10,15 @@
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
+
+/* Specific styles for non-active links*/
+.link{
+  color:white;
+  text-transform: uppercase;
+}
+
+/* Specific styles for active links*/
+.link-active{
+  color:rgb(233, 42, 42);
+  text-transform: uppercase;
+}
