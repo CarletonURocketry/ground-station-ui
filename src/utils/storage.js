@@ -2,14 +2,29 @@
 const STORAGE_KEY = "telemetry";
 var resolution = 10; // Show 10 historical data points by default
 
+/**
+ * Sets the number of historical data points to be recorded in the local storage buffer
+ * @author Matteo Golin <matteo.golin@gmail.com>
+ * @param {number} new_res
+ */
 export function set_resolution(new_res) {
   resolution = new_res;
 }
 
+/**
+ * Reads the telemetry data from local storage
+ * @author Matteo Golin <matteo.golin@gmail.com>
+ * @returns Telemetry data in JSON format
+ */
 export function read_telemetry() {
   return JSON.parse(localStorage.getItem(STORAGE_KEY));
 }
 
+/**
+ * Writes the most recent data to the local storage buffer
+ * @author Matteo Golin <matteo.golin@gmail.com>
+ * @param {JSON} recent_data
+ */
 export function write_telemetry(recent_data) {
   // Get existing data
   var historical_data = read_telemetry();
@@ -32,6 +47,9 @@ export function write_telemetry(recent_data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(historical_data));
 }
 
+/**
+ * Clears the local storage buffer of historical data
+ */
 export function clear_telemetry() {
   localStorage.removeItem(STORAGE_KEY);
 }
