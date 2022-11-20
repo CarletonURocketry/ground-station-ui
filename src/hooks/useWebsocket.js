@@ -19,9 +19,6 @@ export function useWebsocket(websocket_address, debug = false) {
     status: {
       rocket: {
         call_sign: "Flightless",
-        status: {
-          state: "Grounded",
-        },
         last_mission_time: 0,
       },
       rn2483_radio: {
