@@ -8,8 +8,7 @@ import { useKey } from "./hooks/useKey";
 // Components
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/nav/Navbar";
-import PageLink from "./components/nav/PageLink";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 // Utilities
 import { set_resolution } from "./utils/storage";
@@ -32,10 +31,21 @@ function App() {
   return (
     <div id="App">
       <Navbar version={status.version} org={status.org} status={status.status}>
-        <NavLink exact className={({ isActive }) => (isActive ? "link-active" : "link")} to="/" >Home</NavLink>
-        <NavLink to="/replays" className={({ isActive }) => (isActive ? "link-active" : "link")}>Replays</NavLink> 
+        <NavLink
+          exact
+          className={({ isActive }) => (isActive ? "link-active" : "link")}
+          to="/"
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/replays"
+          className={({ isActive }) => (isActive ? "link-active" : "link")}
+        >
+          Replays
+        </NavLink>
       </Navbar>
-      <Routes> 
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="/replays"
