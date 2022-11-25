@@ -8,25 +8,28 @@ import GaugeGraph from "../components/main-dash/GaugeGraph";
 export default function Home() {
   // Altitude data callbacks
   const get_altitude_mission_time = (data) => {
-    return data.map((packet) => packet.altitude.mission_time / 1000);
+    console.log(data);
+    let stuff = data.altitude.map((packet) => packet.mission_time / 1000);
+    console.log(stuff);
+    return stuff;
   };
   const get_altitude_y = (data) => {
-    return data.map((packet) => packet.altitude.altitude.metres);
+    return data.altitude.map((packet) => packet.altitude.metres);
   };
 
   // Pressure data callbacks
   const get_pressure_y = (data) => {
-    return data.map((packet) => packet.altitude.pressure.kilopascals);
+    return data.pressure.map((packet) => packet.kilopascals);
   };
 
-  //Temperature data callbacks
+  // Temperature data callbacks
   const get_temp_y = (data) => {
-    return data.map((packet) => packet.altitude.temperature.celsius);
+    return data.temperature.map((packet) => packet.celsius);
   };
 
-  //Velocity data callbacks
+  // Velocity data callbacks
   const get_velocity_y = (data) => {
-    return data.map((packet) => packet.gnss.speed);
+    return data.gnss.map((packet) => packet.speed);
   };
 
   return (

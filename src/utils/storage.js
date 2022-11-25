@@ -17,7 +17,22 @@ export function set_resolution(new_res) {
  * @returns Telemetry data in JSON format
  */
 export function read_telemetry() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY));
+  let data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  data = data ? data : {};
+  return data;
+}
+
+/**
+ * Shifts the buffer array to remove old data, making room for new data
+ * @author Matteo Golin <matteo.golin@gmail.com>
+ * @param {JSON} new_data The new data of the key being written to
+ * @param {Array} prev_buffer The array of previous buffer data
+ */
+function shift_array(new_data, prev_buffer) {
+  prev_buffer.push(new_data); // Add new data to the end
+  if (prev_buffer.length > resolution) {
+    prev_buffer.shift(); // Remove oldest data when there's an overflow
+  }
 }
 
 /**
@@ -27,24 +42,22 @@ export function read_telemetry() {
  */
 export function write_telemetry(recent_data) {
   // Get existing data
-  var historical_data = read_telemetry();
+  let historic_telem = read_telemetry();
 
-  // When the program starts, there is no historical data. So we will treat null as an empty array.
-  if (historical_data === null) {
-    historical_data = [];
-  }
-
-  // Check if the first item has to be popped because we've reached the correct resolution
-  if (historical_data.length >= resolution) {
-    historical_data.shift(); // Remove first packet
-    historical_data.push(recent_data); // Append recent packet
-  } else {
-    historical_data.push(recent_data);
-  }
-
-  // Write the new list to localStorage
-  window.dispatchEvent(new Event("storage")); // Signal storage event
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(historical_data));
+  // What sections to write to
+  Object.keys(recent_data).forEach((key) => {
+    // Ensure that key exists in historical buffer
+    let buffer;
+    if (historic_telem.hasOwnProperty(key)) {
+      buffer = historic_telem[key]; // Read the last buffer data
+    } else {
+      buffer = [];
+    }
+    shift_array(recent_data[key], buffer); // Add new data to buffer
+    historic_telem[key] = buffer; // Replace historical data with new stuff
+  });
+  // Once all historical data has been updated, overwrite localStorage copy
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(historic_telem));
 }
 
 /**
