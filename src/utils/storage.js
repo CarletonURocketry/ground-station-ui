@@ -29,7 +29,21 @@ export function read_telemetry() {
  * @param {Array} prev_buffer The array of previous buffer data
  */
 function shift_array(new_data, prev_buffer) {
-  prev_buffer.push(new_data); // Add new data to the end
+  // Check if incoming data is already in the array
+  const string_data = JSON.stringify(new_data);
+  const is_duplicate = prev_buffer.find((element) => {
+    if (JSON.stringify(element) == string_data) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  // Write the new data if it's not a duplicate
+  if (!is_duplicate) {
+    prev_buffer.push(new_data);
+  }
+
   if (prev_buffer.length > resolution) {
     prev_buffer.shift(); // Remove oldest data when there's an overflow
   }
