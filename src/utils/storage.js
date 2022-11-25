@@ -1,6 +1,6 @@
 // Writes the previous "n" data packets to local storage for retrieval
 const STORAGE_KEY = "telemetry";
-var resolution = 10; // Show 10 historical data points by default
+var resolution = 15; // Show 15 historical data points by default
 
 /**
  * Sets the number of historical data points to be recorded in the local storage buffer
@@ -72,6 +72,7 @@ export function write_telemetry(recent_data) {
   });
   // Once all historical data has been updated, overwrite localStorage copy
   localStorage.setItem(STORAGE_KEY, JSON.stringify(historic_telem));
+  console.log(historic_telem);
   window.dispatchEvent(new Event("storage")); // Signal that new data was written
 }
 

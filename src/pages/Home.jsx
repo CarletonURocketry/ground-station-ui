@@ -30,7 +30,7 @@ export default function Home() {
   };
 
   const get_velocity_mission_time = (data) => {
-    return data.gnss.map((packet) => packet.mission_time);
+    return data.gnss.map((packet) => packet.mission_time / 1000);
   };
 
   return (
