@@ -4,6 +4,7 @@ import "./Home.css";
 // Components
 import DashboardGraph from "../components/main-dash/DashboardGraph";
 import GaugeGraph from "../components/main-dash/GaugeGraph";
+import GNSSMeta from "../components/main-dash/GNSSMeta";
 
 export default function Home() {
   // Altitude data callbacks
@@ -52,12 +53,14 @@ export default function Home() {
           y_cb={get_temp_y}
           unit="°C"
           min={0}
-          max={100}
+          max={50}
           inner_colour_1="blue"
           inner_colour_2="red"
           outer_colour="blue"
           className="card"
         />
+
+        <GNSSMeta className="card" />
 
         <GaugeGraph
           title="Pressure"
