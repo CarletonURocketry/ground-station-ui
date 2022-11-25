@@ -32,7 +32,6 @@ function App() {
     <div id="App">
       <Navbar version={status.version} org={status.org} status={status.status}>
         <NavLink
-          exact
           className={({ isActive }) => (isActive ? "link-active" : "link")}
           to="/"
         >
