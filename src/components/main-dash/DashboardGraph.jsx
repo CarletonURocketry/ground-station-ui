@@ -15,6 +15,7 @@ export default function DashboardGraph({
   x_cb,
   y_cb,
   options,
+  className,
 }) {
   // Getting x and y data using callbacks
   const [x, y] = useStorage(x_cb, y_cb);
@@ -24,5 +25,5 @@ export default function DashboardGraph({
     options = DashGraph(title, x_title, y_title, x, y);
   }
 
-  return <ReactEcharts className="card" option={options} />;
+  return <ReactEcharts className={className} option={options} />;
 }

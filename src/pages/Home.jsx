@@ -43,6 +43,7 @@ export default function Home() {
           y_title="Altitude (m)"
           x_cb={get_altitude_mission_time}
           y_cb={get_altitude_y}
+          className="card"
         />
 
         <GaugeGraph
@@ -73,6 +74,7 @@ export default function Home() {
           y_title="Velocity (m/s)"
           x_cb={get_velocity_mission_time}
           y_cb={get_velocity_y}
+          className="card"
         />
       </section>
     </main>
