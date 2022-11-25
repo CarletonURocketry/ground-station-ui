@@ -58,6 +58,7 @@ export function write_telemetry(recent_data) {
   });
   // Once all historical data has been updated, overwrite localStorage copy
   localStorage.setItem(STORAGE_KEY, JSON.stringify(historic_telem));
+  window.dispatchEvent(new Event("storage")); // Signal that new data was written
 }
 
 /**
