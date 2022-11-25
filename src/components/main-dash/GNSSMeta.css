@@ -1,0 +1,15 @@
+.metadata {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Text */
+.metadata h4 {
+  font-weight: 500;
+}
+
+.metadata p {
+  font-weight: 200;
+  font-size: 0.8rem;
+}
