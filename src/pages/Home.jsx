@@ -47,24 +47,28 @@ export default function Home() {
         />
 
         <GaugeGraph
+          title="Temperature"
           x_cb={get_altitude_mission_time}
           y_cb={get_temp_y}
           unit="°C"
           min={0}
           max={100}
-          colour1="blue"
-          colour2="red"
+          inner_colour_1="blue"
+          inner_colour_2="red"
+          outer_colour="blue"
           className="card"
         />
 
         <GaugeGraph
+          title="Pressure"
           x_cb={get_altitude_mission_time}
           y_cb={get_pressure_y}
           unit="KPa"
           min={0}
           max={120}
-          colour1="red"
-          colour2="green"
+          inner_colour_1="red"
+          inner_colour_2="green"
+          outer_colour="red"
           className="card"
         />
 
