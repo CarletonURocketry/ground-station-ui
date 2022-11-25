@@ -8,25 +8,29 @@ import GaugeGraph from "../components/main-dash/GaugeGraph";
 export default function Home() {
   // Altitude data callbacks
   const get_altitude_mission_time = (data) => {
-    return data.map((packet) => packet.altitude.mission_time / 1000);
+    return data.altitude.map((packet) => packet.mission_time / 1000);
   };
   const get_altitude_y = (data) => {
-    return data.map((packet) => packet.altitude.altitude.metres);
+    return data.altitude.map((packet) => packet.altitude.metres);
   };
 
   // Pressure data callbacks
   const get_pressure_y = (data) => {
-    return data.map((packet) => packet.altitude.pressure.kilopascals);
+    return data.altitude.map((packet) => packet.pressure.kilopascals);
   };
 
-  //Temperature data callbacks
+  // Temperature data callbacks
   const get_temp_y = (data) => {
-    return data.map((packet) => packet.altitude.temperature.celsius);
+    return data.altitude.map((packet) => packet.temperature.celsius);
   };
 
-  //Velocity data callbacks
+  // Velocity data callbacks
   const get_velocity_y = (data) => {
-    return data.map((packet) => packet.gnss.speed);
+    return data.gnss.map((packet) => packet.speed);
+  };
+
+  const get_velocity_mission_time = (data) => {
+    return data.gnss.map((packet) => packet.mission_time / 1000);
   };
 
   return (
@@ -67,7 +71,7 @@ export default function Home() {
           title="Velocity"
           x_title="Time (s)"
           y_title="Velocity (m/s)"
-          x_cb={get_altitude_mission_time}
+          x_cb={get_velocity_mission_time}
           y_cb={get_velocity_y}
         />
       </section>

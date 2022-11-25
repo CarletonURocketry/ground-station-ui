@@ -22,7 +22,7 @@ function App() {
   set_resolution(10); // Keep 10 historical points
   const [websocketRef, status] = useWebsocket(
     "ws://localhost:33845/websocket",
-    true
+    false
   );
 
   // Current pageS
