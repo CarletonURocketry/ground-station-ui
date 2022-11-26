@@ -2,35 +2,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 2.5rem;
+    min-height: 0.25rem;
+
     
 }
 .play{
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-right: 5rem;
-    margin-left: 5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
 
 }
 .pause{
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-left: 5rem;
-    margin-right: 5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
 
 }
 
 .foward{
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
     margin-right: 5rem;
-    margin-left: 5rem;
+    margin-left: 1.5rem;
 
 }
 .backward{
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
     margin-left: 5rem;
-    margin-right: 5rem;
+    margin-right: 1.5rem;
 
 }
