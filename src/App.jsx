@@ -10,6 +10,8 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/nav/Navbar";
 import PageLink from "./components/nav/PageLink";
 import { NavLink } from 'react-router-dom';
+import Controls from "./components/controls/Controls";
+
 
 // Utilities
 import { set_resolution } from "./utils/storage";
@@ -35,6 +37,9 @@ function App() {
         <NavLink exact className={({ isActive }) => (isActive ? "link-active" : "link")} to="/" >Home</NavLink>
         <NavLink to="/replays" className={({ isActive }) => (isActive ? "link-active" : "link")}>Replays</NavLink> 
       </Navbar>
+      
+      <Controls websocketRef={websocketRef}/>
+
       <Routes> 
         <Route path="/" element={<Home />} />
         <Route
