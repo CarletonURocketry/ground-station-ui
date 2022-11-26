@@ -43,19 +43,18 @@ export default function Controls({websocketRef}){
             case "pause":
                 const command1 = (event) => {
                     websocketRef.current.send(`telemetry replay pause`);
-                    clear_telemetry();
                 }; 
                 return command1;
             
             case "fast": 
                 const command2 = (event) => {
-                    websocketRef.current.send(`telemetry replay speed 10`);
+                    websocketRef.current.send(`telemetry replay speed 2`);
                 }; 
                 return command2;
             
             case "slow":
                 const command3 = (event) => {
-                    websocketRef.current.send(`telemetry replay speed -10`);
+                    websocketRef.current.send(`telemetry replay speed 0.5`);
                 }; 
                 return command3;
                 
