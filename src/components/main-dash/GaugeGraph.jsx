@@ -2,24 +2,29 @@ import React from "react";
 
 // Hooks
 import { useStorage } from "../../hooks/useStorage";
+import { CenteredTitle } from "../../utils/chart-options";
 
 // Importing Echarts library
 import ReactEcharts from "echarts-for-react";
 
-// Create GaugeGraph component
+// Creates GaugeGraph component
+// Title is the title of the graph
 // Unit is the unit of the y axis
 // Min and is the min and max of the gauge graph respectively
-// Colour1 is the start colour for gradient
-// Colour2 is the end colour for the gradient
+// inner_colour_1 is the start colour for the inner gradient
+// inner_colour_2 is the end colour for the inner gradient
+// outer_colour is the colour for the outer line
 // className is passed to follow the same formatting as the rest of the other comps on the page
 export default function GaugeGraph({
+  title,
   x_cb,
   y_cb,
   unit,
   min,
   max,
-  colour1,
-  colour2,
+  inner_colour_1,
+  inner_colour_2,
+  outer_colour,
   className,
 }) {
   var x_pos;
@@ -34,6 +39,12 @@ export default function GaugeGraph({
   // Creates the specific gauge meter using the options that are aavialable in the library
   // There is two gauge lines, the inner and outer lines
   const options = {
+    title: {
+      text: title,
+      bottom: "10%",
+      right: "35%",
+      textAlign: "center",
+    },
     series: [
       // Controls inner gauge line
       {
@@ -55,11 +66,11 @@ export default function GaugeGraph({
             colorStops: [
               {
                 offset: 0,
-                color: colour1, // Color at 0%
+                color: inner_colour_1, // Color at 0%
               },
               {
                 offset: 1,
-                color: colour2, // Color at 100%
+                color: inner_colour_2, // Color at 100%
               },
             ],
           },
@@ -134,7 +145,7 @@ export default function GaugeGraph({
         max: max,
 
         itemStyle: {
-          color: "#00b386", // Colour of the outer gauge line
+          color: outer_colour, // Colour of the outer gauge line
         },
 
         // Shows the current progress of the value

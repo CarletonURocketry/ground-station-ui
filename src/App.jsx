@@ -8,8 +8,7 @@ import { useKey } from "./hooks/useKey";
 // Components
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/nav/Navbar";
-import PageLink from "./components/nav/PageLink";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import Controls from "./components/controls/Controls";
 
 
@@ -25,7 +24,7 @@ function App() {
   set_resolution(10); // Keep 10 historical points
   const [websocketRef, status] = useWebsocket(
     "ws://localhost:33845/websocket",
-    true
+    false
   );
 
   // Current pageS
@@ -34,8 +33,18 @@ function App() {
   return (
     <div id="App">
       <Navbar version={status.version} org={status.org} status={status.status}>
-        <NavLink exact className={({ isActive }) => (isActive ? "link-active" : "link")} to="/" >Home</NavLink>
-        <NavLink to="/replays" className={({ isActive }) => (isActive ? "link-active" : "link")}>Replays</NavLink> 
+        <NavLink
+          className={({ isActive }) => (isActive ? "link-active" : "link")}
+          to="/"
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/replays"
+          className={({ isActive }) => (isActive ? "link-active" : "link")}
+        >
+          Replays
+        </NavLink>
       </Navbar>
       
       <Controls websocketRef={websocketRef}/>

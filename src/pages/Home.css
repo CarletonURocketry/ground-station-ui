@@ -15,8 +15,9 @@
 
 .card {
   background-color: var(--tertiary);
-  min-width: 700px;
-  min-height: 200px;
+  padding: 1rem;
+  min-width: 500px;
+  min-height: 300px;
   flex: auto;
   border-radius: 2rem;
   display: flex;

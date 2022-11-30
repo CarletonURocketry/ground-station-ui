@@ -4,29 +4,34 @@ import "./Home.css";
 // Components
 import DashboardGraph from "../components/main-dash/DashboardGraph";
 import GaugeGraph from "../components/main-dash/GaugeGraph";
+import GNSSMeta from "../components/main-dash/GNSSMeta";
 
 export default function Home() {
   // Altitude data callbacks
   const get_altitude_mission_time = (data) => {
-    return data.map((packet) => packet.altitude.mission_time / 1000);
+    return data.altitude.map((packet) => packet.mission_time / 1000);
   };
   const get_altitude_y = (data) => {
-    return data.map((packet) => packet.altitude.altitude.metres);
+    return data.altitude.map((packet) => packet.altitude.metres);
   };
 
   // Pressure data callbacks
   const get_pressure_y = (data) => {
-    return data.map((packet) => packet.altitude.pressure.kilopascals);
+    return data.altitude.map((packet) => packet.pressure.kilopascals);
   };
 
-  //Temperature data callbacks
+  // Temperature data callbacks
   const get_temp_y = (data) => {
-    return data.map((packet) => packet.altitude.temperature.celsius);
+    return data.altitude.map((packet) => packet.temperature.celsius);
   };
 
-  //Velocity data callbacks
+  // Velocity data callbacks
   const get_velocity_y = (data) => {
-    return data.map((packet) => packet.gnss.speed);
+    return data.gnss.map((packet) => packet.speed);
+  };
+
+  const get_velocity_mission_time = (data) => {
+    return data.gnss.map((packet) => packet.mission_time / 1000);
   };
 
   return (
@@ -39,27 +44,34 @@ export default function Home() {
           y_title="Altitude (m)"
           x_cb={get_altitude_mission_time}
           y_cb={get_altitude_y}
-        />
-
-        <GaugeGraph
-          x_cb={get_altitude_mission_time}
-          y_cb={get_temp_y}
-          unit="°C"
-          min={0}
-          max={100}
-          colour1="blue"
-          colour2="red"
           className="card"
         />
 
         <GaugeGraph
+          title="Temperature"
+          x_cb={get_altitude_mission_time}
+          y_cb={get_temp_y}
+          unit="°C"
+          min={0}
+          max={50}
+          inner_colour_1="blue"
+          inner_colour_2="red"
+          outer_colour="blue"
+          className="card"
+        />
+
+        <GNSSMeta className="card" />
+
+        <GaugeGraph
+          title="Pressure"
           x_cb={get_altitude_mission_time}
           y_cb={get_pressure_y}
           unit="KPa"
           min={0}
           max={120}
-          colour1="red"
-          colour2="green"
+          inner_colour_1="red"
+          inner_colour_2="green"
+          outer_colour="red"
           className="card"
         />
 
@@ -67,8 +79,9 @@ export default function Home() {
           title="Velocity"
           x_title="Time (s)"
           y_title="Velocity (m/s)"
-          x_cb={get_altitude_mission_time}
+          x_cb={get_velocity_mission_time}
           y_cb={get_velocity_y}
+          className="card"
         />
       </section>
     </main>
