@@ -2,6 +2,11 @@ import React from "react";
 import "./Controls.css";
 import {useState} from "react";
 
+//components
+import { ReactComponent as Play } from "../../assets/play_button.svg";
+import { ReactComponent as Pause } from "../../assets/pause_button.svg";
+import { ReactComponent as Foward } from "../../assets/foward_button.svg";
+
 
 export default function Controls({websocketRef}){
 
@@ -28,10 +33,8 @@ export default function Controls({websocketRef}){
         websocketRef.current.send(`telemetry replay pause`);
     };
 
-
-    return(
-        
-        <div className="buttons">
+    /*
+    />
         <img
         src={require("../../assets/backward_button.png")}
         alt="backward"
@@ -58,6 +61,29 @@ export default function Controls({websocketRef}){
         alt="foward"
         onClick={fast_forward}
         className="foward"
+        />
+    */
+
+
+    return(
+        
+        <div className="buttons">
+
+        <Foward id = "backward"
+        onClick={slow_forward}
+        />
+
+        <Play id = "play"
+        onClick={play}
+        />
+
+        <Pause id = "pause"
+        onClick={pause}
+       
+        />
+
+        <Foward id = "foward"
+        onClick={fast_forward}
         />
 
         </div>

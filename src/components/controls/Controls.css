@@ -2,36 +2,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 0.25rem;
-
+    min-height: 5rem;
     
 }
-.play{
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 1.5rem;
-    margin-left: 1.5rem;
+#play{
+    width: 10rem;
+    height: 5rem;
+    margin-right: 0.1rem;
+    margin-left: 0.1rem;
 
 }
-.pause{
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
+#pause{
+    width: 10rem;
+    height: 5rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+
 
 }
 
-.foward{
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 5rem;
-    margin-left: 1.5rem;
+#foward{
+    width: 10rem;
+    height: 5rem;
+    margin-right: 10rem;
+    margin-left: 0.1rem;
 
 }
-.backward{
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-left: 5rem;
-    margin-right: 1.5rem;
-
+#backward{
+    width: 10rem;
+    height: 5rem;
+    margin-left: 10rem;
+    margin-right: 0.1rem;
+    transform: rotate(180deg);
 }
