@@ -2,74 +2,49 @@ import React from "react";
 import "./Controls.css";
 import {useState} from "react";
 
-//components
-import { ReactComponent as Play } from "../../assets/play_button.svg";
-import { ReactComponent as Pause } from "../../assets/pause_button.svg";
-import { ReactComponent as Foward } from "../../assets/foward_button.svg";
+//react components of svg files
+import { ReactComponent as Play } from "../../assets/Play.svg";
+import { ReactComponent as Pause } from "../../assets/Pause.svg";
+import { ReactComponent as Forward } from "../../assets/Forward.svg";
 
 
 export default function Controls({websocketRef}){
 
     const [speed, setSpeed] = useState(1); // Normal speed by default
 
+    //Sends the speed command to fast forward 
     const fast_forward = (event) => {
-        if (speed <6){
+        //sets the maximum speed to 6
+        if (speed <4){
             setSpeed((prevSpeed) => prevSpeed * 2);
         }
         websocketRef.current.send(`telemetry replay speed ${speed}`)
-        console.log(speed);
     };
 
+    //sends the speed command to slow forward
     const slow_forward = (event) => {
-        setSpeed((prevSpeed) => prevSpeed / 2);
+        //Decreases the current speed by a factor of 2
+        if (speed >0.25){
+            setSpeed((prevSpeed) => prevSpeed / 2);
+        }
         websocketRef.current.send(`telemetry replay speed ${speed}`)
     };
 
+    //sends the play command
     const play = (event) => {
         websocketRef.current.send(`telemetry replay play`);
     };
 
+    //send the pause command
     const pause = (event) => {
         websocketRef.current.send(`telemetry replay pause`);
     };
 
-    /*
-    />
-        <img
-        src={require("../../assets/backward_button.png")}
-        alt="backward"
-        onClick={slow_forward}
-        className="backward"
-        />
-
-        <img
-        src={require("../../assets/play_button.png")}
-        alt="play"
-        onClick={play}
-        className="play"
-        />
-
-        <img
-        src={require("../../assets/pause_button.png")}
-        alt="pause"
-        onClick={pause}
-        className="pause"
-        />
-
-        <img
-        src={require("../../assets/foward_button.png")}
-        alt="foward"
-        onClick={fast_forward}
-        className="foward"
-        />
-    */
-
-
     return(
         
         <div className="buttons">
-
-        <Foward id = "backward"
+    
+        <Forward id = "backward"
         onClick={slow_forward}
         />
 
@@ -79,15 +54,13 @@ export default function Controls({websocketRef}){
 
         <Pause id = "pause"
         onClick={pause}
-       
         />
 
-        <Foward id = "foward"
+        <Forward id = "forward"
         onClick={fast_forward}
         />
 
-        </div>
-       
+        </div> 
     );
     
 }

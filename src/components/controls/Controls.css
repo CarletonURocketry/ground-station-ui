@@ -2,36 +2,71 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 5rem;
-    
+    min-height: 2.5rem;  
 }
-#play{
-    width: 10rem;
-    height: 5rem;
-    margin-right: 0.1rem;
-    margin-left: 0.1rem;
 
-}
-#pause{
-    width: 10rem;
-    height: 5rem;
+.buttons>svg{
+    width: 5rem;
+    height: 2.5rem;
     margin-left: 0.1rem;
     margin-right: 0.1rem;
-
-
 }
 
-#foward{
-    width: 10rem;
-    height: 5rem;
+#play g{
+    stroke: var(--accent-one);
+}
+
+#play polygon{
+    fill: var(--accent-one);
+    stroke: var(--accent-one);
+}
+
+#play:hover > g > g, #forward:hover > g > g, #pause:hover > g >g, #backward:hover >g >g{
+  stroke: var(--quaternary);
+}
+
+#pause g{  
+    stroke: var(--accent-one);
+}
+
+#pause rect{  
+    fill: var(--accent-one);
+    stroke: var(--accent-one);
+}
+
+#forward{
     margin-right: 10rem;
-    margin-left: 0.1rem;
-
 }
+
+#foward g{
+    stroke: var(--accent-one);
+}
+
+#foward polygon{
+    fill: var(--accent-one);
+    stroke: var(--accent-one);
+}
+
+#play:hover path, #backward:hover path, #pause:hover >g>rect, #forward:hover path{
+    fill: var(--quaternary);
+    stroke: var(--quaternary);
+}
+
+
 #backward{
-    width: 10rem;
-    height: 5rem;
     margin-left: 10rem;
-    margin-right: 0.1rem;
     transform: rotate(180deg);
 }
+
+
+#backward g{
+    stroke: var(--accent-one);
+
+}
+
+#backward polygon{
+    fill: var(--accent-one);
+    stroke: var(--accent-one);
+}
+
+

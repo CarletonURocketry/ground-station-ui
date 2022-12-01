@@ -1,6 +1,6 @@
 /* Basic styles */
 nav {
-  padding: var(--top-pad) var(--side-pad);
+  padding: var(--top-pad) var(--side-pad) 1rem;
 
   display: flex;
   justify-content: space-between;
