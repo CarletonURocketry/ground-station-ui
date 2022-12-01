@@ -37,7 +37,7 @@ export default function Controls({ websocketRef }) {
   };
 
   // Sends the pause command
-  const pause = (event) => {
+  const pause = () => {
     websocketRef.current.send(`telemetry replay pause`);
   };
 
