@@ -9,6 +9,8 @@ import { useKey } from "./hooks/useKey";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/nav/Navbar";
 import { NavLink } from "react-router-dom";
+import Controls from "./components/controls/Controls";
+
 
 // Utilities
 import { set_resolution } from "./utils/storage";
@@ -44,7 +46,10 @@ function App() {
           Replays
         </NavLink>
       </Navbar>
-      <Routes>
+      
+      <Controls websocketRef={websocketRef}/>
+
+      <Routes> 
         <Route path="/" element={<Home />} />
         <Route
           path="/replays"
