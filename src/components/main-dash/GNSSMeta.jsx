@@ -18,7 +18,7 @@ export default function GNSSMeta({ className }) {
 
   // Satellites in use
   const [metadata, y] = useStorage(get_metadata, do_nothing);
-  console.log(metadata);
+
   const num_glonass = metadata.glonass_sats_in_use
     ? metadata.glonass_sats_in_use.length
     : "Unknown";
@@ -27,14 +27,16 @@ export default function GNSSMeta({ className }) {
     : "Unknown";
 
   // Satellites in view
-  const in_view = metadata.sats_in_view.map((sat) => (
-    <Satellite
-      type={sat.type}
-      azimuth={sat.azimuth}
-      snr={sat.snr}
-      elevation={sat.elevation}
-    />
-  ));
+  const in_view = metadata
+    ? "No satellites in view."
+    : metadata.sats_in_view.map((sat) => (
+        <Satellite
+          type={sat.type}
+          azimuth={sat.azimuth}
+          snr={sat.snr}
+          elevation={sat.elevation}
+        />
+      ));
 
   return (
     <div className={className + " gnss"}>

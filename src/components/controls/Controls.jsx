@@ -48,7 +48,7 @@ export default function Controls({ websocketRef }) {
   });
 
   return (
-    <div className={hideControls ? "buttons hide-controls" : "buttons"}>
+    <div className={hideControls ? "buttons" : "buttons hide-controls"}>
       <Forward
         id="backward"
         style={{ transform: "rotate(180deg)" }} // Flip the forward button to make it point backward
