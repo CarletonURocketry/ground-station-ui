@@ -32,7 +32,7 @@ function shift_array(new_data, prev_buffer) {
   // Check if incoming data is already in the array
   const string_data = JSON.stringify(new_data);
   const is_duplicate = prev_buffer.find((element) => {
-    if (JSON.stringify(element) == string_data) {
+    if (JSON.stringify(element) === string_data) {
       return true;
     } else {
       return false;
