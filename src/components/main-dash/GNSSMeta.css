@@ -1,7 +1,37 @@
+.gnss {
+  max-width: 10rem;
+}
+
 .metadata {
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 0.5rem;
+}
+
+.in-view {
+  display: flex;
+  gap: 0.4rem;
+  flex-flow: wrap;
+}
+
+.in-use {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.satellite {
+  background-color: var(--quaternary);
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  max-width: 8rem;
+  min-width: 2rem;
+  flex: auto;
+}
+
+.satellite:hover {
+  background-color: var(--accent-two);
 }
 
 /* Text */
@@ -12,4 +42,14 @@
 .metadata p {
   font-weight: 200;
   font-size: 0.8rem;
+}
+
+.in-view p {
+  font-size: 0.4rem;
+  font-weight: 300;
+}
+
+.in-view p strong {
+  text-transform: capitalize;
+  font-weight: 500;
 }
