@@ -16,7 +16,7 @@
 .card {
   background-color: var(--tertiary);
   padding: 1rem;
-  min-width: 15rem;
+  min-width: 19rem;
   min-height: 18rem;
   max-height: 18rem;
   flex: auto;
