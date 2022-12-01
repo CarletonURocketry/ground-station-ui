@@ -27,16 +27,16 @@ export default function GNSSMeta({ className }) {
     : "Unknown";
 
   // Satellites in view
-  const in_view = metadata
-    ? "No satellites in view."
-    : metadata.sats_in_view.map((sat) => (
+  const in_view = metadata.sats_in_view
+    ? metadata.sats_in_view.map((sat) => (
         <Satellite
           type={sat.type}
           azimuth={sat.azimuth}
           snr={sat.snr}
           elevation={sat.elevation}
         />
-      ));
+      ))
+    : "No satellites in view.";
 
   return (
     <div className={className + " gnss"}>

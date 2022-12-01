@@ -39,12 +39,10 @@ export default function GaugeGraph({
   // Creates the specific gauge meter using the options that are aavialable in the library
   // There is two gauge lines, the inner and outer lines
   const options = {
-    title: {
-      text: title,
-      bottom: "10%",
-      right: "35%",
-      textAlign: "center",
-    },
+    // title: {
+    //   text: title,
+    //   textAlign: "center",
+    // },
     series: [
       // Controls inner gauge line
       {

@@ -38,15 +38,6 @@ export default function Home() {
     <main id="home" className="page-main">
       <h1>Main Dashboard</h1>
       <section id="graphs">
-        <DashboardGraph
-          title="Altitude"
-          x_title="Time (s)"
-          y_title="Altitude (m)"
-          x_cb={get_altitude_mission_time}
-          y_cb={get_altitude_y}
-          className="card"
-        />
-
         <GaugeGraph
           title="Temperature"
           x_cb={get_altitude_mission_time}
@@ -72,6 +63,15 @@ export default function Home() {
           inner_colour_1="red"
           inner_colour_2="green"
           outer_colour="red"
+          className="card"
+        />
+
+        <DashboardGraph
+          title="Altitude"
+          x_title="Time (s)"
+          y_title="Altitude (m)"
+          x_cb={get_altitude_mission_time}
+          y_cb={get_altitude_y}
           className="card"
         />
 
