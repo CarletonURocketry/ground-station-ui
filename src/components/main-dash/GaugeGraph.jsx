@@ -30,7 +30,8 @@ export default function GaugeGraph({
   var x_pos;
   var y_pos;
 
-  const [x, y] = useStorage(x_cb, y_cb);
+  const x = useStorage(x_cb);
+  const y = useStorage(y_cb);
 
   // Takes one value of x and y from array
   x_pos = x[0];

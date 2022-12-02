@@ -2,36 +2,27 @@ import { useEffect, useRef, useState } from "react";
 import { read_telemetry } from "../utils/storage";
 
 /**
- * Fetches x and y data from historical telemetry data in local storage
+ * Fetches data from the local storage data buffer
  * @author Matteo Golin <matteo.golin@gmail.com>
- * @param {function} x_cb Callback function that takes an array of telemetry packets as input and maps it to an array of data points to be returned
- * @param {function} y_cb Callback function that takes an array of telemetry packets as input and maps it to an array of data points to be returned
- * @returns An array of X data points and an array of Y data points, both as React state variables.
+ * @param {function} fetch_cb Callback function that takes an array of telemetry packets as input and maps it to an array of data points to be returned
+ * @returns An array of historical telemetry data points as React state variables.
  */
-export function useStorage(x_cb, y_cb) {
+export function useStorage(fetch_cb) {
   // Store the x and y data as a state variable that is updated with every change
-  const [x, setX] = useState([]);
-  const [y, setY] = useState([]);
+  const [data, setData] = useState([]);
 
-  const x_call = useRef(x_cb);
-  const y_call = useRef(y_cb);
+  const fetch_cbRef = useRef(fetch_cb);
 
-  useEffect(() => {
-    x_call.current = x_cb;
-    y_call.current = y_cb;
-  });
-
-  // Returns the result of the callback functions that parse historical data into their x and y components
+  // Returns the result of the callback function that fetch an array of historical telemetry data points
   const get_x_y = () => {
-    var historical_data = read_telemetry();
+    let historical_data = read_telemetry();
 
     // Never pass null data to mapping functions
     if (historical_data == null) {
       historical_data = [];
     }
 
-    setX(x_call.current(historical_data));
-    setY(y_call.current(historical_data));
+    setData(fetch_cbRef.current(historical_data));
   };
 
   useEffect(() => {
@@ -42,6 +33,6 @@ export function useStorage(x_cb, y_cb) {
     };
   }, []);
 
-  // Return x and y states to be used
-  return [x, y];
+  // Return data as a state variable
+  return data;
 }

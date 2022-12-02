@@ -18,7 +18,8 @@ export default function DashboardGraph({
   className,
 }) {
   // Getting x and y data using callbacks
-  const [x, y] = useStorage(x_cb, y_cb);
+  const x = useStorage(x_cb);
+  const y = useStorage(y_cb);
 
   // Use dashboard preset by default
   if (!options) {

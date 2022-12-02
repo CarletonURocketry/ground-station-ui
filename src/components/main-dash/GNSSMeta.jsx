@@ -12,12 +12,8 @@ export default function GNSSMeta({ className }) {
     return data.gnss_meta[0];
   };
 
-  const do_nothing = (data) => {
-    return;
-  };
-
   // Satellites in use
-  const [metadata, y] = useStorage(get_metadata, do_nothing);
+  const metadata = useStorage(get_metadata);
 
   const num_glonass = metadata.glonass_sats_in_use
     ? metadata.glonass_sats_in_use.length
