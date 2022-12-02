@@ -6,6 +6,7 @@ import { DashGraph } from "../../utils/chart-options";
 // Hooks
 import { useStorage } from "../../hooks/useStorage";
 
+// Components
 import ReactEcharts from "echarts-for-react";
 
 export default function DashboardGraph({
@@ -17,6 +18,7 @@ export default function DashboardGraph({
   y_cb,
   y_unit,
   options,
+  line_colour,
   className,
 }) {
   // Getting x and y data using callbacks
@@ -30,7 +32,7 @@ export default function DashboardGraph({
 
   // Use dashboard preset by default
   if (!options) {
-    options = DashGraph(title, x_title, y_title, x, y);
+    options = DashGraph(title, x_title, y_title, x, y, line_colour);
   }
 
   return <ReactEcharts className={className} option={options} />;

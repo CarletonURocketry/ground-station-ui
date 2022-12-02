@@ -74,6 +74,7 @@ export default function Home() {
           y_unit="m"
           x_cb={get_altitude_mission_time}
           y_cb={get_altitude_y}
+          line_colour={2}
           className="card"
         />
 
@@ -85,6 +86,7 @@ export default function Home() {
           y_unit="m/s"
           x_cb={get_velocity_mission_time}
           y_cb={get_velocity_y}
+          line_colour={1}
           className="card"
         />
       </section>

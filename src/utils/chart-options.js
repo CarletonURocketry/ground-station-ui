@@ -106,9 +106,17 @@ const axisLabelStyle = {
  * @param {string} y_title Title of the y-axis
  * @param {Array} x_data Data points to be plotted on the x-axis
  * @param {Array} y_data Data points to be plotted on the y-axis
+ * @param {number} line_colour The number of the accent colour to be used for the line color
  * @returns the options for the main dashboard graph line chart
  */
-export const DashGraph = (title, x_title, y_title, x_data, y_data) => {
+export const DashGraph = (
+  title,
+  x_title,
+  y_title,
+  x_data,
+  y_data,
+  line_colour
+) => {
   return {
     ...CenteredTitle(title),
     xAxis: GrowingX(x_title),
@@ -117,8 +125,8 @@ export const DashGraph = (title, x_title, y_title, x_data, y_data) => {
       {
         data: create_series(x_data, y_data),
         type: "line",
-        ...LineStyle(1, 3, "solid"),
-        ...DotStyle(1, 7),
+        ...LineStyle(line_colour, 3, "solid"),
+        ...DotStyle(line_colour, 7),
       },
     ],
   };
