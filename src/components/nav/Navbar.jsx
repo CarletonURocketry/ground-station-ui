@@ -19,9 +19,7 @@ export default function Navbar({ version, org, status, children }) {
     : "DNE";
 
   // Handle mission name
-  const mission_name = status.mission.name
-    ? status.mission.name
-    : "Missionless";
+  const mission_name = status.mission ? status.mission.name : "";
 
   return (
     <nav>
