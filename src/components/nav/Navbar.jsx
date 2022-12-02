@@ -13,6 +13,14 @@ export default function Navbar({ version, org, status, children }) {
     ? "connected"
     : "disconnected";
 
+  // Handle deployment status
+  const deployment = status.rocket.deployment_state_text
+    ? status.rocket.deployment_state_text.toUpperCase()
+    : "";
+
+  // Handle mission name
+  const mission_name = status.mission ? status.mission.name : "Missionless";
+
   return (
     <nav>
       <div id="rocket-info">
@@ -28,7 +36,7 @@ export default function Navbar({ version, org, status, children }) {
             <p id="version">{`v${version}`}</p>
           </div>
           <MissionTimer mission_time={status.rocket.last_mission_time} />
-          <p>{`${status.rocket.call_sign} | ${status.rocket.deployment_state_text}`}</p>
+          <p>{`${mission_name} | ${deployment}`}</p>
         </div>
         <p id="connection-status" className={connection}>
           {connection}
