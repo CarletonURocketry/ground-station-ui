@@ -43,10 +43,10 @@ export default function Home() {
           x_cb={get_altitude_mission_time}
           y_cb={get_temp_y}
           unit="°C"
-          min={0}
+          min={-20}
           max={50}
-          inner_colour_1="blue"
-          inner_colour_2="red"
+          inner_colour_1="red"
+          inner_colour_2="blue"
           outer_colour="blue"
           className="card"
         />
@@ -58,11 +58,11 @@ export default function Home() {
           x_cb={get_altitude_mission_time}
           y_cb={get_pressure_y}
           unit="KPa"
-          min={0}
+          min={60}
           max={120}
           inner_colour_1="red"
           inner_colour_2="green"
-          outer_colour="red"
+          outer_colour="green"
           className="card"
         />
 
