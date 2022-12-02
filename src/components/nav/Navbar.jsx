@@ -16,10 +16,12 @@ export default function Navbar({ version, org, status, children }) {
   // Handle deployment status
   const deployment = status.rocket.deployment_state_text
     ? status.rocket.deployment_state_text.toUpperCase()
-    : "";
+    : "DNE";
 
   // Handle mission name
-  const mission_name = status.mission ? status.mission.name : "Missionless";
+  const mission_name = status.mission.name
+    ? status.mission.name
+    : "Missionless";
 
   return (
     <nav>
