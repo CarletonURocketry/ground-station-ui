@@ -211,7 +211,7 @@ export const CenteredTitle = (title) => {
     title: {
       text: title,
       ...textStyle(500),
-      left: "50%",
+      left: "45%",
       top: "5%",
     },
   };

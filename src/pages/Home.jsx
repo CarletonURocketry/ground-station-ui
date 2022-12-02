@@ -68,8 +68,10 @@ export default function Home() {
 
         <DashboardGraph
           title="Altitude"
-          x_title="Time (s)"
-          y_title="Altitude (m)"
+          x_title="Time"
+          x_unit="s"
+          y_title="Altitude"
+          y_unit="m"
           x_cb={get_altitude_mission_time}
           y_cb={get_altitude_y}
           className="card"
@@ -77,8 +79,10 @@ export default function Home() {
 
         <DashboardGraph
           title="Velocity"
-          x_title="Time (s)"
-          y_title="Velocity (m/s)"
+          x_title="Time"
+          x_unit="s"
+          y_title="Velocity"
+          y_unit="m/s"
           x_cb={get_velocity_mission_time}
           y_cb={get_velocity_y}
           className="card"
