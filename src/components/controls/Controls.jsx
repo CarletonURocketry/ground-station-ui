@@ -9,6 +9,10 @@ import { useKey } from "../../hooks/useKey";
 import { ReactComponent as Play } from "../../assets/Play.svg";
 import { ReactComponent as Pause } from "../../assets/Pause.svg";
 import { ReactComponent as Forward } from "../../assets/Forward.svg";
+import { ReactComponent as Stop } from "../../assets/Stop.svg";
+
+// Utils
+import { clear_telemetry } from "../../utils/storage";
 
 export default function Controls({ websocketRef }) {
   const minSpeed = 0.25; // Minimum speed
@@ -41,6 +45,12 @@ export default function Controls({ websocketRef }) {
     websocketRef.current.send(`telemetry replay pause`);
   };
 
+  // Sends the stop command
+  const stop = () => {
+    websocketRef.current.send(`telemetry replay stop`);
+    clear_telemetry();
+  };
+
   // When Shift + C is pressed, toggle controls
   const [hideControls, setHideControls] = useState(false);
   useKey("KeyC", "shift", () => {
@@ -54,6 +64,7 @@ export default function Controls({ websocketRef }) {
         style={{ transform: "rotate(180deg)" }} // Flip the forward button to make it point backward
         onClick={slow_forward}
       />
+      <Stop id="stop" onClick={stop} />
       <Play id="play" onClick={play} />
       <p>{speed}X</p>
       <Pause id="pause" onClick={pause} />
