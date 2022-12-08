@@ -4,7 +4,7 @@ export default function MissionTimer({ mission_time }) {
   // Convert ms to HH:MM:SS
   let mission_duration;
 
-  if (mission_time == -1) {
+  if (mission_time === -1) {
     mission_duration = "Waiting...";
   } else {
     mission_duration = new Date(mission_time).toISOString().slice(11, 19);
