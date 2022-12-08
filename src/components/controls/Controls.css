@@ -33,6 +33,7 @@
 /* Colouring buttons */
 #play g,
 #pause g,
+#stop g,
 #forward g,
 #backward g {
   stroke: var(--button-colour);
@@ -40,6 +41,7 @@
 
 #pause rect,
 #play path,
+#stop rect,
 #forward path,
 #backward path {
   fill: var(--button-colour);
@@ -50,6 +52,7 @@
 
 #play:hover > g > g,
 #forward:hover > g > g,
+#stop:hover > g > g,
 #pause:hover > g > g,
 #backward:hover > g > g {
   stroke: var(--highlight-colour);
@@ -57,6 +60,7 @@
 
 #play:hover path,
 #backward:hover path,
+#stop:hover > g > rect,
 #pause:hover > g > rect,
 #forward:hover path {
   fill: var(--highlight-colour);
