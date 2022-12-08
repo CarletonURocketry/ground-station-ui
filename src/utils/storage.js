@@ -29,18 +29,13 @@ export function read_telemetry() {
  * @param {Array} prev_buffer The array of previous buffer data
  */
 function shift_array(new_data, prev_buffer) {
-  // Check if incoming data is already in the array
-  const string_data = JSON.stringify(new_data);
-  const is_duplicate = prev_buffer.find((element) => {
-    if (JSON.stringify(element) === string_data) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  // Write the new data if it's not a duplicate (duplicate confirmed by comparing mission times)
+  const latest_index = prev_buffer.length - 1;
 
-  // Write the new data if it's not a duplicate
-  if (!is_duplicate) {
+  if (
+    latest_index === -1 ||
+    prev_buffer[latest_index].mission_time !== new_data.mission_time
+  ) {
     prev_buffer.push(new_data);
   }
 
