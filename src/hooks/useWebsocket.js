@@ -6,7 +6,7 @@ import { write_telemetry } from "../utils/storage";
  * @author Matteo Golin <matteo.golin@gmail.com>
  * @param {string} websocket_address The URL address where the websocket is located
  * @param {boolean} debug Triggers data logging to console when true
- * @returns A reference to the current websocket instance and a state variable with status information
+ * @returns A reference to the current websocket instance and two state variables; one with status info and the other with replay status info
  */
 export function useWebsocket(websocket_address, debug = false) {
   const websocketRef = useRef(null);
@@ -25,6 +25,13 @@ export function useWebsocket(websocket_address, debug = false) {
         connected: false,
       },
     },
+  });
+
+  // Define the structure of the replay status packet with default values for before connection
+  const [replayStatus, setReplayStatus] = useState({
+    status: "",
+    speed: 1,
+    mission_list: undefined,
   });
 
   // Open connection
@@ -49,6 +56,14 @@ export function useWebsocket(websocket_address, debug = false) {
           version: data.version,
           org: data.org,
           status: data.status,
+        };
+      });
+      setReplayStatus((oldStatus) => {
+        return {
+          ...oldStatus,
+          status: data.replay.status,
+          mission_list: data.replay.mission_list,
+          speed: data.replay.speed,
         };
       });
     }
@@ -83,5 +98,5 @@ export function useWebsocket(websocket_address, debug = false) {
     }
   }, [waitingForReconnect]);
 
-  return [websocketRef, status];
+  return [websocketRef, status, replayStatus];
 }

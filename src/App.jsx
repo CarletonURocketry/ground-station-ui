@@ -16,7 +16,7 @@ import Replays from "./pages/Replays";
 
 function App() {
   // Websocket data
-  const [websocketRef, status] = useWebsocket(
+  const [websocketRef, status, replayStatus] = useWebsocket(
     "ws://localhost:33845/websocket",
     false
   );
@@ -45,7 +45,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route
           path="/replays"
-          element={<Replays websocketRef={websocketRef} />}
+          element={
+            <Replays
+              websocketRef={websocketRef}
+              missions={replayStatus.mission_list}
+            />
+          }
         />
       </Routes>
     </div>
