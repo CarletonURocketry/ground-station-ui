@@ -35,3 +35,11 @@ Please visit [the repository's wiki](https://github.com/CarletonURocketry/ground
 ## Contribution
 
 To contribute to this project, please view the [contribution guidelines](https://github.com/CarletonURocketry/ground-station-ui/wiki/Tutorials#contributing-guidelines) on the [repository's wiki](https://github.com/CarletonURocketry/ground-station-ui/wiki).
+
+## Contributors
+
+- Matteo Golin
+- Hamnah Qureshi
+- Grant Achuzia
+- Ryan Diep
+- Eshan BetrabetS
