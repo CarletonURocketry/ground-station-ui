@@ -67,5 +67,14 @@ body {
 }
 
 /* Scrollbar styling */
+::-webkit-scrollbar {
+  background-color: var(--tertiary);
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-one);
+  border-radius: 4rem;
+}
 
 /* Media queries */
