@@ -73,7 +73,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--accent-one);
+  background-color: var(--quaternary);
   border-radius: 4rem;
 }
 
