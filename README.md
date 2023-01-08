@@ -4,42 +4,51 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-FF2D00.svg)](https://opensource.org/licenses/MIT)
 
-Displays data pertaining to the CUInSpace rocket in real-time during launch using a series of graphs and maps. Allows for commands to be sent to the backend and then passed to the ground station.
+Visualizes real-time telemetry data from the CUInSpace rocket. Telemetry data is parsed by the Python backend and sent
+over websocket as JSON to the frontend.
 
-Currently under construction.
+## Dashboard Preview
+![Dashboard Preview](./docs/dashboard.png)
 
 ## Overview
 
-A dashboard design with visualization for rocket data. Numerical values are plotted on charts, while the rocket location is recorded on an offline compatible map to allow for easy retrieval by the recovery team.
+The dashboard visualizes data on different charts using Apache ECharts. Temperature, pressure, velocity and altitude are
+displayed among other indicators. Flight time is tracked using the mission timer component.
 
-The UI fundamentally makes use of a websocket connection to the [Python backend](https://github.com/CarletonURocketry/ground-station), which sends telemetry data in real-time as it receives it from the rocket transmission chip. This data is sent in JSON format, where it is unpacked and displayed in chart components.
+The UI fundamentally makes use of a websocket connection to the 
+[Python backend](https://github.com/CarletonURocketry/ground-station), which sends telemetry data in real-time as it 
+receives it from the rocket transmission chip. This data is sent in JSON format, where it is unpacked and displayed in 
+chart components.
 
-Please see [websocket.json](https://github.com/CarletonURocketry/ground-station/blob/main/static/websocket.json) for an example of incoming data.
+Please see [websocket.json](https://github.com/CarletonURocketry/ground-station/blob/main/static/websocket.json) for an 
+example of incoming data.
 
-Importantly, a buffer of historical data is saved to local storage to provide seamless display. If the connection with the ground station or backend is interrupted, the display will statically display the historical data while it attempts to reconnect. As soon as a connection is possible, the UI reconnects and continues real-time display.
+The dashboard also has capacity to replay recorded mission data for simulation and analysis purposes. A control panel
+with stop, start and replay commands is available using the key command `Shift + C`. Various other keyboard commands are
+being implemented to allow for direct communication with the rocket's telemetry chip.
 
-Hotkey commands are available to send commands to the backend. These commands are not yet implemented.
+![Control Panel](./docs/controls.png)
 
-The UI also supports flight replay. The backend can send the UI recorded flight data to simulate the launch, allowing for analysis of test flights.
+The dashboard attempts re-connection to the websocket automatically, and displays that there has been a connection issue
+in the dashboard header. A set of historical data from each telemetry category is kept in local storage in order to 
+maintain a static display of the most recently received data when connection becomes unstable.
 
 ## Technologies
-
 - HTML
 - CSS
-- React JS
+- ReactJS
+- NodeJS
+- Python (backend)
 
 ## Documentation
-
 Please visit [the repository's wiki](https://github.com/CarletonURocketry/ground-station-ui/wiki) to view the documentation for this project.
 
 ## Contribution
-
 To contribute to this project, please view the [contribution guidelines](https://github.com/CarletonURocketry/ground-station-ui/wiki/Tutorials#contributing-guidelines) on the [repository's wiki](https://github.com/CarletonURocketry/ground-station-ui/wiki).
 
 ## Contributors
-
 - Matteo Golin
 - Hamnah Qureshi
 - Grant Achuzia
 - Ryan Diep
-- Eshan BetrabetS
+- Eshan Betrabet
