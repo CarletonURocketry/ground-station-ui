@@ -34,6 +34,16 @@ export default function Home() {
     return data.gnss.map((packet) => packet.mission_time / 1000);
   };
 
+
+  // Acceleration data callbacks
+  const get_acceleration_y = (data) => {
+    return data.acceleration_data.map((packet) => packet.acceleration.ms2);
+  }
+
+  const get_acceleration_mission_time = (data) => {
+    return data.acceleration_data.map((packet) => packet.mission_time / 1000);
+  }
+
   return (
     <main id="home" className="page-main">
       <h1>Main Dashboard</h1>
@@ -86,6 +96,18 @@ export default function Home() {
           y_unit="m/s"
           x_cb={get_velocity_mission_time}
           y_cb={get_velocity_y}
+          line_colour={1}
+          className="card"
+        />
+
+        <DashboardGraph
+          title="Acceleration"
+          x_title="Time"
+          x_unit="s"
+          y_title="Acceleration"
+          y_unit="m/s&#178;"
+          x_cb={get_acceleration_mission_time}
+          y_cb={get_acceleration_y}
           line_colour={1}
           className="card"
         />
