@@ -101,10 +101,10 @@ export default function Home() {
         />
 
         <DashboardGraph
-          title="Altitude"
+          title="Acceleration"
           x_title="Time"
           x_unit="s"
-          y_title="Altitude"
+          y_title="Acceleration"
           y_unit="m/s&#178;"
           x_cb={get_acceleration_mission_time}
           y_cb={get_acceleration_y}
