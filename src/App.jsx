@@ -13,6 +13,7 @@ import Controls from "./components/controls/Controls";
 // Pages
 import Home from "./pages/Home";
 import Replays from "./pages/Replays";
+import Map from "./pages/Map";
 
 function App() {
   // Websocket data
@@ -37,6 +38,9 @@ function App() {
         >
           Replays
         </NavLink>
+        <NavLink to="/Map"
+        className={({ isActive }) => (isActive ? "link-active" : "link")}
+        >Map</NavLink>
       </Navbar>
 
       <Controls websocketRef={websocketRef} />
@@ -52,6 +56,7 @@ function App() {
             />
           }
         />
+        <Route path="/Map" element={<Map />} />
       </Routes>
     </div>
   );
