@@ -35,7 +35,7 @@ export default function Navbar({ version, org, status, children }) {
             <h1 id="org">{org}</h1>
             <p id="version">{`v${version}`}</p>
           </div>
-          <MissionTimer mission_time={status.rocket.last_mission_time} />
+          <MissionTimer mission_time={status.rocket.mission_time} />
           <p>{`${mission_name} | ${deployment}`}</p>
         </div>
         <p id="connection-status" className={connection}>

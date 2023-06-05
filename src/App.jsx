@@ -53,6 +53,8 @@ function App() {
           }
         />
       </Routes>
+
+      <div id="footer">Developed by Matteo Golin</div>
     </div>
   );
 }

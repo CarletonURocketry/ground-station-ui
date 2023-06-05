@@ -30,6 +30,7 @@ export default function GNSSMeta({ className }) {
           azimuth={sat.azimuth}
           snr={sat.snr}
           elevation={sat.elevation}
+          key={sat.id}
         />
       ))
     : "No satellites in view.";

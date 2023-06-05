@@ -18,8 +18,7 @@ export function useWebsocket(websocket_address, debug = false) {
     org: "CUInSpace",
     status: {
       rocket: {
-        call_sign: "Flightless",
-        last_mission_time: 0,
+        mission_time: 0,
       },
       rn2483_radio: {
         connected: false,
@@ -42,6 +41,7 @@ export function useWebsocket(websocket_address, debug = false) {
   // Receiving data
   const onMessage = (event) => {
     var data = JSON.parse(event.data); // Parse incoming data
+    console.log(data);
 
     if (debug) {
       console.log(data); // Data logging on debug
@@ -49,7 +49,7 @@ export function useWebsocket(websocket_address, debug = false) {
 
     // Only write non-empty packets
     if (data.version != undefined) {
-      write_telemetry(data.telemetry_data); // Write to local storage
+      write_telemetry(data.telemetry); // Write to local storage
       setStatus((oldStatus) => {
         return {
           ...oldStatus,
@@ -61,9 +61,9 @@ export function useWebsocket(websocket_address, debug = false) {
       setReplayStatus((oldStatus) => {
         return {
           ...oldStatus,
-          status: data.replay.status,
-          mission_list: data.replay.mission_list,
-          speed: data.replay.speed,
+          status: data.status.replay.state,
+          mission_list: data.status.replay.mission_list,
+          speed: data.status.replay.speed,
         };
       });
     }

@@ -54,6 +54,11 @@ export function write_telemetry(recent_data) {
   let historic_telem = read_telemetry();
 
   // What sections to write to
+
+  if (recent_data === undefined) {
+    return;
+  }
+
   Object.keys(recent_data).forEach((key) => {
     // Ensure that key exists in historical buffer
     let buffer;

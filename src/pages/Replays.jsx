@@ -7,7 +7,11 @@ export default function Replays({ websocketRef, missions }) {
   let replays = <></>;
   if (missions !== undefined) {
     replays = missions.map((mission) => (
-      <ReplayItem name={mission} key={mission} websocketRef={websocketRef} />
+      <ReplayItem
+        name={mission.name}
+        key={mission.name}
+        websocketRef={websocketRef}
+      />
     ));
   }
 

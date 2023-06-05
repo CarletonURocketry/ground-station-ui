@@ -17,7 +17,7 @@ export default function Home() {
 
   // Pressure data callbacks
   const get_pressure_y = (data) => {
-    return data.altitude.map((packet) => packet.pressure.kilopascals);
+    return data.altitude.map((packet) => packet.pressure.pascals / 1000); // kPa
   };
 
   // Temperature data callbacks
@@ -34,15 +34,14 @@ export default function Home() {
     return data.gnss.map((packet) => packet.mission_time / 1000);
   };
 
-
   // Acceleration data callbacks
   const get_acceleration_y = (data) => {
-    return data.acceleration_data.map((packet) => packet.acceleration.ms2);
-  }
+    return data.mpu9250_imu.map((packet) => packet.accel_y);
+  };
 
   const get_acceleration_mission_time = (data) => {
-    return data.acceleration_data.map((packet) => packet.mission_time / 1000);
-  }
+    return data.mpu9250_imu.map((packet) => packet.mission_time / 1000);
+  };
 
   return (
     <main id="home" className="page-main">
