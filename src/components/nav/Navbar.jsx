@@ -42,7 +42,6 @@ export default function Navbar({ version, org, status, children }) {
           {connection}
         </p>
       </div>
-      <button onClick={clear_telemetry}>clr strg</button>
       <div id="nav-links">{children}</div>
     </nav>
   );
