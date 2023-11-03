@@ -5,6 +5,7 @@ import "./Home.css";
 import DashboardGraph from "../components/main-dash/DashboardGraph";
 import GaugeGraph from "../components/main-dash/GaugeGraph";
 import GNSSMeta from "../components/main-dash/GNSSMeta";
+import Card from "../components/card/Card";
 
 export default function Home() {
   // Altitude data callbacks
@@ -43,73 +44,58 @@ export default function Home() {
     return data.mpu9250_imu.map((packet) => packet.mission_time / 1000);
   };
 
+  const graphArray = [
+    <GaugeGraph
+      title="Temperature"
+      x_cb={get_altitude_mission_time}
+      y_cb={get_temp_y}
+      unit="°C"
+      min={-20}
+      max={50}
+      inner_colour_1="red"
+      inner_colour_2="blue"
+      outer_colour="blue"
+    />,
+    <GNSSMeta/>,
+    <DashboardGraph
+      title="Altitude"
+      x_title="Time"
+      x_unit="s"
+      y_title="Altitude"
+      y_unit="m"
+      x_cb={get_altitude_mission_time}
+      y_cb={get_altitude_y}
+      line_colour={2}
+    />,
+    <DashboardGraph
+      title="Velocity"
+      x_title="Time"
+      x_unit="s"
+      y_title="Velocity"
+      y_unit="m/s"
+      x_cb={get_velocity_mission_time}
+      y_cb={get_velocity_y}
+      line_colour={1}
+    />,
+    <DashboardGraph
+      title="Acceleration"
+      x_title="Time"
+      x_unit="s"
+      y_title="Acceleration"
+      y_unit="m/s&#178;"
+      x_cb={get_acceleration_mission_time}
+      y_cb={get_acceleration_y}
+      line_colour={1}
+    />
+  ]
+
   return (
     <main id="home" className="page-main">
       <h1>Main Dashboard</h1>
       <section id="graphs">
-        <GaugeGraph
-          title="Temperature"
-          x_cb={get_altitude_mission_time}
-          y_cb={get_temp_y}
-          unit="°C"
-          min={-20}
-          max={50}
-          inner_colour_1="red"
-          inner_colour_2="blue"
-          outer_colour="blue"
-          className="card"
-        />
-
-        <GNSSMeta className="card" />
-
-        <GaugeGraph
-          title="Pressure"
-          x_cb={get_altitude_mission_time}
-          y_cb={get_pressure_y}
-          unit="KPa"
-          min={60}
-          max={120}
-          inner_colour_1="red"
-          inner_colour_2="green"
-          outer_colour="green"
-          className="card"
-        />
-
-        <DashboardGraph
-          title="Altitude"
-          x_title="Time"
-          x_unit="s"
-          y_title="Altitude"
-          y_unit="m"
-          x_cb={get_altitude_mission_time}
-          y_cb={get_altitude_y}
-          line_colour={2}
-          className="card"
-        />
-
-        <DashboardGraph
-          title="Velocity"
-          x_title="Time"
-          x_unit="s"
-          y_title="Velocity"
-          y_unit="m/s"
-          x_cb={get_velocity_mission_time}
-          y_cb={get_velocity_y}
-          line_colour={1}
-          className="card"
-        />
-
-        <DashboardGraph
-          title="Acceleration"
-          x_title="Time"
-          x_unit="s"
-          y_title="Acceleration"
-          y_unit="m/s&#178;"
-          x_cb={get_acceleration_mission_time}
-          y_cb={get_acceleration_y}
-          line_colour={1}
-          className="card"
-        />
+        {graphArray.map((component, index) => (
+          <Card key={index} bodyComponent={component} />
+        ))}
       </section>
     </main>
   );

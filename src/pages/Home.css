@@ -1,7 +1,7 @@
 #graphs {
   display: flex;
   flex-flow: row wrap;
-  gap: 1rem;
+  gap: 1vw;
   justify-content: center;
   align-items: left;
 }
@@ -11,17 +11,4 @@
   width: 600px;
   height: 400px;
   margin-top: 2rem;
-}
-
-.card {
-  background-color: var(--tertiary);
-  padding: 1rem;
-  min-width: 19rem;
-  min-height: 18rem;
-  max-height: 18rem;
-  flex: auto;
-  border-radius: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

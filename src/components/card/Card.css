@@ -1,0 +1,21 @@
+
+
+.card {
+    background-color: var(--tertiary);
+    border-radius: 0.25vw;
+    width: 49%;
+}
+
+.card-inner {
+    padding: 1vw 1.5vw 0vw 1.5vw;
+}
+
+.card-header { 
+    grid-area: header;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+}
+.card-body { 
+    grid-area: main;
+}
