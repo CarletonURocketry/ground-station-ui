@@ -53,8 +53,6 @@ export function fontFamily() {
  * @returns An array of arrays with format [x, y] for each data point in the x and y arrays.
  */
 export function create_series(x_data, y_data) {
-  const timestamp = new Date().getTime();
-  console.log(x_data.map((x_val, index) => [{name: timestamp, value: [x_val, y_data[index]]}]))
   return x_data.map((x_val, index) => [x_val, y_data[index]]);
 }
 
