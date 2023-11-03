@@ -3,11 +3,13 @@
 .card {
     background-color: var(--tertiary);
     border-radius: 0.25vw;
-    width: 49%;
+    width: 100%;
+    height: 100%;
 }
 
 .card-inner {
     padding: 1vw 1.5vw 0vw 1.5vw;
+    height: 100%;
 }
 
 .card-header { 
@@ -18,4 +20,6 @@
 }
 .card-body { 
     grid-area: main;
+    width: 100%;
+    height: 100%;
 }

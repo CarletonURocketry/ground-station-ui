@@ -1,7 +1,7 @@
 import React from "react";
 import "./ReplayItem.css";
 
-import { clear_telemetry } from "../utils/storage";
+import { clear_telemetry } from "../../utils/storage";
 
 export default function ReplayItem({ name, websocketRef }) {
   const command = (event) => {

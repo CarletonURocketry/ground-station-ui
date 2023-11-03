@@ -2,10 +2,11 @@ import React from "react";
 import "./Home.css";
 
 // Components
-import DashboardGraph from "../components/main-dash/DashboardGraph";
-import GaugeGraph from "../components/main-dash/GaugeGraph";
-import GNSSMeta from "../components/main-dash/GNSSMeta";
-import Card from "../components/card/Card";
+import DashboardGraph from "../../components/dashboard/DashboardGraph";
+import GaugeGraph from "../../components/dashboard/GaugeGraph";
+import GNSSMeta from "../../components/dashboard/GNSSMeta";
+import Card from "../../components/card/Card";
+import GridLayout from 'react-grid-layout';
 
 export default function Home() {
   // Altitude data callbacks
@@ -89,13 +90,59 @@ export default function Home() {
     />
   ]
 
+  const numColumns = 4 // Number of columns in the grid
+  const numRows = Math.ceil(graphArray.length / numColumns) // Calculate number of rows based on the number of items
+  const defaultItemWidth = 2 // Set the default width for all items
+  const defaultItemHeight = 3 // Set the default height for all items
+  const spacingX = 5 // Horizontal spacing between items
+  const spacingY = 5 // Vertical spacing between items
+  const minWidth = 2 // Minimum width for grid items
+  const minHeight = 2 // Minimum height for grid items
+  const containerWidth = (window.innerWidth * 0.8)
+  
+  // Create layout items for each component in graphArray with equal spacing
+  const gridItems = graphArray.map((component, index) => {
+    const col = index % numColumns
+    const row = Math.floor(index / numColumns)
+    const x = col * (defaultItemWidth + spacingX)
+    const y = row * (defaultItemHeight + spacingY)
+
+    return {
+      i: `item${index}`,
+      x,
+      y,
+      w: defaultItemWidth,
+      h: defaultItemHeight,
+      minW: minWidth,
+      minHeight: minHeight
+    }
+  });
+  const handleLayoutChange = (newLayouts) => {
+    // Handle layout changes here
+    console.log('Layout changed:', newLayouts);
+  };
+
   return (
     <main id="home" className="page-main">
       <h1>Main Dashboard</h1>
       <section id="graphs">
-        {graphArray.map((component, index) => (
-          <Card key={index} bodyComponent={component} />
-        ))}
+        <GridLayout
+          className="layout"
+          layout={gridItems}
+          cols={numColumns}
+          rowHeight={100}
+          width={containerWidth}
+          onLayoutChange={handleLayoutChange}
+          isResizable={true} // Enable resize handles
+          isBounded={true}
+          margin={[spacingX, spacingY]}
+        >
+          {graphArray.map((component, index) => (
+            <div key={`item${index}`}>
+              <Card key={index} bodyComponent={component} />
+            </div>
+          ))}
+        </GridLayout>
       </section>
     </main>
   );

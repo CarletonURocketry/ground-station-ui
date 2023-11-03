@@ -1,7 +1,7 @@
 import React from "react";
 import "./Map.css";
 
-import { useStorage } from "../hooks/useStorage";
+import { useStorage } from "../../hooks/useStorage";
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";

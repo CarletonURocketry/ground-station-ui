@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import ReplayItem from "../components/ReplayItem";
+import ReplayItem from "../../components/replay/ReplayItem";
 
 export default function Replays({ websocketRef, missions }) {
   let replays = <></>;

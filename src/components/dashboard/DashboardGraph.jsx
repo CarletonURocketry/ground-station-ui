@@ -35,5 +35,5 @@ export default function DashboardGraph({
     options = DashGraph(title, x_title, y_title, x, y, line_colour);
   }
 
-  return <ReactEcharts className={className} option={options} />;
+  return <ReactEcharts className={className} option={options} style={{ width: '100%', height: '100%'}} />;
 }
