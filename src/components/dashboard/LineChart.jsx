@@ -22,22 +22,17 @@ function LineChart(props) {
         setData(x.map((xValue, index) => ({ x: xValue, y: y[index] })));
     }, [x, y]);
 
-    const yAxisZoom = props.zoom_y ? props.zoom_y : 1
-    const xAxisZoom = props.zoom_x ? props.zoom_x : 1
-
     return (
         <ParentSize debounceTime={0}>
             {({ width, height }) => {
                 const padding = 75;
-
-                const xPadding = Math.max(1, (Math.max(...x) - Math.min(...x)) * 0.05);
                 const yPadding = Math.max(5, (Math.max(...y) - Math.min(...y)) * 0.05);
                 
                 // Define the scales of the graph with extra padding
                 const xScale = scaleLinear({
                     domain: [
-                        Math.min(...x) - xPadding,
-                        Math.max(...x) + xPadding,
+                        Math.min(...x) - 0.1,
+                        Math.max(...x),
                     ],
                     range: [padding, width - padding],
                 });

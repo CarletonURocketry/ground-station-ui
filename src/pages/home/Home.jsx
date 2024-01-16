@@ -52,14 +52,12 @@ export default function Home() {
       x_title={"Time (s)"}
       x_cb={get_velocity_mission_time}
       y_cb={get_acceleration_y}
-      zoom_y={0.25}
     />,
     <LineChart
       y_title={"Altitude (m)"}
       x_title={"Time (s)"}
       x_cb={get_altitude_mission_time}
       y_cb={get_altitude_y}
-      zoom_y={0}
     />,
     <LineChart
       y_title={" Acceletation (m/s²)"}
@@ -79,46 +77,15 @@ export default function Home() {
       inner_colour_2="blue"
       outer_colour="blue"
     />,
-    <GNSSMeta/>,
-    // <DashboardGraph
-    //   title="Altitude"
-    //   x_title="Time"
-    //   x_unit="s"
-    //   y_title="Altitude"
-    //   y_unit="m"
-    //   x_cb={get_altitude_mission_time}
-    //   y_cb={get_altitude_y}
-    //   line_colour={2}
-    // />,
-    // <DashboardGraph
-    //   title="Velocity"
-    //   x_title="Time"
-    //   x_unit="s"
-    //   y_title="Velocity"
-    //   y_unit="m/s"
-    //   x_cb={get_velocity_mission_time}
-    //   y_cb={get_velocity_y}
-    //   line_colour={1}
-    // />,
-    // <DashboardGraph
-    //   title="Acceleration"
-    //   x_title="Time"
-    //   x_unit="s"
-    //   y_title="Acceleration"
-    //   y_unit="m/s&#178;"
-    //   x_cb={get_acceleration_mission_time}
-    //   y_cb={get_acceleration_y}
-    //   line_colour={1}
-    // />
+    <GNSSMeta/>
   ]
 
-  const numColumns = 6 // Number of columns in the grid
-  const numRows = Math.ceil(graphArray.length / numColumns) // Calculate number of rows based on the number of items
-  const defaultItemWidth = 3 // Set the default width for all items
+  const numColumns = 4 // Number of columns in the grid
+  const defaultItemWidth = 2 // Set the default width for all items
   const defaultItemHeight = 3 // Set the default height for all items
-  const spacingX = 5 // Horizontal spacing between items
-  const spacingY = 5 // Vertical spacing between items
-  const minWidth = 2 // Minimum width for grid items
+  const spacingX = 4 // Horizontal spacing between items
+  const spacingY = 4 // Vertical spacing between items
+  const minWidth = 1 // Minimum width for grid items
   const minHeight = 3 // Minimum height for grid items
   const containerWidth = (window.innerWidth * 0.8)
   
