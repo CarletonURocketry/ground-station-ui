@@ -1,5 +1,5 @@
 .gnss {
-  max-width: 15rem;
+  /* max-width: 15rem; */
 }
 
 .metadata {
@@ -10,9 +10,15 @@
 }
 
 .in-view {
-  display: flex;
+  /* display: flex;
   gap: 0.4rem;
-  flex-flow: wrap;
+  flex-flow: wrap; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-auto-rows: 100px;
+  grid-gap: 0.5vw;
+  max-width: 100%;
+  overflow: auto;
 }
 
 .in-use {
@@ -23,15 +29,16 @@
 
 .satellite {
   background-color: var(--quaternary);
-  padding: 0.3rem;
-  border-radius: 0.3rem;
-  max-width: 15rem;
-  min-width: 2rem;
-  flex: auto;
+  padding: 10px;
+  text-align: center;
 }
 
 .satellite:hover {
   background-color: var(--accent-two);
+}
+
+.metadata {
+  height: 12rem;
 }
 
 /* Text */

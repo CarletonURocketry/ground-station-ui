@@ -41,7 +41,6 @@ export function useWebsocket(websocket_address, debug = false) {
   // Receiving data
   const onMessage = (event) => {
     var data = JSON.parse(event.data); // Parse incoming data
-    console.log(data);
 
     if (debug) {
       console.log(data); // Data logging on debug

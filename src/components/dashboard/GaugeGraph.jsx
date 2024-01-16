@@ -180,5 +180,5 @@ export default function GaugeGraph({
     ],
   };
 
-  return <ReactEcharts option={options} className={className} />;
+  return <ReactEcharts option={options} className={className} style={{ width: '100%', height: '100%' }}/>;
 }

@@ -1,6 +1,6 @@
 // Writes the previous "n" data packets to local storage for retrieval
 const STORAGE_KEY = "telemetry";
-let resolution = 20; // Show 20 historical data points by default
+let resolution = 40; // Show 20 historical data points by default
 
 /**
  * Sets the number of historical data points to be recorded in the local storage buffer

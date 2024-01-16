@@ -1,8 +1,7 @@
 import "./App.css";
-
+import '../node_modules/react-grid-layout/css/styles.css'
 // Hooks
 import { useWebsocket } from "./hooks/useWebsocket";
-import { useState } from "react";
 
 // Components
 import { Routes, Route } from "react-router-dom";
@@ -11,9 +10,9 @@ import { NavLink } from "react-router-dom";
 import Controls from "./components/controls/Controls";
 
 // Pages
-import Home from "./pages/Home";
-import Replays from "./pages/Replays";
-import Map from "./pages/Map";
+import Home from "./pages/home/Home";
+import Replays from "./pages/replays/Replays";
+import Map from "./pages/map/Map";
 
 function App() {
   // Websocket data
