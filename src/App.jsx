@@ -24,19 +24,19 @@ function App() {
   // Current pageS
   return (
     <div id="App">
-      <Navbar version={status.version} org={status.org} status={status.status}>
+      <Navbar websocketRef={websocketRef} version={status.version} org={status.org} status={status.status} replayStatus = {replayStatus}>
         <NavLink
           className={({ isActive }) => (isActive ? "link-active" : "link")}
           to="/"
         >
           Home
         </NavLink>
-        <NavLink
+        {/*<NavLink
           to="/replays"
           className={({ isActive }) => (isActive ? "link-active" : "link")}
         >
           Replays
-        </NavLink>
+        </NavLink>*/}
         <NavLink to="/Map"
         className={({ isActive }) => (isActive ? "link-active" : "link")}
         >Map</NavLink>

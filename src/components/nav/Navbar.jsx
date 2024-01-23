@@ -6,8 +6,9 @@ import MissionTimer from "./MissionTimer";
 
 // Utils
 import { clear_telemetry } from "../../utils/storage";
+import ReplayPopup from "../replay/ReplayPopup";
 
-export default function Navbar({ version, org, status, children }) {
+export default function Navbar({ websocketRef, version, org, status, replayStatus, children }) {
   // Convert connection status
   const connection = status.rn2483_radio.connected
     ? "connected"
@@ -41,6 +42,7 @@ export default function Navbar({ version, org, status, children }) {
         <p id="connection-status" className={connection}>
           {connection}
         </p>
+        <ReplayPopup status={replayStatus} websocketRef={websocketRef} />
       </div>
       <div id="nav-links">{children}</div>
     </nav>
