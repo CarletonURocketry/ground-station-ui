@@ -8,17 +8,17 @@ export default function ReplayPopup({status, websocketRef}) {
     console.log(status)
     // Setup list of replays
     let replays = <></>;
-    if(status.mission_list != undefined) {
+    if(status.mission_list !== undefined) {
         replays = status.mission_list.map((mission) => (
         <ReplayItem name={mission.name} key={mission.key} websocketRef={websocketRef} />
         ));
     }
     // Check if we are currently playing the replay and set the button color accordingly
-    let buttonState = status.status == 1 ? 'playing' : 'stopped';
+    let buttonState = status.status === 1 ? 'playing' : 'stopped';
     
     // Get the status icon for the replay status
     let buttonText = "Replay ";
-    if (status.status == 1) {
+    if (status.status === 1) {
         // Playing
         buttonText += "\u23F5";
     } else {
