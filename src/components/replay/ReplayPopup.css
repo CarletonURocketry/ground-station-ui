@@ -1,0 +1,44 @@
+.replay-button {
+    text-transform: uppercase;
+    color: var(--primary);
+    height: max-content;
+    border-radius: 4rem;
+    padding: 0.2rem 0.3rem;
+    margin-left: 0.5rem;
+  
+    font-size: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#stopped {
+    background-color: rgb(181, 0, 0);
+}
+
+#playing {
+    background-color: rgb(0, 132, 0);
+}
+
+.replay-popup {
+    background-color: var(--primary);
+    padding: 1rem;
+    border-style: solid;
+    border-radius: 0.25rem;
+    width: 20rem;
+}
+.replay-popup-titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.replay-popup-titlebar button {
+    font-size: 1rem;
+    background-color: var(--primary);
+    color: var(--secondary);
+    cursor: pointer;
+}
+
+.replay-popup-titlebar button:hover {
+    background-color: #3d3d3d;
+}
