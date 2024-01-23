@@ -5,7 +5,6 @@ import ReplayItem from "./ReplayItem";
 import "./ReplayPopup.css";
 
 export default function ReplayPopup({status, websocketRef}) {
-    console.log(status)
     // Setup list of replays
     let replays = <></>;
     if(status.mission_list !== undefined) {
