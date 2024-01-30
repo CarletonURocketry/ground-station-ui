@@ -8,7 +8,7 @@ Visualizes real-time telemetry data from the CUInSpace rocket. Telemetry data is
 over websocket as JSON to the frontend.
 
 ## Dashboard Preview
-![Dashboard Preview](./docs/dashboard.png)
+![Dashboard Preview](./docs/dashboard.png) (outdated image but it looks similar)
 
 ## Overview
 
@@ -39,6 +39,21 @@ maintain a static display of the most recently received data when connection bec
 - ReactJS
 - NodeJS
 - Python (backend)
+## Libraries
+- [Visx](https://airbnb.io/visx/)
+- [React LeafletJS](https://react-leaflet.js.org/)
+- [React Grid Layout](https://github.com/react-grid-layout/react-grid-layout)
+## Installation
+
+Install ground-station-ui with npm
+
+```bash
+  git clone https://github.com/CarletonURocketry/ground-station-ui.git
+  cd ground-station-ui
+  npm install
+  npm run start
+```
+    
 
 ## Documentation
 Please visit [the repository's wiki](https://github.com/CarletonURocketry/ground-station-ui/wiki) to view the documentation for this project.
