@@ -44,7 +44,7 @@ maintain a static display of the most recently received data when connection bec
 - [React LeafletJS](https://react-leaflet.js.org/)
 - [React Grid Layout](https://github.com/react-grid-layout/react-grid-layout)
 ## Installation
-
+https://github.com/CarletonURocketry/ground-station
 Install ground-station-ui with npm
 
 ```bash
@@ -54,6 +54,7 @@ Install ground-station-ui with npm
   npm run start
 ```
     
+>[ground-station](https://github.com/CarletonURocketry/ground-station) is required to visualize replays
 
 ## Documentation
 Please visit [the repository's wiki](https://github.com/CarletonURocketry/ground-station-ui/wiki) to view the documentation for this project.
