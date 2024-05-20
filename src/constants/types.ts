@@ -48,7 +48,13 @@ export interface WebSocketData {
       mission_time: number[];
       pascals: number[];
     };
-    velocity: {
+    angular_velocity: {
+      mission_time: number[];
+      x: number[];
+      y: number[];
+      z: number[];
+    };
+    linear_acceleration: {
       mission_time: number[];
       x: number[];
       y: number[];
