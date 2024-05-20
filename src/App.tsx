@@ -16,15 +16,23 @@ function App() {
   return (
     <div className="App">
       {data ? (
-  <div>
+  <div style={{width: "100%", height: "100%"}}>
     <p>test: {JSON.stringify(telemetryData)}</p>
     {/* <p>test: {telemetryData?.velocity.mission_time}</p> */}
-    <div style={{ height: "500px" }}>
+    <div style={{ height: "500px", width: "100%"}}>
     {telemetryData && (
       <>
+      <Card bodyComponent={<TemperatureGauge temperature={telemetryData.temperature.celsius[0]} />} />
+      <Card bodyComponent={
+                <LineChart<WebSocketData['telemetry']['altitude']>
+                telemetryData={telemetryData.altitude}
+                xDataKey="mission_time"
+                yDataKey="metres"
+              />
+      } />
         {/* <TemperatureGauge temperature={telemetryData.temperature.celsius[0]} />
         <HumidityGauge humidity={telemetryData.humidity.percentage[0]} />
-        <PressureGauge pressure={telemetryData.pressure.pascals[0]/1000} /> */}
+        <PressureGauge pressure={telemetryData.pressure.pascals[0]/1000} />
         <LineChart<WebSocketData['telemetry']['altitude']>
           telemetryData={telemetryData.altitude}
           xDataKey="mission_time"
@@ -34,13 +42,20 @@ function App() {
       <LineChart<WebSocketData['telemetry']['linear_acceleration']>
           telemetryData={telemetryData.linear_acceleration}
           xDataKey="mission_time"
+          yDataKey="x"
+        />
+              <h3>Linear Acceleration - Y Axis</h3>
+      <LineChart<WebSocketData['telemetry']['linear_acceleration']>
+          telemetryData={telemetryData.linear_acceleration}
+          xDataKey="mission_time"
           yDataKey="y"
         />
-      {/* <LineChart telemetryData={telemetryData.angular_velocity} xDataKey="mission_time" yDataKey="x" />
-      <h2>Angular Velocity Y Component</h2>
-      <LineChart telemetryData={telemetryData.angular_velocity} xDataKey="mission_time" yDataKey="y" />
-      <h2>Angular Velocity Z Component</h2>
-      <LineChart telemetryData={telemetryData.angular_velocity} xDataKey="mission_time" yDataKey="z" /> */}
+              <h3>Linear Acceleration - Z Axis</h3>
+      <LineChart<WebSocketData['telemetry']['linear_acceleration']>
+          telemetryData={telemetryData.linear_acceleration}
+          xDataKey="mission_time"
+          yDataKey="z"
+        /> */}
       </>
       )}
     </div>
