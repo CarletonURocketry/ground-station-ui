@@ -1,70 +1,46 @@
-<img width="140px" align="left" style="padding: 15px" src="https://github.com/CarletonURocketry/ground-station-ui/blob/main/public/colour_logo.png?raw=true"/>
-<h1>Ground Station UI</h1>
-<h3>CUInSpace</h3>
+# Getting Started with Create React App
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-FF2D00.svg)](https://opensource.org/licenses/MIT)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Visualizes real-time telemetry data from the CUInSpace rocket. Telemetry data is parsed by the Python backend and sent
-over websocket as JSON to the frontend.
+## Available Scripts
 
-## Dashboard Preview
-![Dashboard Preview](./docs/dashboard.png) (outdated image but it looks similar)
+In the project directory, you can run:
 
-## Overview
+### `npm start`
 
-The dashboard visualizes data on different charts using Apache ECharts. Temperature, pressure, velocity and altitude are
-displayed among other indicators. Flight time is tracked using the mission timer component.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The UI fundamentally makes use of a websocket connection to the 
-[Python backend](https://github.com/CarletonURocketry/ground-station), which sends telemetry data in real-time as it 
-receives it from the rocket transmission chip. This data is sent in JSON format, where it is unpacked and displayed in 
-chart components.
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Please see [websocket.json](https://github.com/CarletonURocketry/ground-station/blob/main/static/websocket.json) for an 
-example of incoming data.
+### `npm test`
 
-The dashboard also has capacity to replay recorded mission data for simulation and analysis purposes. A control panel
-with stop, start and replay commands is available using the key command `Shift + C`. Various other keyboard commands are
-being implemented to allow for direct communication with the rocket's telemetry chip.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-![Control Panel](./docs/controls.png)
+### `npm run build`
 
-The dashboard attempts re-connection to the websocket automatically, and displays that there has been a connection issue
-in the dashboard header. A set of historical data from each telemetry category is kept in local storage in order to 
-maintain a static display of the most recently received data when connection becomes unstable.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Technologies
-- HTML
-- CSS
-- ReactJS
-- NodeJS
-- Python (backend)
-## Libraries
-- [Visx](https://airbnb.io/visx/)
-- [React LeafletJS](https://react-leaflet.js.org/)
-- [React Grid Layout](https://github.com/react-grid-layout/react-grid-layout)
-## Installation
-https://github.com/CarletonURocketry/ground-station
-Install ground-station-ui with npm
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-```bash
-  git clone https://github.com/CarletonURocketry/ground-station-ui.git
-  cd ground-station-ui
-  npm install
-  npm run start
-```
-    
->[ground-station](https://github.com/CarletonURocketry/ground-station) is required to visualize replays
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Documentation
-Please visit [the repository's wiki](https://github.com/CarletonURocketry/ground-station-ui/wiki) to view the documentation for this project.
+### `npm run eject`
 
-## Contribution
-To contribute to this project, please view the [contribution guidelines](https://github.com/CarletonURocketry/ground-station-ui/wiki/Tutorials#contributing-guidelines) on the [repository's wiki](https://github.com/CarletonURocketry/ground-station-ui/wiki).
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-## Contributors
-- Matteo Golin
-- Hamnah Qureshi
-- Grant Achuzia
-- Ryan Diep
-- Eshan Betrabet
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

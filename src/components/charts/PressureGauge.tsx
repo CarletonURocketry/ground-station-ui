@@ -1,0 +1,76 @@
+import React, { useState, useEffect } from 'react';
+import GaugeComponent from 'react-gauge-component';
+
+interface PressureGaugeProps {
+    pressure: number;
+}
+function PressureGauge({pressure}: PressureGaugeProps) {
+  return (
+    <GaugeComponent
+      type="semicircle"
+      arc={{
+        width: 0.2,
+        padding: 0.005,
+        cornerRadius: 1,
+        gradient: true,
+        subArcs: [
+            {
+                limit: 70,
+                color: '#14ff3a',
+                showTick: true
+              },
+              {
+                limit: 80,
+                color: '#8ce200',
+                showTick: true
+              },
+              {
+                limit: 90,
+                color: '#bdc000',
+                showTick: true
+              },
+              {
+                limit: 100,
+                color: '#dd9b00',
+                showTick: true
+              },
+              {
+                limit: 110,
+                color: '#f56e00',
+                showTick: true
+              },
+              {
+                limit: 120,
+                color: '#ff3114',
+                showTick: true
+              },
+              { color: '#EA4228' }
+        ]
+      }}
+      pointer={{
+        color: '#000000',
+        length: 0.80,
+        width: 15,
+      }}
+      labels={{
+        valueLabel: { formatTextValue: value => value + 'KPa' },
+        tickLabels: {
+          type: 'outer',
+        //   valueConfig: { formatTextValue: (value: string) => value + 'ºC', fontSize: 10 },
+          ticks: [
+            { value: 70 },
+            { value: 80 },
+            { value: 90 },
+            { value: 100 },
+            { value: 110 },
+          ],
+        }
+      }}
+      value={pressure}
+      minValue={60}
+      maxValue={120}
+    />
+  );
+}
+
+export default PressureGauge
