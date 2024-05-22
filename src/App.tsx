@@ -22,23 +22,24 @@ function App() {
     <div style={{ height: "500px", width: "100%"}}>
     {telemetryData && (
       <>
-      <Card bodyComponent={<TemperatureGauge temperature={telemetryData.temperature.celsius[0]} />} />
+      {/* <Card bodyComponent={<TemperatureGauge temperature={telemetryData.temperature.celsius[0]} />} />
       <Card bodyComponent={
                 <LineChart<WebSocketData['telemetry']['altitude']>
                 telemetryData={telemetryData.altitude}
                 xDataKey="mission_time"
                 yDataKey="metres"
               />
-      } />
-        {/* <TemperatureGauge temperature={telemetryData.temperature.celsius[0]} />
-        <HumidityGauge humidity={telemetryData.humidity.percentage[0]} />
-        <PressureGauge pressure={telemetryData.pressure.pascals[0]/1000} />
+      } /> */}
+
+        {/* <HumidityGauge humidity={telemetryData.humidity.percentage[0]} /> */}
+        <TemperatureGauge temperature={telemetryData.temperature.celsius[0]} />
+        {/* <PressureGauge pressure={telemetryData.pressure.pascals[0]/1000} />
         <LineChart<WebSocketData['telemetry']['altitude']>
           telemetryData={telemetryData.altitude}
           xDataKey="mission_time"
           yDataKey="metres"
-        />
-      <h3>Linear Acceleration - X Axis</h3>
+        /> */}
+      {/* <h3>Linear Acceleration - X Axis</h3>
       <LineChart<WebSocketData['telemetry']['linear_acceleration']>
           telemetryData={telemetryData.linear_acceleration}
           xDataKey="mission_time"
@@ -71,6 +72,7 @@ function App() {
 >
   Send Command
 </button>
+<p>Made by Eshan Betrabet</p>
     </div>
   );
 }
