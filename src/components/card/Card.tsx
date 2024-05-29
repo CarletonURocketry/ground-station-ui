@@ -9,19 +9,23 @@ import "./Card.css";
  */
 
 interface CardProps {
-  title?: string;
+  deleteComponent: (i: string) => void;
+  i: string;
+  isEditorModeOn: boolean;
   bodyComponent: React.ReactNode;
 }
 
-function Card({ title, bodyComponent }: CardProps) {
+function Card({ deleteComponent, i, isEditorModeOn, bodyComponent }: CardProps) {
   return (
-    <div className="card">
-      <div className="card-inner">
-        <div className="card-header">
-          <div className="card-title">{title}</div>
-        </div>
-        <div className="card-body">{bodyComponent}</div>
-      </div>
+    <div className={`card ${isEditorModeOn ? 'card-in-edit-mode' : ''}`}>
+      <header className={`card-header ${!isEditorModeOn ? 'card-header-read-only' : ''}`}>
+        {isEditorModeOn && <div></div>}
+        <div className="card-title">{i}</div>
+        {isEditorModeOn && (
+          <button onClick={() => deleteComponent(i)}>Close</button>
+        )}
+      </header>
+      <div className="card-body">{bodyComponent}</div>
     </div>
   );
 }
