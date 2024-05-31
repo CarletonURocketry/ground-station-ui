@@ -7,6 +7,7 @@ interface TopBarProps {
   altitude?: string;
   apogee?: string;
   inclination?: string;
+  availablePorts?: string[];
 }
 
 function TopBar({
@@ -15,6 +16,7 @@ function TopBar({
   altitude = "No data",
   apogee = "No data",
   inclination = "No data",
+  availablePorts = [],
 }: TopBarProps) {
   return (
     <div className="top-bar">
@@ -39,6 +41,15 @@ function TopBar({
         <div className="info-item">
           <span className="label">INCLINATION</span>
           <span className="value">{inclination}</span>
+        </div>
+        <div className="info-item">
+          <select name="ports" id="ports">
+            {availablePorts.map((port) => (
+              <option key={port} value={port}>
+                {port}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     </div>
