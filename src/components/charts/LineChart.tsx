@@ -6,7 +6,7 @@ import { scaleLinear } from '@visx/scale';
 import { LinePath } from '@visx/shape';
 
 interface LineChartProps<T> {
-  telemetryData: any;
+  telemetryData: T;
   xDataKey: keyof T;
   yDataKey: keyof T;
 }
@@ -55,7 +55,7 @@ function LineChart<T extends { [key: string]: number[] }>({
                 strokeWidth={2}
                 curve={curveMonotoneX}
               />
-              <Axis orientation="left" scale={yScale} label={String(yDataKey)}/>
+              <Axis orientation="left" scale={yScale} label={String(yDataKey)} />
               <Axis orientation="bottom" scale={xScale} top={yMax} label={String(xDataKey)} />
             </g>
           </svg>

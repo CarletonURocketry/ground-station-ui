@@ -1,25 +1,41 @@
 .card {
-  background-color: rgb(241, 241, 241);
-  border-radius: 0.25vw;
-  width: 100%;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   height: 100%;
-}
-
-.card-inner {
-  height: 100%;
+  border-radius: 4px;
+  background-color: rgb(251, 252, 254);
+  display: flex;
+  flex-direction: column;
 }
 
 .card-header {
-  grid-area: header;
-  align-items: center;
+  display: flex;
   justify-content: space-between;
-  display: flex;
-}
-.card-body {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  height: 20px;
+}
+
+.card-header-read-only {
+  justify-content: center;
+}
+
+.card-body {
+  flex: 1;
+  height: calc(100% - 20px);
+}
+
+.card-title {
+  font-weight: bold;
+  justify-content: center;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-in-edit-mode {
+  cursor: grab;
+}
+
+.card-in-edit-mode:hover {
+  border: 1px solid rgb(255, 0, 0);
 }

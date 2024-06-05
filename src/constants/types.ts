@@ -35,7 +35,12 @@ export interface WebSocketData {
   };
   telemetry: {
     last_mission_time: number;
-    altitude: {
+    altitude_sea_level: {
+      mission_time: number[];
+      metres: number[];
+      feet: number[];
+    };
+    altitude_launch_level: {
       mission_time: number[];
       metres: number[];
       feet: number[];
@@ -48,31 +53,35 @@ export interface WebSocketData {
       mission_time: number[];
       pascals: number[];
     };
+    linear_acceleration_rel: {
+      mission_time: number[];
+      x: number[];
+      y: number[];
+      z: number[];
+      magnitude: number[];
+    };
+    linear_acceleration_abs: {
+      mission_time: number[];
+      x: number[];
+      y: number[];
+      z: number[];
+      magnitude: number[];
+    };
     angular_velocity: {
       mission_time: number[];
       x: number[];
       y: number[];
       z: number[];
-    };
-    linear_acceleration: {
-      mission_time: number[];
-      x: number[];
-      y: number[];
-      z: number[];
+      magnitude: number[];
     };
     humidity: {
       mission_time: number[];
       percentage: number[];
     };
-    gnss: {
+    coordinates: {
       mission_time: number[];
       latitude: number[];
       longitude: number[];
-    };
-    sats_in_use: {
-      mission_time: number[];
-      gps: number[];
-      glonass: number[];
     };
   };
 }
@@ -83,4 +92,12 @@ export interface VelocityData {
   y: number[];
   z: number[];
   [key: string]: number[];
+}
+
+export interface ComponentPosition {
+  i: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
 }

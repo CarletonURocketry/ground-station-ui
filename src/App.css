@@ -17,3 +17,25 @@
   border: 1px solid #ccc;
   height: 100vh;
 } */
+.gauge-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.dashboard {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+/* .layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+} */
