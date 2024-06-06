@@ -1,13 +1,56 @@
+@font-face {
+  font-family: 'ReadexPro';
+  src: url('../public/fonts/ReadexPro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ReadexPro';
+  src: url('../public/fonts/ReadexPro-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ReadexPro';
+  src: url('../public/fonts/ReadexPro-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ReadexPro';
+  src: url('../public/fonts/ReadexPro-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ReadexPro';
+  src: url('../public/fonts/ReadexPro-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ReadexPro';
+  src: url('../public/fonts/ReadexPro-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: var(--primary); */
   width: 100%;
   height: 100vh;
+  font-family: 'ReadexPro', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 code {
@@ -16,19 +59,16 @@ code {
 }
 
 :root {
-  /* Colours */
-  --primary: #252629;
-  --secondary: #393B40;
-
-  /* --accent-one: #cc0018;
-  --accent-two: #e05200;
-  --accent-three: #f79e1b;
-  --accent-four: #ffe6a7; */
-
-  /* Font */
-  /* --font: "Poppins", sans-serif; */
-
-  /* Sizing */
-  /* --top-pad: 2rem; */
-  /* --side-pad: 4rem; */
+  --background-color: #0E0E0E;
+  --lighter-background-color: #161616;
+  --red-color: #E82127;
+  --green-color: #25CB55;
+  --yellow-color: #FFBD0A;
+  --blue-color: #007BE4;
+  --text-color: #FFFFFF;
+  --text-dark-color: #8d8d8d;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.06);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(232, 33, 39, 0.5);
 }

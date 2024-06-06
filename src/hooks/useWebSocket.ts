@@ -8,6 +8,26 @@ interface WebSocketData {
   telemetry: any;
 }
 
+/**
+ * Custom hook to manage WebSocket connections.
+ * @param {string} url - The WebSocket URL to connect to.
+ * @returns {Object} The WebSocket connection data, error, and a function to send commands.
+ * @returns {WebSocketData | null} data - The parsed data received from the WebSocket.
+ * @returns {Event | null} error - The error event, if any occurred during the WebSocket connection.
+ * @returns {Function} sendCommand - Function to send commands/messages to the WebSocket server.
+ * @example
+ * const { data, error, sendCommand } = useWebSocket('wss://example.com/socket');
+ *
+ * useEffect(() => {
+ *   if (data) {
+ *     console.log('Received data:', data);
+ *   }
+ * }, [data]);
+ *
+ * const handleSendCommand = () => {
+ *   sendCommand('START_MISSION');
+ * };
+ */
 const useWebSocket = (url: string) => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [data, setData] = useState<WebSocketData | null>(null);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ParentSize } from '@visx/responsive';
-import { Axis } from '@visx/axis';
+import { Axis, AxisBottom, AxisLeft } from '@visx/axis';
 import { curveMonotoneX } from '@visx/curve';
 import { scaleLinear } from '@visx/scale';
 import { LinePath } from '@visx/shape';
@@ -11,6 +11,24 @@ interface LineChartProps<T> {
   yDataKey: keyof T;
 }
 
+/**
+ * LineChart Component
+ * @param {Object} telemetryData - The telemetry data containing values to plot.
+ * @param {keyof T} xDataKey - The key for the x-axis data in telemetryData.
+ * @param {keyof T} yDataKey - The key for the y-axis data in telemetryData.
+ * @returns {JSX.Element} The rendered LineChart component.
+ * @example
+ * const telemetryData = {
+ *   mission_time: [0, 1, 2, 3, 4],
+ *   metres: [0, 10, 20, 30, 40],
+ * };
+ * 
+ * <LineChart
+ *   telemetryData={telemetryData}
+ *   xDataKey="mission_time"
+ *   yDataKey="metres"
+ * />
+ */
 function LineChart<T extends { [key: string]: number[] }>({
   telemetryData,
   xDataKey,
@@ -30,7 +48,7 @@ function LineChart<T extends { [key: string]: number[] }>({
   return (
     <ParentSize debounceTime={1}>
       {({ width, height }) => {
-        const margin = { top: 20, right: 30, bottom: 50, left: 40 };
+        const margin = { top: 20, right: 30, bottom: 100, left: 70 };
         const xMax = width - margin.left - margin.right;
         const yMax = height - margin.top - margin.bottom;
 
@@ -51,12 +69,44 @@ function LineChart<T extends { [key: string]: number[] }>({
                 data={xValues.map((x, i) => ({ x, y: yValues[i] }))}
                 x={(d) => xScale(d.x)}
                 y={(d) => yScale(d.y)}
-                stroke="steelblue"
+                stroke="var(--red-color)"
                 strokeWidth={2}
                 curve={curveMonotoneX}
               />
-              <Axis orientation="left" scale={yScale} label={String(yDataKey)} />
-              <Axis orientation="bottom" scale={xScale} top={yMax} label={String(xDataKey)} />
+              <AxisLeft
+                scale={yScale}
+                stroke="var(--text-dark-color)"
+                tickStroke="var(--text-dark-color)"
+                tickLabelProps={() => ({
+                  fill: "var(--text-dark-color)",
+                  fontSize: 11,
+                  textAnchor: 'end',
+                  dy: '0.33em',
+                })}
+                label={String(yDataKey)}
+                labelProps={{
+                  fill: "var(--text-dark-color)",
+                  fontSize: 12,
+                  textAnchor: 'middle',
+                }}
+              />
+              <AxisBottom
+                top={yMax}
+                scale={xScale}
+                stroke="var(--text-dark-color)"
+                tickStroke="var(--text-dark-color)"
+                tickLabelProps={() => ({
+                  fill: "var(--text-dark-color)",
+                  fontSize: 11,
+                  textAnchor: 'middle',
+                })}
+                label={String(xDataKey)}
+                labelProps={{
+                  fill: "var(--text-dark-color)",
+                  fontSize: 12,
+                  textAnchor: 'middle',
+                }}
+              />
             </g>
           </svg>
         );

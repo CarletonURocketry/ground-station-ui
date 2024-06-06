@@ -2,10 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #1a1a1a;
-    color: #fff;
+    background-color: var(--lighter-background-color);
     padding: 10px 20px;
-    font-family: 'Arial', sans-serif;
   }
   
   .logo {
@@ -34,3 +32,32 @@
     font-weight: bold;
   }
   
+
+  .styled-select {
+    background-color: var(--lighter-background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0px 10px;
+    font-family: 'ReadexPro', sans-serif;
+    font-size: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 100%;
+
+  }
+  
+  .styled-select:hover {
+    border-color: var(--red-color);
+  }
+  
+  .styled-option {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  .styled-select:focus {
+    outline: none;
+    border-color: var(--blue-color);
+  }
