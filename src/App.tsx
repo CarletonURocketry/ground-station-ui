@@ -8,6 +8,7 @@ import PressureGauge from "./components/charts/PressureGauge";
 import TopBar from "./components/topbar/TopBar";
 import { ComponentPosition } from "./constants/types";
 import ComponentGrid from "./components/grid/grid";
+import CoordinatesMap from "./components/charts/CoordinatesMap";
 
 const initialLayout: ComponentPosition[] = [
   { i: 'Altitude', x: 0, y: 0, w: 2, h: 2 },
@@ -48,14 +49,7 @@ function App() {
     Temperature: <TemperatureGauge temperature={telemetryData.temperature.celsius[0] || 0} />,
     LinearAcceleration: <LineChart telemetryData={telemetryData.linear_acceleration_rel} xDataKey="mission_time" yDataKey="magnitude" />,
     AngularVelocity: <LineChart telemetryData={telemetryData.angular_velocity} xDataKey="mission_time" yDataKey="magnitude" />,
-    Coordinates: (
-      <div>
-      <p>
-        Latitude: {telemetryData.coordinates.latitude[0] || "No data"}, 
-        Longitude: {telemetryData.coordinates.longitude[0] || "No data"}
-      </p>
-    </div>
-    ),
+    // Coordinates: <CoordinatesMap latitude={telemetryData.coordinates.latitude[0]} longitude={telemetryData.coordinates.longitude[0]} />,
   };
 console.log(telemetryData.coordinates.latitude)
   return (
@@ -75,6 +69,8 @@ console.log(telemetryData.coordinates.latitude)
         isEditorModeOn={true} // Change this to manage edit mode
         componentMap={componentMap}
       />
+      <CoordinatesMap latitude={telemetryData.coordinates.latitude[0]} longitude={telemetryData.coordinates.longitude[0]} />
+
       <button
         onClick={() => sendCommand("telemetry replay play TestData")}
       >

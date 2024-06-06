@@ -5,6 +5,7 @@ interface PressureGaugeProps {
     pressure: number;
 }
 function PressureGauge({pressure}: PressureGaugeProps) {
+  pressure = pressure / 1000
   return (
     <GaugeComponent
       type="semicircle"
