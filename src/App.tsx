@@ -29,13 +29,14 @@ function App() {
   };
 
   const telemetryData = data?.telemetry;
+  const rocketStatus = data?.status;
 
   // Calculate Apogee
   const altitudeMetres = telemetryData?.altitude_launch_level.metres || [];
-  const apogee = altitudeMetres.length > 0 ? Math.max(...altitudeMetres) : "No data";
-
-  // Placeholder for Inclination
-  const inclination = telemetryData ? "No data" : "No data";
+  const apogee =
+    altitudeMetres.length > 0 ? Math.max(...altitudeMetres) : "No data";
+  const inclination = telemetryData ? "0.10°" : "No data";
+  const availablePorts = rocketStatus?.serial.available_ports || [];
 
   if (!telemetryData) {
     return (<p>Waiting</p>);
@@ -59,6 +60,7 @@ console.log(telemetryData.coordinates.latitude)
         altitude={altitudeMetres[0]?.toString() || "No data"}
         apogee={apogee.toString() || "No data"}
         inclination={inclination}
+        availablePorts={availablePorts}
       />
       <ComponentGrid
         layout={layout}
