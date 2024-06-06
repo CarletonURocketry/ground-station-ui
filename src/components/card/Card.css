@@ -3,7 +3,7 @@
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   height: 100%;
   border-radius: 4px;
-  background-color: rgb(251, 252, 254);
+  background-color: var(--lighter-background-color);
   display: flex;
   flex-direction: column;
 }
@@ -13,6 +13,8 @@
   justify-content: space-between;
   align-items: center;
   height: 20px;
+  color: white;
+  padding: 15px;
 }
 
 .card-header-read-only {
@@ -37,5 +39,5 @@
 }
 
 .card-in-edit-mode:hover {
-  border: 1px solid rgb(255, 0, 0);
+  border: 1px solid var(--red-color);
 }

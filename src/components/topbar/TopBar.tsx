@@ -10,6 +10,16 @@ interface TopBarProps {
   availablePorts?: string[];
 }
 
+/**
+ * TopBar Component
+ * @param {string} spacecraft - The name of the spacecraft.
+ * @param {string} missionTime - The mission time.
+ * @param {string} altitude - The current altitude of the spacecraft.
+ * @param {string} apogee - The highest altitude reached by the spacecraft.
+ * @param {string} inclination - The inclination of the spacecraft's orbit.
+ * @param {string[]} availablePorts - The list of available ports.
+ * @returns {JSX.Element} The rendered TopBar component.
+ */
 function TopBar({
   spacecraft = "No data",
   missionTime = "No data",
@@ -43,9 +53,9 @@ function TopBar({
           <span className="value">{inclination}</span>
         </div>
         <div className="info-item">
-          <select name="ports" id="ports">
+          <select name="ports" id="ports" className="styled-select">
             {availablePorts.map((port) => (
-              <option key={port} value={port}>
+              <option key={port} value={port} className="styled-option">
                 {port}
               </option>
             ))}

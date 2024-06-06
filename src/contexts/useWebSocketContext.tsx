@@ -10,6 +10,11 @@ interface WebSocketContextType {
 
 const WebSocketContext = createContext<WebSocketContextType | null>(null);
 
+/**
+ * Custom hook to use the WebSocket context.
+ * @throws Will throw an error if the hook is used outside a WebSocketProvider.
+ * @returns {WebSocketContextType} The WebSocket context value.
+ */
 export const useWebSocketContext = () => {
   const context = useContext(WebSocketContext);
   if (!context) {
@@ -18,6 +23,12 @@ export const useWebSocketContext = () => {
   return context;
 };
 
+/**
+ * WebSocketProvider Component
+ * @param {ReactNode} children - The child components to render within the provider.
+ * @param {string} url - The WebSocket URL to connect to.
+ * @returns {JSX.Element} The rendered WebSocketProvider component.
+ */
 export const WebSocketProvider = ({
   children,
   url,
