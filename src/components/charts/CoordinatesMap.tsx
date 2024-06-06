@@ -1,6 +1,5 @@
-// import { LatLngTuple } from "leaflet";
 import L, { LatLngExpression } from "leaflet";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useState, useEffect } from "react";
 
@@ -18,6 +17,13 @@ function CoordinatesMap({ latitude, longitude }: CoordinatesMapProps) {
   const launch_area = [
     32.94065936804605, -106.92205755550764,
   ] as LatLngExpression;
+  const [coordinates, setCoordinates] = useState<[number, number][]>([[latitude, longitude]]);
+
+  useEffect(() => {
+    setCoordinates(prevCoordinates => [...prevCoordinates, [latitude, longitude]]);
+  }, [latitude, longitude]);
+
+
 
   return (
     <div style={{ height: "900px" }}>
@@ -41,7 +47,7 @@ function CoordinatesMap({ latitude, longitude }: CoordinatesMapProps) {
         <Marker position={launch_area} icon={markerIcon}>
           <Popup>Spaceport America Vertical Launch Area</Popup>
         </Marker>
-
+        <Polyline pathOptions={{ color: "red" }} positions={coordinates} />
       </MapContainer>
     </div>
   );
