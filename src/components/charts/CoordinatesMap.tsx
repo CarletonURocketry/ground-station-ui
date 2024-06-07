@@ -8,13 +8,19 @@ import {
   useMap,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 
 const markerIcon = L.icon({ iconUrl: "marker-icon.png" });
 const locations = new Map();
-locations.set("spaceport_america", [32.989971496396876, -106.97527469166948] as LatLngExpression);
-locations.set("launch_area", [32.94065936804605, -106.92205755550764] as LatLngExpression);
-locations.set("carleton", [45.38717048880264, -75.6959313960035] as LatLngExpression);
+locations.set("spaceport_america", [
+  32.989971496396876, -106.97527469166948,
+] as LatLngExpression);
+locations.set("launch_area", [
+  32.94065936804605, -106.92205755550764,
+] as LatLngExpression);
+locations.set("carleton", [
+  45.38717048880264, -75.6959313960035,
+] as LatLngExpression);
 
 interface CoordinatesMapProps {
   latitude: number;
@@ -23,29 +29,47 @@ interface CoordinatesMapProps {
 
 function SnapToLocation({ val }: { val: string }) {
   const map = useMap();
-  const location = locations.get(val) || locations.get("spaceport_america") as LatLngExpression;
+  const location =
+    locations.get(val) ||
+    (locations.get("spaceport_america") as LatLngExpression);
   map.setView(location, map.getZoom(), {
     animate: true,
   });
   return null;
 }
 
-const PolylineComponent = React.memo(({ coordinates }: { coordinates: [number, number][] }) => {
-  return <Polyline pathOptions={{ color: "red" }} positions={coordinates} />;
-});
+// Container that only rerenders polyline when coordinates change
+const PolylineContainer = React.memo(
+  ({ latitude, longitude }: { latitude: number; longitude: number }) => {
+    const coordinatesRef = useRef<[number, number][]>([]);
+
+    useEffect(() => {
+      if (latitude !== undefined && longitude !== undefined) {
+        coordinatesRef.current = [
+          ...coordinatesRef.current,
+          [latitude, longitude],
+        ];
+      }
+    }, [latitude, longitude]);
+
+    const memoizedCoordinates = useMemo(
+      () => coordinatesRef.current,
+      [coordinatesRef.current]
+    );
+
+    return (
+      <Polyline
+        pathOptions={{ color: "red" }}
+        positions={memoizedCoordinates}
+      />
+    );
+  }
+);
 
 const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
-  console.log("RENDERING", latitude, longitude);
   const [isTracking, setIsTracking] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("spaceport_america");
   const [currentMapTiles, setCurrentMapTiles] = useState("spaceport_america");
-  const coordinatesRef = useRef<[number, number][]>([[0, 0]]);
-  
-  // useEffect(() => {
-  //   if (latitude !== 0 && longitude !== 0 && latitude && longitude) {
-  //     coordinatesRef.current = [...coordinatesRef.current, [latitude, longitude]];
-  //   }
-  // }, [latitude, longitude]);
 
   return (
     <div style={{ height: "900px" }}>
@@ -69,7 +93,11 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
           className="styled-select"
           onChange={(e) => {
             setCurrentLocation(e.target.value);
-            setCurrentMapTiles(e.target.value === "launch_area" ? "spaceport_america" : e.target.value);
+            setCurrentMapTiles(
+              e.target.value === "launch_area"
+                ? "spaceport_america"
+                : e.target.value
+            );
           }}
         >
           <option value="spaceport_america">Spaceport America</option>
@@ -96,11 +124,11 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
         <Marker position={locations.get("carleton")} icon={markerIcon}>
           <Popup>Carleton University</Popup>
         </Marker>
-        <PolylineComponent coordinates={coordinatesRef.current} />
+        <PolylineContainer latitude={latitude} longitude={longitude} />
         <SnapToLocation val={currentLocation} />
       </MapContainer>
     </div>
   );
-}
+};
 
-export default CoordinatesMap;
+export default React.memo(CoordinatesMap);
