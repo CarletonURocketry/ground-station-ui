@@ -62,7 +62,6 @@ function App() {
     "Linear Acceleration": <MultiLineChart telemetryData={telemetryData.linear_acceleration_rel} />,
     // "Linear Acceleration": <LineChart telemetryData={telemetryData.linear_acceleration_rel} xDataKey="mission_time" yDataKey="magnitude" />,
     "Angular Velocity": <MultiLineChart telemetryData={telemetryData.angular_velocity} />,
-    // Coordinates: <CoordinatesMap latitude={telemetryData.coordinates.latitude[0]} longitude={telemetryData.coordinates.longitude[0]} />,
   };
 console.log(telemetryData.coordinates.latitude)
   return (
