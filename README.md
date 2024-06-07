@@ -1,7 +1,8 @@
 
 # Ground Station UI
 
-Visualizes real-time telemetry data from the CUInSpace rocket. The telemetry data is parsed by the Python backend and sent to the frontend as JSON over WebSocket.
+Visualizes real-time telemetry data from the CUInSpace rocket. The telemetry data is parsed by the Python backend and sent to the frontend as JSON over WebSocket. Map data
+is provided via a self-hosted tiling server.
 ## Installation Instructions
 Pull both the front-end and back-end repos (Backend needs to be up and running for the front-end to work)
 
@@ -22,6 +23,11 @@ Install dependencies
   npm install
 ```
 
+Start tiling server (used to show interactive map)
+```bash
+  npm run tile_server SAMapTiles2
+```
+
 Start the server
 
 ```bash
@@ -35,6 +41,7 @@ Start the server
 
 **Server:** Python
 
+**Tiling Server:** Tile images provided by Mobile Atlas Creator and served using Python
 
 ## Documentation
 
@@ -49,6 +56,7 @@ To contribute to this project, please view the contribution guidelines in the pr
 ## Authors
 
 - [@SippinOnJuiceBox](https://www.github.com/sippinonjuicebox)
+- [@EliasJRH](https://github.com/EliasJRH)
 
 
 ## License
