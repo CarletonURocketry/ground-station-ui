@@ -5,11 +5,10 @@ import {
   Marker,
   Popup,
   Polyline,
-  useMapEvent,
   useMap,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
 const markerIcon = L.icon({ iconUrl: "marker-icon.png" });
 const locations = new Map();
@@ -24,27 +23,29 @@ interface CoordinatesMapProps {
 
 function SnapToLocation({ val }: { val: string }) {
   const map = useMap();
-  const location = locations.get(val) || [0,0] as LatLngExpression;
+  const location = locations.get(val) || locations.get("spaceport_america") as LatLngExpression;
   map.setView(location, map.getZoom(), {
     animate: true,
   });
   return null;
 }
 
-function CoordinatesMap({ latitude, longitude }: CoordinatesMapProps) {
-  const [coordinates, setCoordinates] = useState<[number, number][]>([
-    [latitude, longitude],
-  ]);
+const PolylineComponent = React.memo(({ coordinates }: { coordinates: [number, number][] }) => {
+  return <Polyline pathOptions={{ color: "red" }} positions={coordinates} />;
+});
+
+const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
+  console.log("RENDERING", latitude, longitude);
   const [isTracking, setIsTracking] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("spaceport_america");
   const [currentMapTiles, setCurrentMapTiles] = useState("spaceport_america");
-
-  useEffect(() => {
-    setCoordinates((prevCoordinates) => [
-      ...prevCoordinates,
-      [latitude, longitude],
-    ]);
-  }, [latitude, longitude]);
+  const coordinatesRef = useRef<[number, number][]>([[0, 0]]);
+  
+  // useEffect(() => {
+  //   if (latitude !== 0 && longitude !== 0 && latitude && longitude) {
+  //     coordinatesRef.current = [...coordinatesRef.current, [latitude, longitude]];
+  //   }
+  // }, [latitude, longitude]);
 
   return (
     <div style={{ height: "900px" }}>
@@ -84,7 +85,6 @@ function CoordinatesMap({ latitude, longitude }: CoordinatesMapProps) {
         style={{ height: "90vh" }}
       >
         <TileLayer
-          // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' should be USGS
           url={`http://localhost:8000/${currentMapTiles}/{z}/{x}/{y}.jpg`}
         />
         <Marker position={locations.get("spaceport_america")} icon={markerIcon}>
@@ -96,7 +96,7 @@ function CoordinatesMap({ latitude, longitude }: CoordinatesMapProps) {
         <Marker position={locations.get("carleton")} icon={markerIcon}>
           <Popup>Carleton University</Popup>
         </Marker>
-        <Polyline pathOptions={{ color: "red" }} positions={coordinates} />
+        <PolylineComponent coordinates={coordinatesRef.current} />
         <SnapToLocation val={currentLocation} />
       </MapContainer>
     </div>

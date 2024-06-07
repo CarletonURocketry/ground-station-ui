@@ -63,7 +63,6 @@ function App() {
     // "Linear Acceleration": <LineChart telemetryData={telemetryData.linear_acceleration_rel} xDataKey="mission_time" yDataKey="magnitude" />,
     "Angular Velocity": <MultiLineChart telemetryData={telemetryData.angular_velocity} />,
   };
-console.log(telemetryData.coordinates.latitude)
   return (
     <div className="App">
       <TopBar
