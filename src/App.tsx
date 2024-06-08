@@ -80,7 +80,7 @@ function App() {
         isEditorModeOn={false} // Change this to manage edit mode
         componentMap={componentMap}
       />
-      <CoordinatesMap latitude={telemetryData.coordinates.latitude[0]} longitude={telemetryData.coordinates.longitude[0]} />
+      <CoordinatesMap latitude={telemetryData.coordinates.latitude.at(-1) || undefined} longitude={telemetryData.coordinates.longitude.at(-1) || undefined} />
 
       <button
         onClick={() => sendCommand("telemetry replay play TestData")}
