@@ -23,8 +23,12 @@ locations.set("carleton", [
 ] as LatLngExpression);
 
 interface CoordinatesMapProps {
-  latitude: number;
-  longitude: number;
+  latitude: number | undefined;
+  longitude: number | undefined;
+}
+interface PolylineProps {
+  latitude: number | undefined;
+  longitude: number | undefined;
 }
 
 function SnapToLocation({ val }: { val: string }) {
@@ -40,7 +44,7 @@ function SnapToLocation({ val }: { val: string }) {
 
 // Container that only rerenders polyline when coordinates change
 const PolylineContainer = React.memo(
-  ({ latitude, longitude }: { latitude: number; longitude: number }) => {
+  ({ latitude, longitude }: PolylineProps) => {
     const coordinatesRef = useRef<[number, number][]>([]);
 
     useEffect(() => {
@@ -59,7 +63,7 @@ const PolylineContainer = React.memo(
 
     return (
       <Polyline
-        pathOptions={{ color: "red" }}
+        pathOptions={{ color: "#232db0", weight: 5 }}
         positions={memoizedCoordinates}
       />
     );
