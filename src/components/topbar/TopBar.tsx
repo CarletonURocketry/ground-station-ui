@@ -30,7 +30,7 @@ function TopBar({
 }: TopBarProps) {
   return (
     <div className="top-bar">
-      <div className="logo">CUInSpace logo here</div>
+      <img src="logoandtexttransparentsmol.png" className="logo-png" alt="" />
       <div className="info">
         <div className="info-item">
           <span className="label">SPACECRAFT</span>
