@@ -94,12 +94,12 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
       <MapContainer
         center={locations.get("spaceport_america")}
         zoom={16}
-        maxZoom={16}
-        minZoom={2}
+        maxZoom={20}
+        minZoom={0}
         scrollWheelZoom={false}
         style={{ height: "92%" }}
       >
-        <TileLayer url={`http://localhost:8000/{z}/{x}/{y}.png`} />
+        <TileLayer maxZoom={20} url={`http://localhost:8000/{z}/{x}/{y}.png`} />
         <Marker position={locations.get("spaceport_america")} icon={markerIcon}>
           <Popup>Spaceport America Office</Popup>
         </Marker>
