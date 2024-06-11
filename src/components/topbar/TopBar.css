@@ -61,3 +61,10 @@
     outline: none;
     border-color: var(--blue-color);
   }
+
+  .logo-png {
+    width: 70px;
+    height: auto;
+    background-color: white;
+    border-radius: 6px;
+}
