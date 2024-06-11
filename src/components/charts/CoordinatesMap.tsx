@@ -71,25 +71,12 @@ const PolylineContainer = React.memo(
 );
 
 const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
-  const [isTracking, setIsTracking] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("spaceport_america");
-  const [currentMapTiles, setCurrentMapTiles] = useState("spaceport_america");
 
   return (
-    <div style={{ height: "900px" }}>
+    <div style={{ height: "1100px", paddingLeft: "10px", paddingRight: "10px" }}>
       <p>
-        Latitude: {latitude || "No data"}, Longitude: {longitude || "No data"}{" "}
-        &nbsp;
-        <label>
-          <input
-            type="checkbox"
-            onChange={() => {
-              setIsTracking(!isTracking);
-            }}
-            checked={isTracking}
-          />
-          Track rocket
-        </label>
+        Latitude: {latitude || "No data"}, Longitude: {longitude || "No data"}
         &nbsp;{" "}
         <select
           name="ports"
@@ -97,11 +84,6 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
           className="styled-select"
           onChange={(e) => {
             setCurrentLocation(e.target.value);
-            setCurrentMapTiles(
-              e.target.value === "launch_area"
-                ? "spaceport_america"
-                : e.target.value
-            );
           }}
         >
           <option value="spaceport_america">Spaceport America</option>
@@ -111,14 +93,13 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
       </p>
       <MapContainer
         center={locations.get("spaceport_america")}
-        zoom={15}
-        maxZoom={15}
+        zoom={16}
+        maxZoom={20}
+        minZoom={0}
         scrollWheelZoom={false}
-        style={{ height: "90vh" }}
+        style={{ height: "92%" }}
       >
-        <TileLayer
-          url={`http://localhost:8000/${currentMapTiles}/{z}/{x}/{y}.jpg`}
-        />
+        <TileLayer maxZoom={20} url={`http://localhost:8000/{z}/{x}/{y}.png`} />
         <Marker position={locations.get("spaceport_america")} icon={markerIcon}>
           <Popup>Spaceport America Office</Popup>
         </Marker>

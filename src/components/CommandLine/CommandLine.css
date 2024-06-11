@@ -1,0 +1,37 @@
+.command-line {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.command-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  margin-right: 10px;
+  background-color: var(--lighter-background-color);
+  color: var(--text-color);
+}
+
+.command-input:focus {
+  outline: none;
+  border-color: var(--blue-color);
+}
+
+.send-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--red-color);
+  color: #fff;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: var(--border-hover);
+}
