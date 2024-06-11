@@ -10,6 +10,8 @@ import { ComponentPosition } from "./constants/types";
 import ComponentGrid from "./components/grid/grid";
 import CoordinatesMap from "./components/charts/CoordinatesMap";
 import MultiLineChart from "./components/charts/MultiLineChart";
+import CommandLineComponent from "./components/CommandLine/CommandLine";
+import CommandLine from "./components/CommandLine/CommandLine";
 
 const initialLayout: ComponentPosition[] = [
   { i: 'Altitude', x: 0, y: 0, w: 2, h: 2 },
@@ -18,7 +20,7 @@ const initialLayout: ComponentPosition[] = [
   { i: 'Humidity', x: 0, y: 2, w: 1, h: 2 },
   { i: 'Pressure', x: 1, y: 2, w: 1, h: 2 },
   { i: 'Temperature', x: 2, y: 2, w: 1, h: 2 },
-  { i: 'Coordinates', x: 3, y: 2, w: 1, h: 2 },
+  // { i: 'Coordinates', x: 3, y: 2, w: 1, h: 2 },
 ];
 
 function App() {
@@ -60,7 +62,6 @@ function App() {
     Pressure: <PressureGauge pressure={telemetryData.pressure.pascals[0] || 0} />,
     Temperature: <TemperatureGauge temperature={telemetryData.temperature.celsius[0] || 0} />,
     "Linear Acceleration": <MultiLineChart telemetryData={telemetryData.linear_acceleration_rel} />,
-    // "Linear Acceleration": <LineChart telemetryData={telemetryData.linear_acceleration_rel} xDataKey="mission_time" yDataKey="magnitude" />,
     "Angular Velocity": <MultiLineChart telemetryData={telemetryData.angular_velocity} />,
   };
   return (
@@ -73,20 +74,15 @@ function App() {
         inclination={inclination}
         availablePorts={availablePorts}
       />
+      <CommandLine sendCommand={sendCommand} />
       <ComponentGrid
         layout={layout}
         setLayout={setLayout}
         deleteComponent={deleteComponent}
-        isEditorModeOn={false} // Change this to manage edit mode
+        isEditorModeOn={true} // Change this to manage edit mode
         componentMap={componentMap}
       />
       <CoordinatesMap latitude={telemetryData.coordinates.latitude.at(-1) || undefined} longitude={telemetryData.coordinates.longitude.at(-1) || undefined} />
-
-      <button
-        onClick={() => sendCommand("telemetry replay play TestData")}
-      >
-        Send Command
-      </button>
     </div>
   );
 }

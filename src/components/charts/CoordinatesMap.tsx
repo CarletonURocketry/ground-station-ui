@@ -74,7 +74,7 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
   const [currentLocation, setCurrentLocation] = useState("spaceport_america");
 
   return (
-    <div style={{ height: "1100px" }}>
+    <div style={{ height: "1100px", paddingLeft: "10px", paddingRight: "10px" }}>
       <p>
         Latitude: {latitude || "No data"}, Longitude: {longitude || "No data"}
         &nbsp;{" "}
