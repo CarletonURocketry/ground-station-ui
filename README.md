@@ -5,7 +5,7 @@ sent to the frontend as JSON over WebSocket. Map data is provided via a self-hos
 
 ## Installation Instructions
 
-You will need both the front-end and back-end repos. [The backend repo can be found [here].
+You will need both the front-end and back-end repos. The backend repo can be found [here][ground-station].
 
 First clone both repositories:
 
