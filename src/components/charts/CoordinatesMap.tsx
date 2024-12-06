@@ -36,11 +36,16 @@ function SnapToLocation({ val }: { val: string }) {
   const location =
     locations.get(val) ||
     (locations.get("spaceport_america") as LatLngExpression);
-  map.setView(location, map.getZoom(), {
-    animate: true,
-  });
+  if (locChanged){
+    locChanged = false
+    map.setView(location, map.getZoom(), {
+      animate: true,
+    });
+  }
   return null;
 }
+
+let locChanged = false
 
 // Container that only rerenders polyline when coordinates change
 const PolylineContainer = React.memo(
@@ -83,6 +88,7 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
           id="ports"
           className="styled-select"
           onChange={(e) => {
+            locChanged = true
             setCurrentLocation(e.target.value);
           }}
         >
