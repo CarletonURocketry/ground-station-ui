@@ -17,6 +17,10 @@
   color: var(--text-color);
 }
 
+.command-input::placeholder {
+  color: var(--text-color-secondary);
+}
+
 .command-input:focus {
   outline: none;
   border-color: var(--blue-color);
