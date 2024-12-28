@@ -64,14 +64,14 @@ code {
   --lighter-background-color-light: #ffffff;
   --text-color-light: #000000;
   --border-color-light: #ece3e3;
-  --border-hover-light: rgba(232, 33, 39, 0.5);
+  --border-hover-light: rgba(232, 33, 40, 0.768);
   --text-color-secondary-light: #4e3f3f;
 
   --background-color-dark: #0E0E0E;
   --lighter-background-color-dark: #161616;
   --text-color-dark: #FFFFFF;
   --border-color-dark: rgba(255, 255, 255, 0.1);
-  --border-hover-dark: rgba(232, 33, 39, 0.5);
+  --border-hover-dark: rgba(232, 33, 40, 0.768);
   --text-color-secondary-dark: #8d8d8d;
 
   --background-color: light-dark(var(--background-color-light), var(--background-color-dark));
