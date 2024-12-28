@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./TopBar.css";
+import Switch from "react-switch";
 
 interface TopBarProps {
   spacecraft?: string;
@@ -61,9 +62,37 @@ function TopBar({
             ))}
           </select>
         </div>
+        <div className="theme-switch">
+          {ThemeSwitch()}
+        </div>
       </div>
     </div>
   );
+}
+
+function ThemeSwitch() {
+  const [isLightTheme, setIsLightTheme] = useState(true)
+
+  function handleSwitchChange() {
+    setIsLightTheme(!isLightTheme);
+    if (isLightTheme) {
+      document.documentElement.classList.add("light-mode");
+    }
+    else {
+      document.documentElement.classList.remove("light-mode");
+    }
+  }
+
+  return (
+    <Switch onChange={handleSwitchChange} checked={isLightTheme}
+      offColor="#00B5E2"
+      offHandleColor="#f7f749"
+      onColor="#265396"
+      onHandleColor="#ebe9bd"
+      uncheckedIcon={false}
+      checkedIcon={false}
+    />
+  )
 }
 
 export default TopBar;

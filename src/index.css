@@ -59,16 +59,36 @@ code {
 }
 
 :root {
-  --background-color: #0E0E0E;
-  --lighter-background-color: #161616;
+  color-scheme: dark;
+  --background-color-light: #faf7f7;
+  --lighter-background-color-light: #ffffff;
+  --text-color-light: #000000;
+  --border-color-light: #ece3e3;
+  --border-hover-light: rgba(232, 33, 39, 0.5);
+
+  --background-color-dark: #0E0E0E;
+  --lighter-background-color-dark: #161616;
+  --text-color-dark: #FFFFFF;
+  --border-color-dark: rgba(255, 255, 255, 0.1);
+  --border-hover-dark: rgba(232, 33, 39, 0.5);
+
+  --background-color: light-dark(var(--background-color-light), var(--background-color-dark));
+  --lighter-background-color: light-dark(var(--lighter-background-color-light), var(--lighter-background-color-dark));
+  --text-color: light-dark(var(--text-color-light), var(--text-color-dark));
+  --border-color: light-dark(var(--border-color-light), var(--border-color-dark));
+  --border-hover: light-dark(var(--border-hover-light), var(--border-hover-dark));
+
   --red-color: #E82127;
   --green-color: #25CB55;
   --yellow-color: #FFBD0A;
   --blue-color: #007BE4;
-  --text-color: #FFFFFF;
   --text-dark-color: #8d8d8d;
-  --shadow-light: rgba(0, 0, 0, 0.1);
+
+  --shadow-small: rgba(0, 0, 0, 0.1);
   --shadow-medium: rgba(0, 0, 0, 0.06);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-hover: rgba(232, 33, 39, 0.5);
+}
+
+
+.light-mode {
+  color-scheme: light;
 }
