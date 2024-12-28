@@ -24,7 +24,7 @@
 
 .label {
     font-size: 0.8em;
-    color: #ccc;
+    color: var(--text-color-secondary);
 }
 
 .value {
