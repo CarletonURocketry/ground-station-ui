@@ -11,31 +11,40 @@ function TemperatureGauge({ temperature }: TemperatureGaugeProps) {
       {({ width, height }) => (
         <GaugeComponent
           // style={{width: '0.5vw', height: '0.5wv'}}
-          type="semicircle"
+          type="radial"
           arc={{
-            width: 0.2,
-            padding: 0.005,
-            cornerRadius: 1,
-            gradient: true,
+            width: 0.3,
+            padding: 0.01,
+            cornerRadius: 2,
             subArcs: [
               {
-                limit: -6,
-                color: '#5BE12C',
+                limit: -5,
+                color: '#14ff3a',
                 showTick: true
               },
               {
-                limit: 8,
-                color: '#F5CD19',
+                limit: 10,
+                color: '#8ce200',
                 showTick: true
               },
               {
-                limit: 22,
-                color: '#F5CD19',
+                limit: 25,
+                color: '#bdc000',
                 showTick: true
               },
               {
-                limit: 36,
-                color: '#EA4228',
+                limit: 40,
+                color: '#dd9b00',
+                showTick: true
+              },
+              {
+                limit: 55,
+                color: '#f56e00',
+                showTick: true
+              },
+              {
+                limit: 70,
+                color: '#ff3114',
                 showTick: true
               },
               { color: '#EA4228' }
@@ -55,10 +64,11 @@ function TemperatureGauge({ temperature }: TemperatureGaugeProps) {
               type: 'outer',
               //   valueConfig: { formatTextValue: (value: string) => value + 'ºC', fontSize: 10 },
               ticks: [
-                { value: -6 },
-                { value: 8 },
-                { value: 22 },
-                { value: 36 },
+                { value: -5 },
+                { value: 10 },
+                { value: 25 },
+                { value: 40 },
+                { value: 55 },
               ],
               defaultTickLineConfig: {
                 color: "var(--text-color-secondary)"
@@ -70,7 +80,7 @@ function TemperatureGauge({ temperature }: TemperatureGaugeProps) {
           }}
           value={temperature}
           minValue={-20}
-          maxValue={50}
+          maxValue={70}
         />
       )}
     </ParentSize>
