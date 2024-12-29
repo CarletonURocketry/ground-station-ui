@@ -7,12 +7,11 @@ interface HumidityGaugeProps {
 function HumidityGauge({ humidity }: HumidityGaugeProps) {
   return (
     <GaugeComponent
-      type="semicircle"
+      type="radial"
       arc={{
-        width: 0.2,
-        padding: 0.005,
-        cornerRadius: 1,
-        gradient: true,
+        width: 0.3,
+        padding: 0.01,
+        cornerRadius: 2,
         subArcs: [
           {
             limit: 25,
