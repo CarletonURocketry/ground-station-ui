@@ -53,7 +53,6 @@ function TemperatureGauge({ temperature }: TemperatureGaugeProps) {
             },
             tickLabels: {
               type: 'outer',
-              //   valueConfig: { formatTextValue: (value: string) => value + 'ºC', fontSize: 10 },
               ticks: [
                 { value: -6 },
                 { value: 8 },
