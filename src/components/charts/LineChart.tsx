@@ -75,17 +75,17 @@ function LineChart<T extends { [key: string]: number[] }>({
               />
               <AxisLeft
                 scale={yScale}
-                stroke="var(--text-dark-color)"
-                tickStroke="var(--text-dark-color)"
+                stroke="var(--text-color-secondary)"
+                tickStroke="var(--text-color-secondary)"
                 tickLabelProps={() => ({
-                  fill: "var(--text-dark-color)",
+                  fill: "var(--text-color-secondary)",
                   fontSize: 11,
                   textAnchor: 'end',
                   dy: '0.33em',
                 })}
                 label={String(yDataKey)}
                 labelProps={{
-                  fill: "var(--text-dark-color)",
+                  fill: "var(--text-color-secondary)",
                   fontSize: 12,
                   textAnchor: 'middle',
                 }}
@@ -93,16 +93,16 @@ function LineChart<T extends { [key: string]: number[] }>({
               <AxisBottom
                 top={yMax}
                 scale={xScale}
-                stroke="var(--text-dark-color)"
-                tickStroke="var(--text-dark-color)"
+                stroke="var(--text-color-secondary)"
+                tickStroke="var(--text-color-secondary)"
                 tickLabelProps={() => ({
-                  fill: "var(--text-dark-color)",
+                  fill: "var(--text-color-secondary)",
                   fontSize: 11,
                   textAnchor: 'middle',
                 })}
                 label={String(xDataKey)}
                 labelProps={{
-                  fill: "var(--text-dark-color)",
+                  fill: "var(--text-color-secondary)",
                   fontSize: 12,
                   textAnchor: 'middle',
                 }}

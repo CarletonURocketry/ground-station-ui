@@ -149,17 +149,17 @@ function MultiLineChart({ telemetryData }: MultiLineChartProps) {
                 )}
                 <AxisLeft
                   scale={yScale}
-                  stroke="var(--text-dark-color)"
-                  tickStroke="var(--text-dark-color)"
+                  stroke="var(--text-color-secondary)"
+                  tickStroke="var(--text-color-secondary)"
                   tickLabelProps={() => ({
-                    fill: "var(--text-dark-color)",
+                    fill: "var(--text-color-secondary)",
                     fontSize: 11,
                     textAnchor: "end",
                     dy: "0.33em",
                   })}
                   label="Values"
                   labelProps={{
-                    fill: "var(--text-dark-color)",
+                    fill: "var(--text-color-secondary)",
                     fontSize: 12,
                     textAnchor: "middle",
                   }}
@@ -167,16 +167,16 @@ function MultiLineChart({ telemetryData }: MultiLineChartProps) {
                 <AxisBottom
                   top={yMax}
                   scale={xScale}
-                  stroke="var(--text-dark-color)"
-                  tickStroke="var(--text-dark-color)"
+                  stroke="var(--text-color-secondary)"
+                  tickStroke="var(--text-color-secondary)"
                   tickLabelProps={() => ({
-                    fill: "var(--text-dark-color)",
+                    fill: "var(--text-color-secondary)",
                     fontSize: 11,
                     textAnchor: "middle",
                   })}
                   label="Mission Time"
                   labelProps={{
-                    fill: "var(--text-dark-color)",
+                    fill: "var(--text-color-secondary)",
                     fontSize: 12,
                     textAnchor: "middle",
                   }}
