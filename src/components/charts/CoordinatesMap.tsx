@@ -2,8 +2,11 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import Map from "react-map-gl/maplibre";
 import { Canvas } from "react-three-map/maplibre";
 import { Sphere, ScreenSizer } from "@react-three/drei";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useControls } from "leva";
+import { useLoader } from "@react-three/fiber";
+import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
 
 // Define location interface
 interface Location {
@@ -50,6 +53,13 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
       max: 100,
       step: 0.1,
       label: "Sphere Size (m)",
+    },
+    rotation: {
+      value: 0,
+      min: 0,
+      max: Math.PI * 2,
+      step: 0.1,
+      label: "Rotation",
     },
   });
 
@@ -145,8 +155,12 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
             args={["#ffffff", "#60666C"]}
             position={[1, 4.5, 3]}
           />
+          <ambientLight intensity={0.8} />
+          <spotLight position={[10, 15, 10]} intensity={1.5} />
           <ScreenSizer position={[0, values.altitude, 0]} scale={1}>
-            <Sphere args={[values.sphereSize / 2]} material-color="orange" />
+            {/* <Sphere args={[values.sphereSize / 2]} material-color="orange" /> */}
+            {/* <OBJModel scale={values.sphereSize} /> */}
+            <RocketModel scale={values.sphereSize} rotation={values.rotation} />
           </ScreenSizer>
           <axesHelper args={[10]} />
         </Canvas>
@@ -156,6 +170,32 @@ const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
 };
 
 export default React.memo(CoordinatesMap);
+
+function OBJModel({ scale = 1, rotation = 0 }) {
+  const materials = useLoader(MTLLoader, "/models/rockets/corona/Corona.mtl");
+  const obj = useLoader(
+    OBJLoader,
+    "/models/rockets/corona/Corona.obj",
+    (loader) => {
+      materials.preload();
+      loader.setMaterials(materials);
+    }
+  );
+  return <primitive object={obj} scale={[scale, scale, scale]} />;
+}
+
+function RocketModel({ scale = 1, rotation = 0 }) {
+  const materials = useLoader(MTLLoader, "/models/rockets/corona/Corona.mtl");
+  const obj = useLoader(
+    OBJLoader,
+    "/models/rockets/corona/Corona.obj",
+    (loader) => {
+      materials.preload();
+      loader.setMaterials(materials);
+    }
+  );
+  return <primitive object={obj} scale={[scale, scale, scale]} />;
+}
 
 // const CoordinatesMap = ({ latitude, longitude }: CoordinatesMapProps) => {
 //   const [currentLocation, setCurrentLocation] = useState("spaceport_america");
