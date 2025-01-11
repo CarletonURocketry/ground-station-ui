@@ -44,10 +44,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "tile_server": "python3 -m http.server -d"
+    "tile_server": "python3 -m http.server -d",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "serve": "serve -s build",
+    "start:prod": "npm run build && npm run serve"
   },
   "eslintConfig": {
     "extends": [

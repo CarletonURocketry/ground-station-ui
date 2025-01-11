@@ -34,4 +34,6 @@ COPY tsconfig.json ./
 COPY public/ ./public
 COPY src/ ./src
 
+npm run build
+
 CMD ["npm", "run", "start"]
