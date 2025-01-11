@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import GaugeComponent from 'react-gauge-component';
 
 interface HumidityGaugeProps {
-    humidity: number;
+  humidity: number;
 }
-function HumidityGauge({humidity}: HumidityGaugeProps) {
+function HumidityGauge({ humidity }: HumidityGaugeProps) {
   return (
     <GaugeComponent
       type="semicircle"
@@ -14,22 +14,22 @@ function HumidityGauge({humidity}: HumidityGaugeProps) {
         cornerRadius: 1,
         gradient: true,
         subArcs: [
-            {
-                limit: 25,
-                color: '#bde7ff',
-                showTick: true
-              },
-              {
-                limit: 50,
-                color: '#6bb9fb',
-                showTick: true
-              },
-              {
-                limit: 75,
-                color: '#1a86f5',
-                showTick: true
-              },
-              { color: '#004de3' }
+          {
+            limit: 25,
+            color: '#bde7ff',
+            showTick: true
+          },
+          {
+            limit: 50,
+            color: '#6bb9fb',
+            showTick: true
+          },
+          {
+            limit: 75,
+            color: '#1a86f5',
+            showTick: true
+          },
+          { color: '#004de3' }
         ]
       }}
       pointer={{
@@ -38,17 +38,27 @@ function HumidityGauge({humidity}: HumidityGaugeProps) {
         width: 15,
       }}
       labels={{
-        valueLabel: { formatTextValue: value => value + '% (RH)' },
+        valueLabel: {
+          formatTextValue: value => value + '% (RH)',
+          style: { fill: "var(--text-color)", textShadow: "none" }
+        },
         tickLabels: {
           type: 'outer',
-        //   valueConfig: { formatTextValue: (value: string) => value + 'ºC', fontSize: 10 },
+          //   valueConfig: { formatTextValue: (value: string) => value + 'ºC', fontSize: 10 },
           ticks: [
             { value: 25 },
             { value: 50 },
             { value: 75 },
           ],
-        }
-      }}
+          defaultTickLineConfig: {
+            color: "var(--text-color-secondary)"
+          },
+          defaultTickValueConfig: {
+            style: { fill: "var(--text-color-secondary)", textShadow: "none" }
+          }
+        },
+      }
+      }
       value={humidity}
       minValue={0}
       maxValue={100}
