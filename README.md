@@ -1,50 +1,69 @@
-# React + TypeScript + Vite
+# Ground Station UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based dashboard for monitoring and controlling rocket telemetry data.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Real-time telemetry visualization
+- Command interface for rocket control
+- Interactive charts and gauges
+- Websocket communication
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Node.js (v18+)
+- npm or bun
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone the repository
+   ```
+   git clone <repository-url>
+   cd ground-station-ui
+   ```
+
+2. Install dependencies
+   ```
+   npm install
+   # or
+   bun install
+   ```
+
+3. Start the development server
+   ```
+   npm run dev
+   # or
+   bun run dev
+   ```
+
+4. Open [http://localhost:5173](http://localhost:5173) to view the UI
+
+## Development Commands
+
+```
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run lint     # Run ESLint
+npm run preview  # Preview production build
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Tech Stack
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- Visx (data visualization)
+- WebSockets
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Directory Structure
+
+- `/src` - Source code
+  - `/components` - React components
+  - `/contexts` - React contexts
+  - `/hooks` - Custom hooks
+  - `/constants` - Configuration constants
+
+## License
+
+[Add license information]
