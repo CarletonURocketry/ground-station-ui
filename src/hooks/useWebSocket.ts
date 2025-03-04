@@ -1,12 +1,5 @@
 import { useState, useEffect } from "react";
-
-interface WebSocketData {
-  org: string;
-  rocket: string;
-  version: string;
-  status: any;
-  telemetry: any;
-}
+import { WebSocketData } from "../constants/websocket";
 
 /**
  * Custom hook to manage WebSocket connections.
@@ -37,7 +30,9 @@ const useWebSocket = (url: string) => {
     const ws = new WebSocket(url);
 
     ws.onopen = () => {
+      console.log("WebSocket Connected"); // Add this log
       setSocket(ws);
+      setError(null); // Clear any previous errors
     };
 
     ws.onmessage = (event) => {
@@ -50,10 +45,15 @@ const useWebSocket = (url: string) => {
     };
 
     ws.onerror = (event) => {
-      setError(event);
+      console.log("WebSocket error:", event); // Add this log
+      // Only set error if we don't have a socket
+      if (!socket) {
+        setError(event);
+      }
     };
 
     ws.onclose = () => {
+      console.log("WebSocket closed"); // Add this log
       setSocket(null);
     };
 
@@ -65,10 +65,11 @@ const useWebSocket = (url: string) => {
   const sendCommand = (command: string) => {
     if (socket && socket.readyState === WebSocket.OPEN) {
       socket.send(command);
+      return true;
     }
+    return false;
   };
 
-  return { data, error, sendCommand };
+  return { data, error, sendCommand, isConnected: !!socket };
 };
-
 export default useWebSocket;

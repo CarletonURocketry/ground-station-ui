@@ -1,79 +1,109 @@
-import { ParentSize } from '@visx/responsive';
-import React, { useState, useEffect } from 'react';
-import GaugeComponent from 'react-gauge-component';
+import React from "react";
+import { useGauge } from "use-gauge";
 
 interface TemperatureGaugeProps {
   temperature: number;
 }
+
 function TemperatureGauge({ temperature }: TemperatureGaugeProps) {
+  const {
+    ticks,
+    getTickProps,
+    getLabelProps,
+    valueToAngle,
+    angleToValue,
+    getArcProps,
+    getNeedleProps,
+    getSVGProps,
+  } = useGauge({
+    startAngle: 90,
+    endAngle: 270,
+    numTicks: 11,
+    diameter: 300,
+    domain: [-20, 50],
+  });
+
+  const arcOffset = 8;
+  const arcStrokeWidth = 24;
+  const tickLength = 10;
+  const needleBaseRadius = 12;
+  const needleTipRadius = 2;
+  const needleOffset = 35;
+
+  const { tip, base, points } = getNeedleProps({
+    value: temperature,
+    baseRadius: needleBaseRadius,
+    tipRadius: needleTipRadius,
+    offset: needleOffset,
+  });
+
+  const getTemperatureColor = (temp: number) => {
+    if (temp <= 0) return "#3B82F6";
+    if (temp <= 25) return "#10B981";
+    return "#EF4444";
+  };
+
   return (
-    <ParentSize>
-      {({ width, height }) => (
-        <GaugeComponent
-          // style={{width: '0.5vw', height: '0.5wv'}}
-          type="semicircle"
-          arc={{
-            width: 0.2,
-            padding: 0.005,
-            cornerRadius: 1,
-            gradient: true,
-            subArcs: [
-              {
-                limit: -6,
-                color: '#5BE12C',
-                showTick: true
-              },
-              {
-                limit: 8,
-                color: '#F5CD19',
-                showTick: true
-              },
-              {
-                limit: 22,
-                color: '#F5CD19',
-                showTick: true
-              },
-              {
-                limit: 36,
-                color: '#EA4228',
-                showTick: true
-              },
-              { color: '#EA4228' }
-            ]
-          }}
-          pointer={{
-            color: '#000000',
-            length: 0.80,
-            width: 15,
-          }}
-          labels={{
-            valueLabel: {
-              formatTextValue: value => value + 'ºC',
-              style: { fill: "var(--text-color)", textShadow: "none" }
-            },
-            tickLabels: {
-              type: 'outer',
-              ticks: [
-                { value: -6 },
-                { value: 8 },
-                { value: 22 },
-                { value: 36 },
-              ],
-              defaultTickLineConfig: {
-                color: "var(--text-color-secondary)"
-              },
-              defaultTickValueConfig: {
-                style: { fill: "var(--text-color-secondary)", textShadow: "none" }
-              }
-            }
-          }}
-          value={temperature}
-          minValue={-20}
-          maxValue={50}
+    <div className="w-full h-full flex items-center justify-center">
+      <svg {...getSVGProps()} className="max-w-full overflow-visible">
+        {/* Background Arc */}
+        <path
+          {...getArcProps({
+            offset: arcOffset,
+            startAngle: 90,
+            endAngle: 270,
+          })}
+          fill="none"
+          className="stroke-stone-100"
+          strokeWidth={arcStrokeWidth}
+          strokeLinecap="round"
         />
-      )}
-    </ParentSize>
+
+        {/* Temperature Arc */}
+        <path
+          {...getArcProps({
+            offset: arcOffset,
+            startAngle: 90,
+            endAngle: valueToAngle(temperature),
+          })}
+          fill="none"
+          stroke={getTemperatureColor(temperature)}
+          strokeWidth={arcStrokeWidth}
+          strokeLinecap="round"
+        />
+
+        {/* Ticks and Labels */}
+        <g id="ticks">
+          {ticks.map((angle) => {
+            const value = angleToValue(angle);
+            return (
+              <React.Fragment key={`tick-group-${angle}`}>
+                <line
+                  className="stroke-stone-300"
+                  {...getTickProps({ angle, length: tickLength })}
+                />
+                <text
+                  className="text-sm fill-stone-500 font-medium"
+                  {...getLabelProps({ angle, offset: 20 })}
+                >
+                  {value}°C
+                </text>
+              </React.Fragment>
+            );
+          })}
+        </g>
+
+        {/* Needle */}
+        <g id="needle">
+          <circle className="fill-stone-300" {...base} r={24} />
+          <circle className="fill-stone-700" {...base} />
+          <circle className="fill-stone-700" {...tip} />
+          <polyline className="fill-stone-700" points={points} />
+          <circle className="fill-white" {...base} r={4} />
+        </g>
+      </svg>
+    </div>
   );
 }
 
-export default TemperatureGauge
+export default TemperatureGauge;

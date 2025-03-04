@@ -85,19 +85,3 @@ export interface WebSocketData {
     };
   };
 }
-
-export interface VelocityData {
-  mission_time: number[];
-  x: number[];
-  y: number[];
-  z: number[];
-  [key: string]: number[];
-}
-
-export interface ComponentPosition {
-  i: string;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-}
