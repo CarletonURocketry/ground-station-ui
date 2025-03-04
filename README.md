@@ -63,7 +63,3 @@ npm run preview  # Preview production build
   - `/contexts` - React contexts
   - `/hooks` - Custom hooks
   - `/constants` - Configuration constants
-
-## License
-
-[Add license information]
