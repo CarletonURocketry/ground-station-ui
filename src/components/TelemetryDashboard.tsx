@@ -1,4 +1,3 @@
-import React from "react";
 import { useWebSocketContext } from "../contexts/WebsocketContext";
 import Card from "./Card";
 import LineChart from "./charts/LineChart";

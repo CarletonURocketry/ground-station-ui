@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ParentSize } from "@visx/responsive";
 import { AxisLeft, AxisBottom } from "@visx/axis";
 import { curveMonotoneX } from "@visx/curve";

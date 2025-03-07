@@ -1,5 +1,5 @@
 // LineChart.tsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ParentSize } from "@visx/responsive";
 import { AxisBottom, AxisLeft } from "@visx/axis";
 import { curveMonotoneX } from "@visx/curve";

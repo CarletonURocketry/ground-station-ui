@@ -1,6 +1,6 @@
-import React, { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode } from "react";
 import { WebSocketData } from "../constants/websocket";
-import useWebSocket from "../hooks/useWebsocket";
+import useWebSocket from "../hooks/useWebSocket";
 
 interface WebSocketContextType {
   data: WebSocketData | null;
