@@ -50,7 +50,6 @@ function TelemetryHeader() {
 						/>
 					</div>
 
-					{/* Telemetry Values - Grid on mobile, Flex on desktop */}
 					<div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:items-center gap-4 md:gap-8">
 						<TelemetryValue
 							label="SPACECRAFT"
@@ -64,7 +63,7 @@ function TelemetryHeader() {
 						<TelemetryValue label="ALTITUDE" value={getAltitude()} />
 						<TelemetryValue label="INCLINATION" value="No data" />
 
-						{/* Console Identifier */}
+						{/* Console */}
 						<div className="col-span-2 sm:col-span-3 md:col-span-1 md:ml-4">
 							<div className="flex items-center space-x-2 border border-[#D8DADA] px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-sm md:text-base">
 								<span>{getAvailablePorts()}</span>

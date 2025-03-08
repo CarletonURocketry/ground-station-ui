@@ -1,5 +1,12 @@
 import * as React from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import {
+	MapContainer,
+	TileLayer,
+	Marker,
+	Popup,
+	useMap,
+	Polyline,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import {
@@ -9,11 +16,10 @@ import {
 	IconMaximize,
 	IconMinimize,
 } from "@tabler/icons-react";
+import { useMapContext } from "../contexts/MapContext";
+import rocketIcon from "../assets/rocket.svg";
 
-// Fix for default marker icons in React Leaflet
-// This is needed because the default markers use relative URLs that don't work in React
 function fixLeafletMarker() {
-	// Set the icon URLs directly instead of using delete
 	L.Icon.Default.mergeOptions({
 		iconRetinaUrl:
 			"https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
@@ -22,7 +28,16 @@ function fixLeafletMarker() {
 	});
 }
 
-// Custom map controls component
+function MapAutoFollow({ position }: { position: [number, number] }) {
+	const map = useMap();
+
+	React.useEffect(() => {
+		map.setView(position, map.getZoom());
+	}, [map, position]);
+
+	return null;
+}
+
 function MapControls({ center }: { center: [number, number] }) {
 	const map = useMap();
 	const [isFullscreen, setIsFullscreen] = React.useState(false);
@@ -36,7 +51,7 @@ function MapControls({ center }: { center: [number, number] }) {
 	};
 
 	const handleRecenter = () => {
-		map.setView(center, map.getZoom());
+		map.setView(center, map.getZoom(), { animate: true });
 	};
 
 	const toggleFullscreen = () => {
@@ -108,7 +123,6 @@ function MapControls({ center }: { center: [number, number] }) {
 	);
 }
 
-// Define more specific types for the telemetry data
 interface AccelerationData {
 	mission_time: number[];
 	x: number[];
@@ -122,7 +136,6 @@ interface CoordinatesData {
 	mission_time: number[];
 }
 
-// Define the telemetry data structure to match what's actually provided
 interface TelemetryData {
 	last_mission_time?: number;
 	altitude_sea_level?: {
@@ -140,7 +153,7 @@ interface TelemetryData {
 	linear_acceleration_rel?: AccelerationData;
 	angular_velocity?: AccelerationData;
 	coordinates?: CoordinatesData;
-	[key: string]: unknown; // Allow for other properties with a more specific type than 'any'
+	[key: string]: unknown;
 }
 
 interface MapViewProps {
@@ -148,19 +161,23 @@ interface MapViewProps {
 	zoom?: number;
 	telemetryData?: TelemetryData;
 	className?: string;
+	useLocalTiles?: boolean;
 }
 
 function MapView({
 	center = [51.505, -0.09],
-	zoom = 13,
+	zoom = 18,
 	telemetryData,
 	className = "",
+	useLocalTiles = false,
 }: MapViewProps) {
 	React.useEffect(() => {
 		fixLeafletMarker();
 	}, []);
 
-	// Use coordinates from telemetry data if available
+	// get path positions and addPathPosition function from context
+	const { pathPositions, addPathPosition } = useMapContext();
+
 	const position: [number, number] = React.useMemo(() => {
 		const latitude = telemetryData?.coordinates?.latitude;
 		const longitude = telemetryData?.coordinates?.longitude;
@@ -176,6 +193,30 @@ function MapView({
 		return center;
 	}, [telemetryData, center]);
 
+	// update path history when position changes
+	React.useEffect(() => {
+		if (position[0] !== center[0] || position[1] !== center[1]) {
+			addPathPosition(position);
+		}
+	}, [position, center, addPathPosition]);
+
+	const pathOptions = {
+		color: "blue",
+		weight: 5,
+		opacity: 0.7,
+		smoothFactor: 1,
+	};
+
+	// Create custom rocket icon
+	const customIcon = React.useMemo(() => {
+		return new L.Icon({
+			iconUrl: rocketIcon,
+			iconSize: [32, 32],
+			iconAnchor: [16, 16],
+			popupAnchor: [0, -16],
+		});
+	}, []);
+
 	return (
 		<div className={`w-full h-full ${className} relative map-container`}>
 			<MapContainer
@@ -186,11 +227,22 @@ function MapView({
 				zoomControl={false} // Disable default zoom control
 				attributionControl={true} // Keep attribution control
 			>
-				<TileLayer
-					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-				/>
-				<Marker position={position}>
+				{useLocalTiles ? (
+					<TileLayer maxZoom={20} url="http://localhost:8000/{z}/{x}/{y}.png" />
+				) : (
+					<TileLayer
+						maxZoom={20}
+						attribution=""
+						url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+					/>
+				)}
+
+				{/* Draw the path line */}
+				{pathPositions.length > 1 && (
+					<Polyline positions={pathPositions} pathOptions={pathOptions} />
+				)}
+
+				<Marker position={position} icon={customIcon}>
 					<Popup>
 						Current Position
 						{telemetryData?.coordinates && (
@@ -202,6 +254,7 @@ function MapView({
 					</Popup>
 				</Marker>
 				<MapControls center={position} />
+				<MapAutoFollow position={position} />
 			</MapContainer>
 		</div>
 	);
