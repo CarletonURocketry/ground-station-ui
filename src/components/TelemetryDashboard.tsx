@@ -27,7 +27,7 @@ function TelemetryDashboard() {
 	}
 
 	return (
-		<div className="flex-1 bg-white p-6 rounded-lg border border-[#D8DADA] flex flex-col h-full">
+		<div className="flex-1 bg-white p-6 rounded-lg border border-[#D8DADA] flex flex-col">
 			<TabSwitcher
 				activeTab={activeTab}
 				tabs={tabs}
@@ -44,7 +44,7 @@ function TelemetryDashboard() {
 			)}
 
 			{activeTab === "dashboard" && (
-				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 h-full">
+				<div className="grid grid-cols-1 md:grid-cols-4 xl:grid-cols-4 gap-6 h-full">
 					{/* Full width items */}
 					<div className="md:col-span-2">
 						<Card title="Altitude">
