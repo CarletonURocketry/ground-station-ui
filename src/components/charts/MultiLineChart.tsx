@@ -160,30 +160,32 @@ function MultiLineChart({ telemetryData }: MultiLineChartProps) {
 								</g>
 							</svg>
 
-							<div className="absolute left-0 right-0 flex justify-center border border-[#D8DADA]  bg-[#F1F0EE] p-1 rounded-lg">
-								{legendData.map((item, index) => (
-									<div
-										key={index}
-										className="flex items-center mr-4 cursor-pointer hover:bg-[#E6E6E5] active:bg-[#D8DADA] py-1 px-2 rounded-sm"
-										onClick={() => handleLegendClick(item.key)}
-									>
+							<div className="absolute left-0 right-0 bottom-0 sm:bottom-auto border border-[#D8DADA] bg-[#F1F0EE] p-1 rounded-lg mx-1 sm:mx-0">
+								<div className="flex flex-wrap justify-center">
+									{legendData.map((item, index) => (
 										<div
-											className="w-3 h-3 mr-1 rounded-sm"
-											style={{
-												backgroundColor: item.color,
-												opacity: visibleLines.includes(item.key) ? 1 : 0.3,
-											}}
-										/>
-										<span
-											className="text-sm"
-											style={{
-												opacity: visibleLines.includes(item.key) ? 1 : 0.3,
-											}}
+											key={index}
+											className="flex items-center mr-2 sm:mr-4 mb-1 sm:mb-0 cursor-pointer hover:bg-[#E6E6E5] active:bg-[#D8DADA] py-1 px-1.5 sm:px-2 rounded-sm"
+											onClick={() => handleLegendClick(item.key)}
 										>
-											{item.label}
-										</span>
-									</div>
-								))}
+											<div
+												className="w-2 h-2 sm:w-3 sm:h-3 mr-1 rounded-sm flex-shrink-0"
+												style={{
+													backgroundColor: item.color,
+													opacity: visibleLines.includes(item.key) ? 1 : 0.3,
+												}}
+											/>
+											<span
+												className="text-xs sm:text-sm whitespace-nowrap"
+												style={{
+													opacity: visibleLines.includes(item.key) ? 1 : 0.3,
+												}}
+											>
+												{item.label}
+											</span>
+										</div>
+									))}
+								</div>
 							</div>
 						</div>
 					);

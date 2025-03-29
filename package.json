@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview --host"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@tabler/icons-react": "^3.31.0",
@@ -15,6 +15,7 @@
     "@types/leaflet": "^1.9.16",
     "@visx/axis": "^3.12.0",
     "@visx/visx": "^3.12.0",
+    "cmdk": "^1.1.1",
     "leaflet": "^1.9.4",
     "leva": "^0.10.0",
     "react": "^18.3.1",
