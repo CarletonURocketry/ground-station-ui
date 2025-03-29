@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Command } from "cmdk";
 import {
 	IconCommand,
-	IconSearch,
 	IconX,
 	IconTerminal,
 	IconDeviceDesktop,
@@ -11,7 +10,6 @@ import {
 	IconPlayerPause,
 	IconPlayerPlay,
 	IconPlayerStop,
-	IconArrowLeft,
 } from "@tabler/icons-react";
 
 interface CommandDialogProps {
@@ -124,7 +122,6 @@ function CommandDialog({
 	onOpenChange,
 	onCommandSelect,
 }: CommandDialogProps) {
-	const [search, setSearch] = useState("");
 	const [selectedCommand, setSelectedCommand] = useState<string | null>(null);
 	const [inputValue, setInputValue] = useState("");
 	const [commandWithInput, setCommandWithInput] = useState<{
@@ -133,10 +130,9 @@ function CommandDialog({
 		placeholder: string;
 	} | null>(null);
 
-	// Reset search and input when dialog closes
+	// Reset input when dialog closes
 	useEffect(() => {
 		if (!open) {
-			setSearch("");
 			setInputValue("");
 			setSelectedCommand(null);
 			setCommandWithInput(null);
@@ -163,16 +159,6 @@ function CommandDialog({
 	function handleBackdropKeyDown(event: React.KeyboardEvent) {
 		if (event.key === "Enter" || event.key === " ") {
 			onOpenChange(false);
-		}
-	}
-
-	function handleClearSearch() {
-		setSearch("");
-	}
-
-	function handleClearSearchKeyDown(event: React.KeyboardEvent) {
-		if (event.key === "Enter" || event.key === " ") {
-			setSearch("");
 		}
 	}
 

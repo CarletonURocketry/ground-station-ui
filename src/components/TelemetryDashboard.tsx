@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useWebSocketContext } from "../contexts/WebsocketContext";
+import { useWebSocketContext } from "../contexts/WebSocketContext";
 import Card from "./Card";
 import LineChart from "./charts/LineChart";
 import MultiLineChart from "./charts/MultiLineChart";

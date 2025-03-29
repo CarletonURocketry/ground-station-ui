@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { WebSocketData } from "../constants/websocket";
+import type { WebSocketData } from "../constants/websocket";
 
 /**
  * Custom hook to manage WebSocket connections.
@@ -22,54 +22,55 @@ import { WebSocketData } from "../constants/websocket";
  * };
  */
 const useWebSocket = (url: string) => {
-  const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [data, setData] = useState<WebSocketData | null>(null);
-  const [error, setError] = useState<Event | null>(null);
+	const [socket, setSocket] = useState<WebSocket | null>(null);
+	const [data, setData] = useState<WebSocketData | null>(null);
+	const [error, setError] = useState<Event | null>(null);
 
-  useEffect(() => {
-    const ws = new WebSocket(url);
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		const ws = new WebSocket(url);
 
-    ws.onopen = () => {
-      console.log("WebSocket Connected"); // Add this log
-      setSocket(ws);
-      setError(null); // Clear any previous errors
-    };
+		ws.onopen = () => {
+			console.log("WebSocket Connected"); // Add this log
+			setSocket(ws);
+			setError(null); // Clear any previous errors
+		};
 
-    ws.onmessage = (event) => {
-      try {
-        const parsedData: WebSocketData = JSON.parse(event.data);
-        setData(parsedData);
-      } catch (e) {
-        console.error("Error parsing WebSocket data:", e);
-      }
-    };
+		ws.onmessage = (event) => {
+			try {
+				const parsedData: WebSocketData = JSON.parse(event.data);
+				setData(parsedData);
+			} catch (e) {
+				console.error("Error parsing WebSocket data:", e);
+			}
+		};
 
-    ws.onerror = (event) => {
-      console.log("WebSocket error:", event); // Add this log
-      // Only set error if we don't have a socket
-      if (!socket) {
-        setError(event);
-      }
-    };
+		ws.onerror = (event) => {
+			console.log("WebSocket error:", event); // Add this log
+			// Only set error if we don't have a socket
+			if (!socket) {
+				setError(event);
+			}
+		};
 
-    ws.onclose = () => {
-      console.log("WebSocket closed"); // Add this log
-      setSocket(null);
-    };
+		ws.onclose = () => {
+			console.log("WebSocket closed"); // Add this log
+			setSocket(null);
+		};
 
-    return () => {
-      ws.close();
-    };
-  }, [url]);
+		return () => {
+			ws.close();
+		};
+	}, [url]);
 
-  const sendCommand = (command: string) => {
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      socket.send(command);
-      return true;
-    }
-    return false;
-  };
+	const sendCommand = (command: string) => {
+		if (socket && socket.readyState === WebSocket.OPEN) {
+			socket.send(command);
+			return true;
+		}
+		return false;
+	};
 
-  return { data, error, sendCommand, isConnected: !!socket };
+	return { data, error, sendCommand, isConnected: !!socket };
 };
 export default useWebSocket;

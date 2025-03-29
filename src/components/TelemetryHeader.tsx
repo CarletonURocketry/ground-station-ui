@@ -1,5 +1,5 @@
-import { useWebSocketContext } from "../contexts/WebsocketContext";
 import { IconCommand } from "@tabler/icons-react";
+import { useWebSocketContext } from "../contexts/WebSocketContext";
 
 interface TelemetryValueProps {
 	label: string;
@@ -86,7 +86,7 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
 						<div className="flex items-center space-x-2 border border-[#D8DADA] px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-sm md:text-base">
 							<span>{getAvailablePorts()}</span>
 						</div>
-						
+
 						{/* Command Palette Button */}
 						<button
 							type="button"

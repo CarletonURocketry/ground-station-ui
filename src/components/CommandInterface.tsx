@@ -7,7 +7,7 @@ import {
 	useImperativeHandle,
 	forwardRef,
 } from "react";
-import { useWebSocketContext } from "../contexts/WebsocketContext";
+import { useWebSocketContext } from "../contexts/WebSocketContext";
 
 interface CommandHistoryItem {
 	command: string;
@@ -20,7 +20,10 @@ export interface CommandInterfaceHandle {
 	sendCommandFromDialog: (command: string) => void;
 }
 
-function CommandInterface(_: unknown, ref: React.ForwardedRef<CommandInterfaceHandle>) {
+function CommandInterface(
+	_: unknown,
+	ref: React.ForwardedRef<CommandInterfaceHandle>,
+) {
 	const [command, setCommand] = useState("");
 	const [commandHistory, setCommandHistory] = useState<CommandHistoryItem[]>(
 		[],
@@ -45,13 +48,13 @@ function CommandInterface(_: unknown, ref: React.ForwardedRef<CommandInterfaceHa
 
 				// Send the command through WebSocket
 				sendCommand(trimmedCommand);
-				
+
 				// Refocus input after submission
 				if (inputRef.current) {
 					inputRef.current.focus();
 				}
 			}
-		}
+		},
 	}));
 
 	// Handle WebSocket errors, but clear them when we get new data
