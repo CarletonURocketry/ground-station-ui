@@ -1,11 +1,11 @@
-import React, { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
+import type { WebSocketData } from "../constants/websocket";
 import useWebSocket from "../hooks/useWebSocket";
-import { WebSocketData } from "../constants/types";
 
 interface WebSocketContextType {
-  data: WebSocketData | null;
-  error: Event | null;
-  sendCommand: (command: string) => void;
+	data: WebSocketData | null;
+	error: Event | null;
+	sendCommand: (command: string) => void;
 }
 
 const WebSocketContext = createContext<WebSocketContextType | null>(null);
@@ -16,11 +16,13 @@ const WebSocketContext = createContext<WebSocketContextType | null>(null);
  * @returns {WebSocketContextType} The WebSocket context value.
  */
 export const useWebSocketContext = () => {
-  const context = useContext(WebSocketContext);
-  if (!context) {
-    throw new Error("useWebSocketContext must be used within a WebSocketProvider");
-  }
-  return context;
+	const context = useContext(WebSocketContext);
+	if (!context) {
+		throw new Error(
+			"useWebSocketContext must be used within a WebSocketProvider",
+		);
+	}
+	return context;
 };
 
 /**
@@ -30,18 +32,17 @@ export const useWebSocketContext = () => {
  * @returns {JSX.Element} The rendered WebSocketProvider component.
  */
 export const WebSocketProvider = ({
-  children,
-  url,
+	children,
+	url,
 }: {
-  children: ReactNode;
-  url: string;
+	children: ReactNode;
+	url: string;
 }) => {
-  const { data, error, sendCommand } = useWebSocket(url);
+	const { data, error, sendCommand } = useWebSocket(url);
 
-  return (
-    <WebSocketContext.Provider value={{ data, error, sendCommand }}>
-      {children}
-    </WebSocketContext.Provider>
-  );
+	return (
+		<WebSocketContext.Provider value={{ data, error, sendCommand }}>
+			{children}
+		</WebSocketContext.Provider>
+	);
 };
-
