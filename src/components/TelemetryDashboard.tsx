@@ -50,8 +50,8 @@ function TelemetryDashboard() {
 						<Card title="Altitude">
 							<LineChart
 								telemetryData={telemetryData.altitude_launch_level}
-								xDataKey="mission_time"
-								yDataKey="metres"
+								xDataKey="Mission time (s)"
+								yDataKey="Altitude (m)"
 							/>
 						</Card>
 					</div>
@@ -59,14 +59,19 @@ function TelemetryDashboard() {
 					<div className="md:col-span-2">
 						<Card title="Linear Acceleration">
 							<MultiLineChart
-								telemetryData={telemetryData.linear_acceleration_rel}
+								telemetryData={telemetryData.linear_acceleration}
+								xDataKey="Mission time (s)"
+								yDataKey="Linear Acceleration (m/s^2)"
 							/>
 						</Card>
 					</div>
 
 					<div className="md:col-span-2">
 						<Card title="Angular Velocity">
-							<MultiLineChart telemetryData={telemetryData.angular_velocity} />
+							<MultiLineChart telemetryData={telemetryData.angular_velocity} 
+								xDataKey="Mission time (s)"
+								yDataKey="Angular Velocity (°/s)"
+							/>
 						</Card>
 					</div>
 

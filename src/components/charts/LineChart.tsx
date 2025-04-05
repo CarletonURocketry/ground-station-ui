@@ -8,8 +8,8 @@ import { LinePath } from "@visx/shape";
 
 interface LineChartProps<T> {
 	telemetryData: T;
-	xDataKey: keyof T;
-	yDataKey: keyof T;
+	xDataKey: string;
+	yDataKey: string;
 }
 
 function LineChart<T extends { [key: string]: number[] }>({
