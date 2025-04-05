@@ -59,7 +59,7 @@ function TelemetryDashboard() {
 					<div className="md:col-span-2">
 						<Card title="Linear Acceleration">
 							<MultiLineChart
-								telemetryData={telemetryData.linear_acceleration_rel}
+								telemetryData={telemetryData.linear_acceleration}
 							/>
 						</Card>
 					</div>
