@@ -13,9 +13,11 @@ interface MultiLineChartProps {
 		z: number[];
 		magnitude?: number[];
 	};
+	xDataKey: string;
+	yDataKey: string;
 }
 
-function MultiLineChart({ telemetryData }: MultiLineChartProps) {
+function MultiLineChart({ telemetryData, xDataKey, yDataKey }: MultiLineChartProps) {
 	const [xValues, setXValues] = useState<number[]>([]);
 	const [yValues, setYValues] = useState<number[]>([]);
 	const [zValues, setZValues] = useState<number[]>([]);
@@ -133,7 +135,7 @@ function MultiLineChart({ telemetryData }: MultiLineChartProps) {
 											textAnchor: "end",
 											dy: "0.33em",
 										})}
-										label="Values"
+										label={yDataKey}
 										labelProps={{
 											fill: "#949492",
 											fontSize: 12,
@@ -150,7 +152,7 @@ function MultiLineChart({ telemetryData }: MultiLineChartProps) {
 											fontSize: 11,
 											textAnchor: "middle",
 										})}
-										label="Mission Time"
+										label={xDataKey}
 										labelProps={{
 											fill: "#949492",
 											fontSize: 12,
