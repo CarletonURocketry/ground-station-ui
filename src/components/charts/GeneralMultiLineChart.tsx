@@ -106,7 +106,6 @@ function GeneralMultiLineChart({
           });
 
           let lineItems: any[] = [];
-          let legendItems: any[] = [];
           let ind = 0;
           dataMap.forEach(
             (value: number[], key: string, _map: Map<string, number[]>) => {
@@ -120,37 +119,45 @@ function GeneralMultiLineChart({
                     }))}
                     x={(d) => xScale(d.x)}
                     y={(d) => yScale(d.y)}
-                    stroke={lineColors[ind]}
+                    stroke={lineColors[ind++]}
                     strokeWidth={2}
                     curve={curveMonotoneX}
                   />
                 )
               );
-              legendItems.push(
-                <div
-                  key={ind}
-                  className="flex items-center mr-2 sm:mr-4 mb-1 sm:mb-0 cursor-pointer hover:bg-[#E6E6E5] active:bg-[#D8DADA] py-1 px-1.5 sm:px-2 rounded-sm"
-                  onClick={() => handleLegendClick(key)}
-                >
-                  <div
-                    className="w-2 h-2 sm:w-3 sm:h-3 mr-1 rounded-sm flex-shrink-0"
-                    style={{
-                      backgroundColor: lineColors[ind++],
-                      opacity: visibleLines.includes(key) ? 1 : 0.3,
-                    }}
-                  />
-                  <span
-                    className="text-xs sm:text-sm whitespace-nowrap"
-                    style={{
-                      opacity: visibleLines.includes(key) ? 1 : 0.3,
-                    }}
-                  >
-                    {key.length === 1 ? key[0].toUpperCase() + " Axis" : key[0].toUpperCase() + key.slice(1)}
-                  </span>
-                </div>
-              );
             }
           );
+
+          let legendItems: any[] = [];
+          dataKeys.forEach((key, ind) => {
+            legendItems.push(
+              <div
+                key={ind}
+                className="flex items-center mr-2 sm:mr-4 mb-1 sm:mb-0 cursor-pointer hover:bg-[#E6E6E5] active:bg-[#D8DADA] py-1 px-1.5 sm:px-2 rounded-sm"
+                onClick={() => handleLegendClick(key)}
+              >
+                <div
+                  className="w-2 h-2 sm:w-3 sm:h-3 mr-1 rounded-sm flex-shrink-0"
+                  style={{
+                    backgroundColor: lineColors[ind++],
+                    opacity: visibleLines.includes(key) ? 1 : 0.3,
+                  }}
+                />
+                <span
+                  className="text-xs sm:text-sm whitespace-nowrap"
+                  style={{
+                    opacity: visibleLines.includes(key) ? 1 : 0.3,
+                  }}
+                >
+                  {key.length === 1
+                    ? key[0].toUpperCase() + " Axis"
+                    : key[0].toUpperCase() + key.slice(1)}
+                </span>
+              </div>
+            );
+          });
+
+          console.log(legendItems);
 
           return (
             <div className="relative w-full h-full">
