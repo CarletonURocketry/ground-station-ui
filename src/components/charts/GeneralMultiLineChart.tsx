@@ -70,12 +70,12 @@ function GeneralMultiLineChart({
     Math.max(...(Array.from(dataMap.values()).flat() as number[])),
   ];
 
-  const legendData = [
-    { label: "X Axis", color: "#E63030", key: "x" },
-    { label: "Y Axis", color: "#2467EC", key: "y" },
-    { label: "Z Axis", color: "#56AA67", key: "z" },
-    { label: "Magnitude", color: "#D9990C", key: "magnitude" },
-  ];
+  // const legendData = [
+  //   { label: "X Axis", color: "#E63030", key: "x" },
+  //   { label: "Y Axis", color: "#2467EC", key: "y" },
+  //   { label: "Z Axis", color: "#56AA67", key: "z" },
+  //   { label: "Magnitude", color: "#D9990C", key: "magnitude" },
+  // ];
 
   const handleLegendClick = (key: string) => {
     if (visibleLines.length === 1 && visibleLines.includes(key)) {
@@ -128,24 +128,24 @@ function GeneralMultiLineChart({
               );
               legendItems.push(
                 <div
-                  key={ind++}
+                  key={ind}
                   className="flex items-center mr-2 sm:mr-4 mb-1 sm:mb-0 cursor-pointer hover:bg-[#E6E6E5] active:bg-[#D8DADA] py-1 px-1.5 sm:px-2 rounded-sm"
-                  onClick={() => handleLegendClick(item.key)}
+                  onClick={() => handleLegendClick(key)}
                 >
                   <div
                     className="w-2 h-2 sm:w-3 sm:h-3 mr-1 rounded-sm flex-shrink-0"
                     style={{
-                      backgroundColor: item.color,
-                      opacity: visibleLines.includes(item.key) ? 1 : 0.3,
+                      backgroundColor: lineColors[ind++],
+                      opacity: visibleLines.includes(key) ? 1 : 0.3,
                     }}
                   />
                   <span
                     className="text-xs sm:text-sm whitespace-nowrap"
                     style={{
-                      opacity: visibleLines.includes(item.key) ? 1 : 0.3,
+                      opacity: visibleLines.includes(key) ? 1 : 0.3,
                     }}
                   >
-                    {item.label}
+                    {key.length === 1 ? key[0].toUpperCase() + " Axis" : key[0].toUpperCase() + key.slice(1)}
                   </span>
                 </div>
               );
@@ -240,7 +240,7 @@ function GeneralMultiLineChart({
 
               <div className="absolute left-0 right-0 bottom-0 sm:bottom-auto border border-[#D8DADA] bg-[#F1F0EE] p-1 rounded-lg mx-1 sm:mx-0">
                 <div className="flex flex-wrap justify-center">
-                  {legendData.map((item, index) => (
+                  {/* {legendData.map((item, index) => (
                     <div
                       key={index}
                       className="flex items-center mr-2 sm:mr-4 mb-1 sm:mb-0 cursor-pointer hover:bg-[#E6E6E5] active:bg-[#D8DADA] py-1 px-1.5 sm:px-2 rounded-sm"
@@ -262,7 +262,8 @@ function GeneralMultiLineChart({
                         {item.label}
                       </span>
                     </div>
-                  ))}
+                  ))} */}
+                  {legendItems}
                 </div>
               </div>
             </div>
