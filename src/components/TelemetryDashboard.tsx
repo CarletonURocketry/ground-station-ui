@@ -3,6 +3,7 @@ import { useWebSocketContext } from "../contexts/WebSocketContext";
 import Card from "./Card";
 import LineChart from "./charts/LineChart";
 import MultiLineChart from "./charts/MultiLineChart";
+import GeneralMultiLineChart from "./charts/GeneralMultiLineChart";
 import PressureGauge from "./charts/PressureGauge";
 import TemperatureGauge from "./charts/TemperatureGauge";
 import TabSwitcher from "./TabSwitcher";
@@ -49,17 +50,19 @@ function TelemetryDashboard() {
 					<div className="md:col-span-2">
 						<Card title="Altitude">
 							<LineChart
-								telemetryData={telemetryData.altitude_launch_level}
-								xDataKey="mission_time"
-								yDataKey="metres"
+								telemetryData={telemetryData.altitude_sea_level}
+								xDataKey="Mission time (s)"
+								yDataKey="Altitude (m)"
 							/>
 						</Card>
 					</div>
 
 					<div className="md:col-span-2">
 						<Card title="Linear Acceleration">
-							<MultiLineChart
-								telemetryData={telemetryData.linear_acceleration_rel}
+							<GeneralMultiLineChart
+								telemetryData={telemetryData.linear_acceleration}
+								xDataLabel="Mission time (s)"
+								yDataLabel="Linear Acceleration (m/s^2)"
 							/>
 						</Card>
 					</div>
