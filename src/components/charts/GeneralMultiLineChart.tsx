@@ -10,8 +10,8 @@ interface GeneralMultiLineChartProps {
     mission_time: number[];
     [key: string]: number[]; // Allow variable fields, but mission_time is required
   };
-  xDataLabel: string;
-  yDataLabel: string;
+  xAxisLabel: string;
+  yAxisLabel: string;
 }
 
 // If we ever need more colors, more can be added
@@ -19,8 +19,8 @@ const lineColors = ["#E63030", "#2467EC", "#56AA67", "#D9990C"];
 
 function GeneralMultiLineChart({
   telemetryData,
-  xDataLabel,
-  yDataLabel,
+  xAxisLabel,
+  yAxisLabel,
 }: GeneralMultiLineChartProps) {
   const [xValues, setXValues] = useState<number[]>([]);
   const [dataKeys, setDataKeys] = useState<string[]>([]);
@@ -128,7 +128,7 @@ function GeneralMultiLineChart({
                 >
                   {key.length === 1
                     ? key[0].toUpperCase() + " Axis"
-                    : key[0].toUpperCase() + key.slice(1)}
+                    : key[0].toUpperCase() + key.slice(1).replace("_", " ")}
                 </span>
               </div>
             );
@@ -151,7 +151,7 @@ function GeneralMultiLineChart({
                       textAnchor: "end",
                       dy: "0.33em",
                     })}
-                    label={yDataLabel}
+                    label={yAxisLabel}
                     labelProps={{
                       fill: "#949492",
                       fontSize: 12,
@@ -168,7 +168,7 @@ function GeneralMultiLineChart({
                       fontSize: 11,
                       textAnchor: "middle",
                     })}
-                    label={xDataLabel}
+                    label={xAxisLabel}
                     labelProps={{
                       fill: "#949492",
                       fontSize: 12,

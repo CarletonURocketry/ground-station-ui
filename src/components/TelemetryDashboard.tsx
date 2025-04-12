@@ -59,10 +59,10 @@ function TelemetryDashboard() {
 
 					<div className="md:col-span-2">
 						<Card title="Linear Acceleration">
-							<GeneralMultiLineChart
+							<MultiLineChart
 								telemetryData={telemetryData.linear_acceleration}
-								xDataLabel="Mission time (s)"
-								yDataLabel="Linear Acceleration (m/s^2)"
+								xDataKey="Mission time (s)"
+								yDataKey="Linear Acceleration (m/s^2)"
 							/>
 						</Card>
 					</div>
