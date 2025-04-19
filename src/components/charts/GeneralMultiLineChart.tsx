@@ -69,7 +69,7 @@ function GeneralMultiLineChart({
     <div className="w-full h-full">
       <ParentSize>
         {({ width, height }) => {
-          const margin = { top: 20, right: 30, bottom: 60, left: 50 };
+          const margin = { top: 20, right: 30, bottom: 60, left: 65 };
           const xMax = width - margin.left - margin.right;
           const yMax = height - margin.top - margin.bottom;
 
@@ -133,8 +133,6 @@ function GeneralMultiLineChart({
               </div>
             );
           });
-
-          console.log(legendItems);
 
           return (
             <div className="relative w-full h-full">
