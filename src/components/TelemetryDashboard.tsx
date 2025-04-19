@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useWebSocketContext } from "../contexts/WebSocketContext";
 import Card from "./Card";
-import LineChart from "./charts/LineChart";
-import MultiLineChart from "./charts/MultiLineChart";
+import GeneralMultiLineChart from "./charts/GeneralMultiLineChart";
 import GuageComponent from "./charts/GuageComponent";
 import TabSwitcher from "./TabSwitcher";
 import MapView from "./Map";
@@ -70,29 +69,29 @@ function TelemetryDashboard() {
 					{/* Full width items */}
 					<div className="md:col-span-2">
 						<Card title="Altitude">
-							<LineChart
+							<GeneralMultiLineChart
 								telemetryData={telemetryData.altitude_launch_level}
-								xDataKey="Mission time (s)"
-								yDataKey="Altitude (m)"
+								xAxisLabel="Mission time (s)"
+								yAxisLabel="Altitude (m)"
 							/>
 						</Card>
 					</div>
 
 					<div className="md:col-span-2">
 						<Card title="Linear Acceleration">
-							<MultiLineChart
+							<GeneralMultiLineChart
 								telemetryData={telemetryData.linear_acceleration}
-								xDataKey="Mission time (s)"
-								yDataKey="Linear Acceleration (m/s^2)"
+								xAxisLabel="Mission time (s)"
+								yAxisLabel="Linear Acceleration (m/s^2)"
 							/>
 						</Card>
 					</div>
 
 					<div className="md:col-span-2">
 						<Card title="Angular Velocity">
-							<MultiLineChart telemetryData={telemetryData.angular_velocity} 
-								xDataKey="Mission time (s)"
-								yDataKey="Angular Velocity (°/s)"
+							<GeneralMultiLineChart telemetryData={telemetryData.angular_velocity} 
+								xAxisLabel="Mission time (s)"
+								yAxisLabel="Angular Velocity (°/s)"
 							/>
 						</Card>
 					</div>
