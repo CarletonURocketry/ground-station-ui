@@ -45,6 +45,20 @@ export interface WebSocketData {
 			metres: number[];
 			feet: number[];
 		};
+		linear_acceleration: {
+      mission_time: number[];
+      x: number[];
+      y: number[];
+      z: number[];
+      magnitude: number[];
+    }
+		angular_velocity: {
+			mission_time: number[];
+			x: number[];
+			y: number[];
+			z: number[];
+			magnitude: number[];
+		};
 		temperature: {
 			mission_time: number[];
 			celsius: number[];
@@ -52,27 +66,6 @@ export interface WebSocketData {
 		pressure: {
 			mission_time: number[];
 			pascals: number[];
-		};
-		linear_acceleration_rel: {
-			mission_time: number[];
-			x: number[];
-			y: number[];
-			z: number[];
-			magnitude: number[];
-		};
-		linear_acceleration_abs: {
-			mission_time: number[];
-			x: number[];
-			y: number[];
-			z: number[];
-			magnitude: number[];
-		};
-		angular_velocity: {
-			mission_time: number[];
-			x: number[];
-			y: number[];
-			z: number[];
-			magnitude: number[];
 		};
 		humidity: {
 			mission_time: number[];
