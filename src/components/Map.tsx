@@ -123,43 +123,16 @@ function MapControls({ center }: { center: [number, number] }) {
 	);
 }
 
-interface AccelerationData {
-	mission_time: number[];
-	x: number[];
-	y: number[];
-	z: number[];
-}
-
 interface CoordinatesData {
+	mission_time: number[];
 	latitude: number[];
 	longitude: number[];
-	mission_time: number[];
-}
-
-interface TelemetryData {
-	last_mission_time?: number;
-	altitude_sea_level?: {
-		mission_time: number[];
-		metres: number[];
-		feet: number[];
-	};
-	altitude_launch_level?: {
-		mission_time: number[];
-		metres: number[];
-		feet: number[];
-	};
-	temperature?: { celsius: number[] };
-	pressure?: { pascals: number[] };
-	linear_acceleration_rel?: AccelerationData;
-	angular_velocity?: AccelerationData;
-	coordinates?: CoordinatesData;
-	[key: string]: unknown;
 }
 
 interface MapViewProps {
 	center?: [number, number];
 	zoom?: number;
-	telemetryData?: TelemetryData;
+	telemetryData?: CoordinatesData;
 	className?: string;
 	useLocalTiles?: boolean;
 }
@@ -179,8 +152,8 @@ function MapView({
 	const { pathPositions, addPathPosition } = useMapContext();
 
 	const position: [number, number] = React.useMemo(() => {
-		const latitude = telemetryData?.coordinates?.latitude;
-		const longitude = telemetryData?.coordinates?.longitude;
+		const latitude = telemetryData?.latitude;
+		const longitude = telemetryData?.longitude;
 
 		if (latitude && longitude && latitude.length > 0 && longitude.length > 0) {
 			// Get the latest coordinates
@@ -245,7 +218,7 @@ function MapView({
 				<Marker position={position} icon={customIcon}>
 					<Popup>
 						Current Position
-						{telemetryData?.coordinates && (
+						{telemetryData && (
 							<div>
 								<p>Lat: {position[0].toFixed(6)}</p>
 								<p>Lng: {position[1].toFixed(6)}</p>
