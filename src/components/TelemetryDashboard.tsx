@@ -59,7 +59,7 @@ function TelemetryDashboard() {
 				<div className="flex-1 h-[calc(100%-3rem)] flex flex-col">
 					<h2 className="text-lg font-semibold mb-4">Location Map</h2>
 					<div className="flex-1">
-						<MapView telemetryData={telemetryData} />
+						<MapView telemetryData={telemetryData.gnss} />
 					</div>
 				</div>
 			)}
