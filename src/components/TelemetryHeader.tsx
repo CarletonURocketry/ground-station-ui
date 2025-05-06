@@ -1,5 +1,6 @@
 import { IconCommand } from "@tabler/icons-react";
 import { useWebSocketContext } from "../contexts/WebSocketContext";
+import inspaceLogo from "../assets/logoandtexttransparent.png"
 
 interface TelemetryValueProps {
 	label: string;
@@ -59,12 +60,12 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
 	return (
 		<header className="rounded-lg bg-white border-b border-[#D8DADA] p-4">
 			<div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-				{/* Logo */}
+				
 				<div className="flex items-center space-x-2">
 					<img
-						src="/api/placeholder/40/40"
-						alt="Logo"
-						className="h-8 md:h-10"
+						src={inspaceLogo}
+						alt="CUInSpace Logo"
+						className="h-12 md:h-14"
 					/>
 				</div>
 
