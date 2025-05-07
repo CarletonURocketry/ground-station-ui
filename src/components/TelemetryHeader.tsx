@@ -24,6 +24,18 @@ function TelemetryValue({ label, value }: TelemetryValueProps) {
 
 function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
 	const { data } = useWebSocketContext();
+	let apogee: number = -1;
+
+	const getApogee = () => {
+		if (!data?.telemetry?.altitude_launch_level?.metres) return "No data";
+		const latestAltitude = data.telemetry.altitude_launch_level.metres[0];
+		if (latestAltitude === undefined){
+			return "No data"
+		} else {
+			apogee = Math.max(apogee, latestAltitude)
+			return apogee
+		}
+	}
 
 	const getAltitude = () => {
 		if (!data?.telemetry?.altitude_launch_level?.metres) return "No data";
@@ -80,6 +92,7 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
 					/>
 					<TelemetryValue label="MISSION TIME" value={getMissionTime()} />
 					<TelemetryValue label="ALTITUDE" value={getAltitude()} />
+					<TelemetryValue label="APOGEE" value={getApogee()} />
 					<TelemetryValue label="INCLINATION" value="No data" />
 
 					{/* Console */}
