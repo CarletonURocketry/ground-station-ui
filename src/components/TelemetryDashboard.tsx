@@ -65,33 +65,14 @@ function TelemetryDashboard() {
 			)}
 
 			{activeTab === "dashboard" && (
-				<div className="grid grid-cols-1 md:grid-cols-4 xl:grid-cols-4 gap-6 h-full">
+				<div className="grid grid-cols-1 md:grid-cols-6 xl:grid-cols-6 gap-6 h-full">
 					{/* Full width items */}
-					<div className="md:col-span-2">
+					<div className="md:col-span-3">
 						<Card title="Altitude">
 							<GeneralMultiLineChart
 								telemetryData={telemetryData.altitude_launch_level}
 								xAxisLabel="Mission time (s)"
 								yAxisLabel="Altitude (m)"
-							/>
-						</Card>
-					</div>
-
-					<div className="md:col-span-2">
-						<Card title="Linear Acceleration">
-							<GeneralMultiLineChart
-								telemetryData={telemetryData.linear_acceleration}
-								xAxisLabel="Mission time (s)"
-								yAxisLabel="Linear Acceleration (m/s^2)"
-							/>
-						</Card>
-					</div>
-
-					<div className="md:col-span-2">
-						<Card title="Angular Velocity">
-							<GeneralMultiLineChart telemetryData={telemetryData.angular_velocity} 
-								xAxisLabel="Mission time (s)"
-								yAxisLabel="Angular Velocity (°/s)"
 							/>
 						</Card>
 					</div>
@@ -142,6 +123,34 @@ function TelemetryDashboard() {
 									/>
 								</div>
 							</div>
+						</Card>
+					</div>
+
+					<div className="md:col-span-2">
+						<Card title="Linear Acceleration">
+							<GeneralMultiLineChart
+								telemetryData={telemetryData.linear_acceleration}
+								xAxisLabel="Mission time (s)"
+								yAxisLabel="Linear Acceleration (m/s^2)"
+							/>
+						</Card>
+					</div>
+
+					<div className="md:col-span-2">
+						<Card title="Angular Velocity">
+							<GeneralMultiLineChart telemetryData={telemetryData.angular_velocity} 
+								xAxisLabel="Mission time (s)"
+								yAxisLabel="Angular Velocity (°/s)"
+							/>
+						</Card>
+					</div>
+
+					<div className="md:col-span-2">
+						<Card title="Magnetic Field Strength">
+							<GeneralMultiLineChart telemetryData={telemetryData.magnetic_field} 
+								xAxisLabel="Mission time (s)"
+								yAxisLabel="Micro Teslas (μT)"
+							/>
 						</Card>
 					</div>
 				</div>
