@@ -1,50 +1,25 @@
-# React + TypeScript + Vite
+# Ground Station UI
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the UI for CUInSpace's telemetry backend. It is a React application bundled using Vite and connects to our [Python ground station](https://github.com/CarletonURocketry/ground-station) using web sockets.
 
-Currently, two official plugins are available:
+<!-- TODO: Get a better picture with live data -->
+![Up-to-date screenshot of the telemetry dashboard in an idle state](public/telem-dashboard.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+The ground station UI comes complete with features such as:
+- Dynamic scatter plots for displaying altitude and IMU data over time
+- Guage components for displaying live temperature, pressure and humidity data
+- A command palette for ease-of-use in our launch console
+- A 2D satellite imagery map for tracking the rockets location
+- (*Coming soon*) A 3D satellite imagery map for tracking the rockets location and altitude 
 
-## Expanding the ESLint configuration
+<!-- TODO: Add a side by side view of the 2d and 3d maps -->
+<!-- Refer to this: https://stackoverflow.com/questions/24319505/how-can-one-display-images-side-by-side-in-a-github-readme-md -->
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Installation & Quick Start
+The ground station UI by itself isn't all that useful as it requires the [ground station backend](https://github.com/CarletonURocketry/ground-station) to obtain data and replay past missions. The recommended method of deploying both the ground station UI and backend is described in the [ground-station-complete repository](https://github.com/CarletonURocketry/ground-station-complete) which uses docker containers and deploys an optimized version of the frontend. That being said, if you'd just like to checkout the frontend, here are the steps to take:
+1. Ensure that you have an up-to-date version of Node or Bun installed (we normally use the latter)
+2. Clone this repository and navigate into the cloned directory
+3. Install dependencies with `bun install`
+4. Launch the development server using `bun run dev`
