@@ -23,3 +23,10 @@ The ground station UI by itself isn't all that useful as it requires the [ground
 2. Clone this repository and navigate into the cloned directory
 3. Install dependencies with `bun install`
 4. Launch the development server using `bun run dev`
+
+## Contribution
+To contribute to this project, please view the contribution guidelines in the project's GitHub wiki. Note that contributions are currently limited to *Carleton University students or CUInSpace members*.
+
+## Authors
+- Eshan Betrabet
+- Elias Hawa
