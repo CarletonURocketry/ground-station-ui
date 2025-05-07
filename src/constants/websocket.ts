@@ -71,10 +71,26 @@ export interface WebSocketData {
 			mission_time: number[];
 			percentage: number[];
 		};
-		coordinates: {
-			mission_time: number[];
-			latitude: number[];
-			longitude: number[];
-		};
+		gnss: {
+			mission_time: number[],
+			latitude: number[],
+			longitude: number[]
+		},
+		sats_in_use: {
+			mission_time: number[],
+			gps: [[], []],
+			glonass: [[], []]
+		},
+		voltage: {
+			[key: string]: number[];
+			mission_time: number[]
+		}
+		magnetic_field: {
+			mission_time: number[],
+			x: number[],
+			y: number[],
+			z: number[],
+			magnitude: number[],
+		}
 	};
 }
