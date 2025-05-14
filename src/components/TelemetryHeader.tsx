@@ -47,7 +47,7 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
 
 	const getMissionTime = () => {
 		if (!data?.telemetry?.last_mission_time) return "No data";
-		return `T+${(data.telemetry.last_mission_time / 1000).toFixed(3)}s`;
+		return `T+${(data.telemetry.last_mission_time).toFixed(3)}s`;
 	};
 
 	const getAvailablePorts = () => {
