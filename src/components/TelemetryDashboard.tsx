@@ -70,7 +70,7 @@ function TelemetryDashboard() {
 					<div className="md:col-span-3">
 						<Card title="Altitude">
 							<GeneralMultiLineChart
-								telemetryData={telemetryData.altitude_launch_level}
+								telemetryData={telemetryData.altitude_sea_level}
 								xAxisLabel="Mission time (s)"
 								yAxisLabel="Altitude (m)"
 							/>

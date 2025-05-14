@@ -97,12 +97,13 @@ function GeneralMultiLineChart({
                     }))}
                     x={(d) => xScale(d.x)}
                     y={(d) => yScale(d.y)}
-                    stroke={lineColors[ind++]}
+                    stroke={lineColors[ind]}
                     strokeWidth={2}
                     curve={curveMonotoneX}
                   />
                 )
               );
+              ind++
             }
           );
 
