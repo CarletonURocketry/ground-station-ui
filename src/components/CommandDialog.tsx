@@ -31,6 +31,20 @@ interface CommandItem {
 const COMMANDS: Record<string, CommandItem[]> = {
 	main: [
 		{
+			id: "authenticate",
+			label: "Authenticate",
+			command: "auth",
+			description: "Authenticate as controlling user (required to issue commands)",
+			needsInput: true,
+			placeholder: "<password>"
+		},
+		{
+			id: "deauthenticate",
+			label: "Deauthenticate",
+			command: "deauth",
+			description: "Deauthenticate (can only be done if authenticated as controlling user)"
+		},
+		{
 			id: "shutdown",
 			label: "Shutdown",
 			command: "shutdown",
