@@ -191,7 +191,7 @@ function MapView({
 	}, []);
 
 	return (
-		<div className={`w-full h-full ${className} relative map-container`}>
+		<div className={`w-full h-full ${className} z-50 relative map-container`}>
 			<MapContainer
 				center={position}
 				zoom={zoom}
