@@ -55,106 +55,102 @@ function TelemetryDashboard() {
 				onTabChange={setActiveTab}
 			/>
 
-			{activeTab === "map" && (
-				<div className="flex-1 h-[calc(100%-3rem)] flex flex-col">
-					<h2 className="text-lg font-semibold mb-4">Location Map</h2>
-					<div className="flex-1">
-						<MapView telemetryData={telemetryData.gnss} />
-					</div>
+			<div style={{display: activeTab === "map" ? "flex" : "none" }} className="flex-1 h-[calc(100%-3rem)] flex flex-col">
+				<h2 className="text-lg font-semibold mb-4">Location Map</h2>
+				<div className="flex-1">
+					<MapView telemetryData={telemetryData.gnss} />
 				</div>
-			)}
+			</div>
 
-			{activeTab === "dashboard" && (
-				<div className="grid grid-cols-1 md:grid-cols-6 xl:grid-cols-6 gap-6 h-full">
-					{/* Full width items */}
-					<div className="md:col-span-3">
-						<Card title="Altitude">
-							<GeneralMultiLineChart
-								telemetryData={telemetryData.altitude_sea_level}
-								xAxisLabel="Mission time (s)"
-								yAxisLabel="Altitude (m)"
-							/>
-						</Card>
-					</div>
-
-					{/* Half width gauge items */}
-					<div className="md:col-span-1">
-						<Card title="Temperature">
-							<div className="w-full h-full p-4 flex items-center justify-center">
-								<div className="w-full max-w-[200px]">
-									<GuageComponent
-										guageValue={telemetryData.temperature.celsius[0] || 0}
-										domainLow={-20}
-										domainHigh={50}
-										gaugeColorFunc={getTemperatureColor}
-										valueLabel="°C"
-									/>
-								</div>
-							</div>
-						</Card>
-					</div>
-
-					<div className="md:col-span-1">
-						<Card title="Pressure">
-							<div className="w-full h-full p-4 flex items-center justify-center">
-								<div className="w-full max-w-[200px]">
-									<GuageComponent
-										guageValue={telemetryData.pressure.pascals[0] / 1000 || 60}
-										domainLow={60}
-										domainHigh={270}
-										gaugeColorFunc={getPressureColor}
-										valueLabel="kPa"
-									/>
-								</div>
-							</div>
-						</Card>
-					</div>
-
-					<div className="md:col-span-1">
-						<Card title="Humidity">
-							<div className="w-full h-full p-4 flex items-center justify-center">
-								<div className="w-full max-w-[200px]">
-									<GuageComponent
-										guageValue={telemetryData.humidity.percentage[0] || 0}
-										domainLow={0}
-										domainHigh={100}
-										gaugeColorFunc={getHumidityColor}
-										valueLabel="%"
-									/>
-								</div>
-							</div>
-						</Card>
-					</div>
-
-					<div className="md:col-span-2">
-						<Card title="Linear Acceleration">
-							<GeneralMultiLineChart
-								telemetryData={telemetryData.linear_acceleration}
-								xAxisLabel="Mission time (s)"
-								yAxisLabel="Linear Acceleration (m/s^2)"
-							/>
-						</Card>
-					</div>
-
-					<div className="md:col-span-2">
-						<Card title="Angular Velocity">
-							<GeneralMultiLineChart telemetryData={telemetryData.angular_velocity} 
-								xAxisLabel="Mission time (s)"
-								yAxisLabel="Angular Velocity (°/s)"
-							/>
-						</Card>
-					</div>
-
-					<div className="md:col-span-2">
-						<Card title="Magnetic Field Strength">
-							<GeneralMultiLineChart telemetryData={telemetryData.magnetic_field} 
-								xAxisLabel="Mission time (s)"
-								yAxisLabel="Micro Teslas (μT)"
-							/>
-						</Card>
-					</div>
+			<div style={{display: activeTab === "dashboard" ? "grid" : "none" }} className="grid grid-cols-1 md:grid-cols-6 xl:grid-cols-6 gap-6 h-full">
+				{/* Full width items */}
+				<div className="md:col-span-3">
+					<Card title="Altitude">
+						<GeneralMultiLineChart
+							telemetryData={telemetryData.altitude_sea_level}
+							xAxisLabel="Mission time (s)"
+							yAxisLabel="Altitude (m)"
+						/>
+					</Card>
 				</div>
-			)}
+
+				{/* Half width gauge items */}
+				<div className="md:col-span-1">
+					<Card title="Temperature">
+						<div className="w-full h-full p-4 flex items-center justify-center">
+							<div className="w-full max-w-[200px]">
+								<GuageComponent
+									guageValue={telemetryData.temperature.celsius[0] || 0}
+									domainLow={-20}
+									domainHigh={50}
+									gaugeColorFunc={getTemperatureColor}
+									valueLabel="°C"
+								/>
+							</div>
+						</div>
+					</Card>
+				</div>
+
+				<div className="md:col-span-1">
+					<Card title="Pressure">
+						<div className="w-full h-full p-4 flex items-center justify-center">
+							<div className="w-full max-w-[200px]">
+								<GuageComponent
+									guageValue={telemetryData.pressure.pascals[0] / 1000 || 60}
+									domainLow={60}
+									domainHigh={270}
+									gaugeColorFunc={getPressureColor}
+									valueLabel="kPa"
+								/>
+							</div>
+						</div>
+					</Card>
+				</div>
+
+				<div className="md:col-span-1">
+					<Card title="Humidity">
+						<div className="w-full h-full p-4 flex items-center justify-center">
+							<div className="w-full max-w-[200px]">
+								<GuageComponent
+									guageValue={telemetryData.humidity.percentage[0] || 0}
+									domainLow={0}
+									domainHigh={100}
+									gaugeColorFunc={getHumidityColor}
+									valueLabel="%"
+								/>
+							</div>
+						</div>
+					</Card>
+				</div>
+
+				<div className="md:col-span-2">
+					<Card title="Linear Acceleration">
+						<GeneralMultiLineChart
+							telemetryData={telemetryData.linear_acceleration}
+							xAxisLabel="Mission time (s)"
+							yAxisLabel="Linear Acceleration (m/s^2)"
+						/>
+					</Card>
+				</div>
+
+				<div className="md:col-span-2">
+					<Card title="Angular Velocity">
+						<GeneralMultiLineChart telemetryData={telemetryData.angular_velocity} 
+							xAxisLabel="Mission time (s)"
+							yAxisLabel="Angular Velocity (°/s)"
+						/>
+					</Card>
+				</div>
+
+				<div className="md:col-span-2">
+					<Card title="Magnetic Field Strength">
+						<GeneralMultiLineChart telemetryData={telemetryData.magnetic_field} 
+							xAxisLabel="Mission time (s)"
+							yAxisLabel="Micro Teslas (μT)"
+						/>
+					</Card>
+				</div>
+			</div>
 		</div>
 	);
 }
