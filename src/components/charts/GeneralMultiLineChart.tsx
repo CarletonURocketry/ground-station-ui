@@ -39,9 +39,15 @@ function GeneralMultiLineChart({
   useEffect(() => {
     setXValues(telemetryData.mission_time || []);
 
+    const keys = Object.keys(telemetryData).filter(
+      (key) => key !== "mission_time"
+    );
+    setVisibleLines(keys);
+    setDataKeys(keys);
+
     // Create a map of key-value pairs for the data
     const dataMap: Map<string, number[]> = new Map();
-    dataKeys.forEach((key: string) => {
+    keys.forEach((key: string) => {
       dataMap.set(key, telemetryData[key] || []);
     });
 

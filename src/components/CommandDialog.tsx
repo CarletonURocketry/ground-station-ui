@@ -244,7 +244,7 @@ function CommandDialog({
 		<Command.Dialog
 			open={open}
 			onOpenChange={onOpenChange}
-			className="fixed inset-0 z-50 flex items-start justify-center sm:items-center"
+			className="fixed inset-0 z-[1000] flex items-start justify-center sm:items-center"
 			shouldFilter={false}
 		>
 			<div

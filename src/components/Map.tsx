@@ -28,15 +28,15 @@ function fixLeafletMarker() {
 	});
 }
 
-function MapAutoFollow({ position }: { position: [number, number] }) {
-	const map = useMap();
+// function MapAutoFollow({ position }: { position: [number, number] }) {
+// 	const map = useMap();
 
-	React.useEffect(() => {
-		map.setView(position, map.getZoom());
-	}, [map, position]);
+// 	React.useEffect(() => {
+// 		map.setView(position, map.getZoom());
+// 	}, [map, position]);
 
-	return null;
-}
+// 	return null;
+// }
 
 function MapControls({ center }: { center: [number, number] }) {
 	const map = useMap();
@@ -191,7 +191,7 @@ function MapView({
 	}, []);
 
 	return (
-		<div className={`w-full h-full ${className} relative map-container`}>
+		<div className={`w-full h-full ${className} z-50 relative map-container`}>
 			<MapContainer
 				center={position}
 				zoom={zoom}
@@ -227,7 +227,7 @@ function MapView({
 					</Popup>
 				</Marker>
 				<MapControls center={position} />
-				<MapAutoFollow position={position} />
+				{/* <MapAutoFollow position={position} /> */}
 			</MapContainer>
 		</div>
 	);
