@@ -65,7 +65,7 @@ function TelemetryDashboard() {
 			<div style={{display: activeTab === "dashboard" ? "grid" : "none" }} className="grid grid-cols-1 md:grid-cols-6 xl:grid-cols-6 gap-6 h-full">
 				{/* Full width items */}
 				<div className="md:col-span-3">
-					<Card title="Altitude">
+					<Card title="Altitude (sea level)">
 						<GeneralMultiLineChart
 							telemetryData={telemetryData.altitude_sea_level}
 							xAxisLabel="Mission time (s)"
