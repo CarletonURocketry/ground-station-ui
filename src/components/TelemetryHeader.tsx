@@ -22,24 +22,25 @@ function TelemetryValue({ label, value }: TelemetryValueProps) {
 	);
 }
 
+let apogee: number = -1;
+
 function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
 	const { data } = useWebSocketContext();
-	let apogee: number = -1;
 
 	const getApogee = () => {
-		if (!data?.telemetry?.altitude_launch_level?.metres) return "No data";
-		const latestAltitude = data.telemetry.altitude_launch_level.metres[0];
+		if (!data?.telemetry?.altitude_sea_level?.metres) return "No data";
+		const latestAltitude = data.telemetry.altitude_sea_level.metres[data.telemetry.altitude_sea_level.metres.length - 1];
 		if (latestAltitude === undefined){
 			return "No data"
 		} else {
 			apogee = Math.max(apogee, latestAltitude)
-			return apogee
+			return `${apogee.toFixed(2)}m`
 		}
 	}
 
 	const getAltitude = () => {
-		if (!data?.telemetry?.altitude_launch_level?.metres) return "No data";
-		const latestAltitude = data.telemetry.altitude_launch_level.metres[0];
+		if (!data?.telemetry?.altitude_sea_level?.metres) return "No data";
+		const latestAltitude = data.telemetry.altitude_sea_level.metres[data.telemetry.altitude_sea_level.metres.length - 1];
 		return latestAltitude !== undefined
 			? `${latestAltitude.toFixed(2)}m`
 			: "No data";
