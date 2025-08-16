@@ -11,6 +11,27 @@ interface TelemetryHeaderProps {
 	onCommandOpen?: () => void;
 }
 
+const missionStatusMap = (code: number) => {
+	switch (code) {
+		case 0:
+			return "SYSTEMS_NOMINAL";
+		case 1:
+			return "IDLE";
+		case 2:
+			return "AIRBORNE";
+		case 3:
+			return "LANDED";
+		case 4:
+			return "ROCKET_ASCENT";
+		case 5:
+			return "ROCKET_APOGEE";
+		case 6:
+			return "ROCKET_DESCENT";
+		default:
+			return "Unknown";
+	}
+}
+
 function TelemetryValue({ label, value }: TelemetryValueProps) {
 	return (
 		<div className="flex flex-col">
@@ -45,6 +66,19 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
 			? `${latestAltitude.toFixed(2)}m`
 			: "No data";
 	};
+
+	const getMissionStatus = () => {
+		if (!data?.telemetry.flight_status?.status_code) return "No data";
+		const latestStatus = missionStatusMap(data.telemetry.flight_status.status_code[data.telemetry.flight_status.status_code.length - 1]);
+		return latestStatus !== undefined 
+		? latestStatus : "No data";
+	}
+
+	const getErrorInfo = () => {
+		if (!data?.telemetry.flight_error?.proc_id && !data?.telemetry.flight_error?.error_code) return "No data";
+		return `PROC_ID: ${data.telemetry.flight_error.proc_id[data.telemetry.flight_error.proc_id.length - 1]}` + 
+		`ERRNO: ${data.telemetry.flight_error.error_code[data.telemetry.flight_error.error_code.length - 1]}`
+	}
 
 	const getMissionTime = () => {
 		if (!data?.telemetry?.last_mission_time) return "No data";
@@ -94,7 +128,9 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
 					<TelemetryValue label="MISSION TIME" value={getMissionTime()} />
 					<TelemetryValue label="ALTITUDE" value={getAltitude()} />
 					<TelemetryValue label="APOGEE" value={getApogee()} />
-					<TelemetryValue label="INCLINATION" value="No data" />
+					<TelemetryValue label="STATUS" value={getMissionStatus()} />
+					<TelemetryValue label="ERROR" value={getErrorInfo()} />
+					{/* <TelemetryValue label="INCLINATION" value="No data" /> */}
 
 					{/* Console */}
 					<div className="col-span-2 sm:col-span-3 md:col-span-1 md:ml-4 flex gap-2">
