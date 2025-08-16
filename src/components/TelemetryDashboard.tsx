@@ -5,6 +5,7 @@ import GeneralMultiLineChart from "./charts/GeneralMultiLineChart";
 import GuageComponent from "./charts/GuageComponent";
 import TabSwitcher from "./TabSwitcher";
 import MapView from "./Map";
+import DMap from "./3DMap";
 
 const getTemperatureColor = (temp: number) => {
 	if (temp <= 0) return "#3B82F6";
@@ -37,6 +38,7 @@ function TelemetryDashboard() {
 	const tabs = [
 		{ id: "dashboard", label: "Dashboard" },
 		{ id: "map", label: "Map" },
+		{ id: "3d_map", label: "3D Map"}
 	];
 
 	if (!telemetryData) {
@@ -54,6 +56,13 @@ function TelemetryDashboard() {
 				tabs={tabs}
 				onTabChange={setActiveTab}
 			/>
+
+			<div style={{display: activeTab === "3d_map" ? "flex" : "none" }} className="flex-1 h-[calc(100%-3rem)] flex flex-col">
+				<h2 className="text-lg font-semibold mb-4">Location Map</h2>
+				<div className="flex-1">
+					<DMap />
+				</div>
+			</div>
 
 			<div style={{display: activeTab === "map" ? "flex" : "none" }} className="flex-1 h-[calc(100%-3rem)] flex flex-col">
 				<h2 className="text-lg font-semibold mb-4">Location Map</h2>

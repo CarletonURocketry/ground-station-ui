@@ -138,11 +138,11 @@ interface MapViewProps {
 }
 
 function MapView({
-	center = [51.505, -0.09],
+	center = [45.3872, -75.6959],
 	zoom = 18,
 	telemetryData,
 	className = "",
-	useLocalTiles = false,
+	useLocalTiles = true,
 }: MapViewProps) {
 	React.useEffect(() => {
 		fixLeafletMarker();
@@ -201,7 +201,7 @@ function MapView({
 				attributionControl={true} // Keep attribution control
 			>
 				{useLocalTiles ? (
-					<TileLayer maxZoom={20} url="http://localhost:8000/{z}/{x}/{y}.png" />
+					<TileLayer maxZoom={20} url="http://localhost:8000/mapping_tiles/{z}/{x}/{y}.png" />
 				) : (
 					<TileLayer
 						maxZoom={20}
