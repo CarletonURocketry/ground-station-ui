@@ -42,7 +42,6 @@ function GeneralMultiLineChart({
     const keys = Object.keys(telemetryData).filter(
       (key) => key !== "mission_time"
     );
-    setVisibleLines(keys);
     setDataKeys(keys);
 
     // Create a map of key-value pairs for the data

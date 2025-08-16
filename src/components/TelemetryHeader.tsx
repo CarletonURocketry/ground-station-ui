@@ -18,15 +18,23 @@ const missionStatusMap = (code: number) => {
 		case 1:
 			return "IDLE";
 		case 2:
-			return "AIRBORNE";
+			return "CHANGED_AIRBORNE";
 		case 3:
-			return "LANDED";
-		case 4:
 			return "ROCKET_ASCENT";
-		case 5:
+		case 4:
 			return "ROCKET_APOGEE";
+		case 5:
+			return "ROCKET_LANDED";
 		case 6:
-			return "ROCKET_DESCENT";
+			return "UPDATE_IDLE";
+		case 7:
+			return "UPDATE_AIRBORNE";
+		case 8:
+			return "UPDATE_ASCENT";
+		case 9:
+			return "UPDATE_DESCENT";
+		case 10:
+			return "UPDATE_LANDED";
 		default:
 			return "Unknown";
 	}
