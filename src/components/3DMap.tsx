@@ -10,10 +10,6 @@ function DMap() {
   const [lng] = useState(-74.5);
   const [lat] = useState(40);
   const [zoom] = useState(-1);
-  // const [error, setError] = useState(null);
-
-  // let protocol = new Protocol();
-  // maplibregl.addProtocol("pmtiles", protocol.tile);
 
   useEffect(() => {
     if (map.current || !mapContainer.current) return; // Initialize map only once and ensure container is not null
@@ -23,15 +19,6 @@ function DMap() {
       style: {
         version: 8,
         sources: {
-          // Optional background
-          // pmtiles
-          // osm: {
-          //   type: "raster",
-          //   tiles: ["https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"],
-          //   tileSize: 256,
-          //   attribution: "&copy; OpenStreetMap Contributors",
-          //   maxzoom: 19,
-          // },
           background: {
             type: "raster",
             tiles: ["http://localhost:8000/mapping_tiles/{z}/{x}/{y}.png"],
@@ -46,12 +33,6 @@ function DMap() {
           },
         },
         layers: [
-          // Background layer - uncomment if you want an OSM background
-          // {
-          //   id: "osm",
-          //   type: "raster",
-          //   source: "osm",
-          // },
           {
             id: "background-layer",
             type: "raster",
