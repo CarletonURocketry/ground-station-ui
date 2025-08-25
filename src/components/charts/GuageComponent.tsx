@@ -82,7 +82,7 @@ function GuageComponent({ guageValue, domainLow, domainHigh, gaugeColorFunc: get
                 />
                 <text
                   className="text-sm fill-stone-500 font-medium"
-                  {...getLabelProps({ angle, offset: 20 })}
+                  {...(getLabelProps({ angle, offset: 20 }) as any)}
                 >
                   {value}{valueLabel}
                 </text>
