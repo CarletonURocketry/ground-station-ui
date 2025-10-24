@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "dev": "bun run dev:admin & bun run dev:external",
     "dev:admin": "vite --config vite.admin.config.ts",
-    "dev:host": "vite --config vite.host.config.ts --host",
+    "dev:external": "vite --config vite.host.config.ts --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
