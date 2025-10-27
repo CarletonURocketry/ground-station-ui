@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { ParentSize } from "@visx/responsive";
-import { AxisLeft, AxisBottom } from "@visx/axis";
-import { curveMonotoneX } from "@visx/curve";
-import { scaleLinear } from "@visx/scale";
-import { LinePath } from "@visx/shape";
+import { useState, useEffect } from 'react';
+import { ParentSize } from '@visx/responsive';
+import { AxisLeft, AxisBottom } from '@visx/axis';
+import { curveMonotoneX } from '@visx/curve';
+import { scaleLinear } from '@visx/scale';
+import { LinePath } from '@visx/shape';
 
 interface GeneralMultiLineChartProps {
   telemetryData: {
@@ -15,7 +15,7 @@ interface GeneralMultiLineChartProps {
 }
 
 // If we ever need more colors, more can be added
-const lineColors = ["#E63030", "#2467EC", "#56AA67", "#D9990C"];
+const lineColors = ['#E63030', '#2467EC', '#56AA67', '#D9990C'];
 
 function GeneralMultiLineChart({
   telemetryData,
@@ -30,7 +30,7 @@ function GeneralMultiLineChart({
   useEffect(() => {
     // Get all fields displayed on graph on initialization, set dataKeys field
     const keys = Object.keys(telemetryData).filter(
-      (key) => key !== "mission_time"
+      (key) => key !== 'mission_time'
     );
     setVisibleLines(keys);
     setDataKeys(keys);
@@ -40,7 +40,7 @@ function GeneralMultiLineChart({
     setXValues(telemetryData.mission_time || []);
 
     const keys = Object.keys(telemetryData).filter(
-      (key) => key !== "mission_time"
+      (key) => key !== 'mission_time'
     );
     setDataKeys(keys);
 
@@ -108,7 +108,7 @@ function GeneralMultiLineChart({
                   />
                 )
               );
-              ind++
+              ind++;
             }
           );
 
@@ -133,8 +133,8 @@ function GeneralMultiLineChart({
                   }}
                 >
                   {key.length === 1
-                    ? key[0].toUpperCase() + " Axis"
-                    : key[0].toUpperCase() + key.slice(1).replace("_", " ")}
+                    ? key[0].toUpperCase() + ' Axis'
+                    : key[0].toUpperCase() + key.slice(1).replace('_', ' ')}
                 </span>
               </div>
             );
@@ -150,16 +150,16 @@ function GeneralMultiLineChart({
                     stroke="#949492"
                     tickStroke="#949492"
                     tickLabelProps={() => ({
-                      fill: "#949492",
+                      fill: '#949492',
                       fontSize: 11,
-                      textAnchor: "end",
-                      dy: "0.33em",
+                      textAnchor: 'end',
+                      dy: '0.33em',
                     })}
                     label={yAxisLabel}
                     labelProps={{
-                      fill: "#949492",
+                      fill: '#949492',
                       fontSize: 12,
-                      textAnchor: "middle",
+                      textAnchor: 'middle',
                     }}
                   />
                   <AxisBottom
@@ -168,26 +168,27 @@ function GeneralMultiLineChart({
                     stroke="#949492"
                     tickStroke="#949492"
                     tickLabelProps={() => ({
-                      fill: "#949492",
+                      fill: '#949492',
                       fontSize: 11,
-                      textAnchor: "middle",
+                      textAnchor: 'middle',
                     })}
                     label={xAxisLabel}
                     labelProps={{
-                      fill: "#949492",
+                      fill: '#949492',
                       fontSize: 12,
-                      textAnchor: "middle",
+                      textAnchor: 'middle',
                     }}
                   />
                 </g>
               </svg>
 
-              {legendItems.length > 1 && 
+              {legendItems.length > 1 && (
                 <div className="absolute left-0 right-0 bottom-0 sm:bottom-auto border border-[#D8DADA] bg-[#F1F0EE] p-1 rounded-lg mx-1 sm:mx-0">
-                <div className="flex flex-wrap justify-center">
-                  {legendItems}
+                  <div className="flex flex-wrap justify-center">
+                    {legendItems}
+                  </div>
                 </div>
-              </div>}
+              )}
             </div>
           );
         }}
