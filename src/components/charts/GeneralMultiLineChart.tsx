@@ -108,7 +108,7 @@ function GeneralMultiLineChart({
                   />
                 )
               );
-              ind++
+              ind++;
             }
           );
 
@@ -182,12 +182,13 @@ function GeneralMultiLineChart({
                 </g>
               </svg>
 
-              {legendItems.length > 1 && 
+              {legendItems.length > 1 && (
                 <div className="absolute left-0 right-0 bottom-0 sm:bottom-auto border border-[#D8DADA] bg-[#F1F0EE] p-1 rounded-lg mx-1 sm:mx-0">
-                <div className="flex flex-wrap justify-center">
-                  {legendItems}
+                  <div className="flex flex-wrap justify-center">
+                    {legendItems}
+                  </div>
                 </div>
-              </div>}
+              )}
             </div>
           );
         }}

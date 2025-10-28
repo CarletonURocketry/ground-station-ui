@@ -4,12 +4,18 @@ import { useGauge } from "use-gauge";
 interface GaugeProps {
   guageValue: number;
   domainLow: number;
-  domainHigh: number
+  domainHigh: number;
   gaugeColorFunc: (value: number) => string;
   valueLabel: string;
 }
 
-function GuageComponent({ guageValue, domainLow, domainHigh, gaugeColorFunc: getGuageColor, valueLabel }: GaugeProps) {
+function GuageComponent({
+  guageValue,
+  domainLow,
+  domainHigh,
+  gaugeColorFunc: getGuageColor,
+  valueLabel,
+}: GaugeProps) {
   const {
     ticks,
     getTickProps,
@@ -84,7 +90,8 @@ function GuageComponent({ guageValue, domainLow, domainHigh, gaugeColorFunc: get
                   className="text-sm fill-stone-500 font-medium"
                   {...getLabelProps({ angle, offset: 20 })}
                 >
-                  {value}{valueLabel}
+                  {value}
+                  {valueLabel}
                 </text>
               </React.Fragment>
             );
