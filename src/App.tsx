@@ -1,11 +1,11 @@
-import { useState, useRef } from 'react';
-import TelemetryHeader from './components/TelemetryHeader';
-import TelemetryDashboard from './components/TelemetryDashboard';
-import CommandInterface from './components/CommandInterface';
-import type { CommandInterfaceHandle } from './components/CommandInterface';
-import CommandDialog from './components/CommandDialog';
+import { useState, useRef } from "react";
+import TelemetryHeader from "./components/TelemetryHeader";
+import TelemetryDashboard from "./components/TelemetryDashboard";
+import CommandInterface from "./components/CommandInterface";
+import type { CommandInterfaceHandle } from "./components/CommandInterface";
+import CommandDialog from "./components/CommandDialog";
 
-import { MapProvider } from './contexts/MapContext';
+import { MapProvider } from "./contexts/MapContext";
 
 function App() {
   const commandInterfaceRef = useRef<CommandInterfaceHandle>(null);

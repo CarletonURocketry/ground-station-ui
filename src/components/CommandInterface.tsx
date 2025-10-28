@@ -6,8 +6,8 @@ import {
   type KeyboardEvent,
   useImperativeHandle,
   forwardRef,
-} from 'react';
-import { useWebSocketContext } from '../contexts/WebSocketContext';
+} from "react";
+import { useWebSocketContext } from "../contexts/WebSocketContext";
 
 interface CommandHistoryItem {
   command: string;
@@ -24,7 +24,7 @@ function CommandInterface(
   _: unknown,
   ref: React.ForwardedRef<CommandInterfaceHandle>
 ) {
-  const [command, setCommand] = useState('');
+  const [command, setCommand] = useState("");
   const [commandHistory, setCommandHistory] = useState<CommandHistoryItem[]>(
     []
   );
@@ -63,7 +63,7 @@ function CommandInterface(
       setCommandHistory((prev) => [
         ...prev,
         {
-          command: 'WebSocket connection lost - retrying...',
+          command: "WebSocket connection lost - retrying...",
           timestamp: Date.now(),
           isError: true,
         },
@@ -78,7 +78,7 @@ function CommandInterface(
       setCommandHistory((prev) => [
         ...prev,
         {
-          command: 'WebSocket connection restored',
+          command: "WebSocket connection restored",
           timestamp: Date.now(),
           isError: false,
         },
@@ -103,7 +103,7 @@ function CommandInterface(
   }, []);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'ArrowUp') {
+    if (e.key === "ArrowUp") {
       e.preventDefault();
       if (
         commandHistory.length > 0 &&
@@ -116,7 +116,7 @@ function CommandInterface(
           commandHistory[commandHistory.length - 1 - newIndex].command
         );
       }
-    } else if (e.key === 'ArrowDown') {
+    } else if (e.key === "ArrowDown") {
       e.preventDefault();
       if (historyIndex > 0) {
         const newIndex = historyIndex - 1;
@@ -128,9 +128,9 @@ function CommandInterface(
       } else if (historyIndex === 0) {
         // Clear command when reaching the bottom of history
         setHistoryIndex(-1);
-        setCommand('');
+        setCommand("");
       }
-    } else if (e.key === 'Tab') {
+    } else if (e.key === "Tab") {
       e.preventDefault();
       // Add tab completion logic here if desired
     }
@@ -153,7 +153,7 @@ function CommandInterface(
 
       // Send the command through WebSocket
       sendCommand(trimmedCommand);
-      setCommand('');
+      setCommand("");
 
       // Refocus input after submission
       if (inputRef.current) {
@@ -171,10 +171,10 @@ function CommandInterface(
               key={`${item.timestamp}-${index}`}
               className={`text-sm ${
                 item.isError
-                  ? 'text-red-500'
-                  : item.command === 'WebSocket connection restored'
-                    ? 'text-green-500'
-                    : ''
+                  ? "text-red-500"
+                  : item.command === "WebSocket connection restored"
+                    ? "text-green-500"
+                    : ""
               }`}
             >
               <span className="text-gray-500">$ </span>

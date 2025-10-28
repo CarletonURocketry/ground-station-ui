@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [tailwindcss()],
   define: {
-    IS_ADMIN: 'false',
+    IS_ADMIN: "false",
   },
 });

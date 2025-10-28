@@ -1,6 +1,6 @@
-import { IconCommand } from '@tabler/icons-react';
-import { useWebSocketContext } from '../contexts/WebSocketContext';
-import inspaceLogo from '../assets/logoandtexttransparent.png';
+import { IconCommand } from "@tabler/icons-react";
+import { useWebSocketContext } from "../contexts/WebSocketContext";
+import inspaceLogo from "../assets/logoandtexttransparent.png";
 
 interface TelemetryValueProps {
   label: string;
@@ -14,29 +14,29 @@ interface TelemetryHeaderProps {
 const missionStatusMap = (code: number) => {
   switch (code) {
     case 0:
-      return 'SYSTEMS_NOMINAL';
+      return "SYSTEMS_NOMINAL";
     case 1:
-      return 'IDLE';
+      return "IDLE";
     case 2:
-      return 'CHANGED_AIRBORNE';
+      return "CHANGED_AIRBORNE";
     case 3:
-      return 'ROCKET_ASCENT';
+      return "ROCKET_ASCENT";
     case 4:
-      return 'ROCKET_APOGEE';
+      return "ROCKET_APOGEE";
     case 5:
-      return 'ROCKET_LANDED';
+      return "ROCKET_LANDED";
     case 6:
-      return 'UPDATE_IDLE';
+      return "UPDATE_IDLE";
     case 7:
-      return 'UPDATE_AIRBORNE';
+      return "UPDATE_AIRBORNE";
     case 8:
-      return 'UPDATE_ASCENT';
+      return "UPDATE_ASCENT";
     case 9:
-      return 'UPDATE_DESCENT';
+      return "UPDATE_DESCENT";
     case 10:
-      return 'UPDATE_LANDED';
+      return "UPDATE_LANDED";
     default:
-      return 'Unknown';
+      return "Unknown";
   }
 };
 
@@ -57,13 +57,13 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
   const { data } = useWebSocketContext();
 
   const getApogee = () => {
-    if (!data?.telemetry?.altitude_sea_level?.metres) return 'No data';
+    if (!data?.telemetry?.altitude_sea_level?.metres) return "No data";
     const latestAltitude =
       data.telemetry.altitude_sea_level.metres[
         data.telemetry.altitude_sea_level.metres.length - 1
       ];
     if (latestAltitude === undefined) {
-      return 'No data';
+      return "No data";
     } else {
       apogee = Math.max(apogee, latestAltitude);
       return `${apogee.toFixed(2)}m`;
@@ -71,24 +71,24 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
   };
 
   const getAltitude = () => {
-    if (!data?.telemetry?.altitude_sea_level?.metres) return 'No data';
+    if (!data?.telemetry?.altitude_sea_level?.metres) return "No data";
     const latestAltitude =
       data.telemetry.altitude_sea_level.metres[
         data.telemetry.altitude_sea_level.metres.length - 1
       ];
     return latestAltitude !== undefined
       ? `${latestAltitude.toFixed(2)}m`
-      : 'No data';
+      : "No data";
   };
 
   const getMissionStatus = () => {
-    if (!data?.telemetry.flight_status?.status_code) return 'No data';
+    if (!data?.telemetry.flight_status?.status_code) return "No data";
     const latestStatus = missionStatusMap(
       data.telemetry.flight_status.status_code[
         data.telemetry.flight_status.status_code.length - 1
       ]
     );
-    return latestStatus !== undefined ? latestStatus : 'No data';
+    return latestStatus !== undefined ? latestStatus : "No data";
   };
 
   const getErrorInfo = () => {
@@ -96,7 +96,7 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
       !data?.telemetry.flight_error?.proc_id &&
       !data?.telemetry.flight_error?.error_code
     )
-      return 'No data';
+      return "No data";
     return (
       `PROC_ID: ${
         data.telemetry.flight_error.proc_id[
@@ -112,13 +112,13 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
   };
 
   const getMissionTime = () => {
-    if (!data?.telemetry?.last_mission_time) return 'No data';
+    if (!data?.telemetry?.last_mission_time) return "No data";
     return `T+${data.telemetry.last_mission_time.toFixed(3)}s`;
   };
 
   const getAvailablePorts = () => {
     const ports = data?.status?.serial?.available_ports || [];
-    return ports[0] || 'Unavailable';
+    return ports[0] || "Unavailable";
   };
 
   function handleCommandButtonClick() {
@@ -128,7 +128,7 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
   }
 
   function handleCommandButtonKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       if (onCommandOpen) {
         onCommandOpen();
       }
@@ -149,11 +149,11 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:items-center gap-4 md:gap-8">
           <TelemetryValue
             label="SPACECRAFT"
-            value={data?.rocket || 'No data'}
+            value={data?.rocket || "No data"}
           />
           <TelemetryValue
             label="MISSION"
-            value={data?.status?.mission?.name || 'No data'}
+            value={data?.status?.mission?.name || "No data"}
           />
           <TelemetryValue label="MISSION TIME" value={getMissionTime()} />
           <TelemetryValue label="ALTITUDE" value={getAltitude()} />

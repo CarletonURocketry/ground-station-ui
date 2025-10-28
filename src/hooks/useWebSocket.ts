@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import type { WebSocketData } from '../constants/websocket';
+import { useState, useEffect } from "react";
+import type { WebSocketData } from "../constants/websocket";
 
 /**
  * Custom hook to manage WebSocket connections.
@@ -31,7 +31,7 @@ const useWebSocket = (url: string) => {
     const ws = new WebSocket(url);
 
     ws.onopen = () => {
-      console.log('WebSocket Connected'); // Add this log
+      console.log("WebSocket Connected"); // Add this log
       setSocket(ws);
       setError(null); // Clear any previous errors
     };
@@ -41,12 +41,12 @@ const useWebSocket = (url: string) => {
         const parsedData: WebSocketData = JSON.parse(event.data);
         setData(parsedData);
       } catch (e) {
-        console.error('Error parsing WebSocket data:', e);
+        console.error("Error parsing WebSocket data:", e);
       }
     };
 
     ws.onerror = (event) => {
-      console.log('WebSocket error:', event); // Add this log
+      console.log("WebSocket error:", event); // Add this log
       // Only set error if we don't have a socket
       if (!socket) {
         setError(event);
@@ -54,7 +54,7 @@ const useWebSocket = (url: string) => {
     };
 
     ws.onclose = () => {
-      console.log('WebSocket closed'); // Add this log
+      console.log("WebSocket closed"); // Add this log
       setSocket(null);
     };
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useState, type ReactNode } from "react";
 
 interface MapContextType {
   pathPositions: [number, number][];
@@ -16,7 +16,7 @@ const MapContext = createContext<MapContextType | null>(null);
 export const useMapContext = () => {
   const context = useContext(MapContext);
   if (!context) {
-    throw new Error('useMapContext must be used within a MapProvider');
+    throw new Error("useMapContext must be used within a MapProvider");
   }
   return context;
 };

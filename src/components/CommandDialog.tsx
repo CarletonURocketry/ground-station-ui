@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Command } from 'cmdk';
+import { useState, useEffect } from "react";
+import { Command } from "cmdk";
 import {
   IconCommand,
   IconX,
@@ -10,7 +10,7 @@ import {
   IconPlayerPause,
   IconPlayerPlay,
   IconPlayerStop,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 interface CommandDialogProps {
   open: boolean;
@@ -31,104 +31,104 @@ interface CommandItem {
 const COMMANDS: Record<string, CommandItem[]> = {
   main: [
     {
-      id: 'authenticate',
-      label: 'Authenticate',
-      command: 'auth',
+      id: "authenticate",
+      label: "Authenticate",
+      command: "auth",
       description:
-        'Authenticate as controlling user (required to issue commands)',
+        "Authenticate as controlling user (required to issue commands)",
       needsInput: true,
-      placeholder: '<password>',
+      placeholder: "<password>",
     },
     {
-      id: 'deauthenticate',
-      label: 'Deauthenticate',
-      command: 'deauth',
+      id: "deauthenticate",
+      label: "Deauthenticate",
+      command: "deauth",
       description:
-        'Deauthenticate (can only be done if authenticated as controlling user)',
+        "Deauthenticate (can only be done if authenticated as controlling user)",
     },
     {
-      id: 'shutdown',
-      label: 'Shutdown',
-      command: 'shutdown',
-      description: 'Shuts down the ground-station backend',
+      id: "shutdown",
+      label: "Shutdown",
+      command: "shutdown",
+      description: "Shuts down the ground-station backend",
     },
   ],
   serial: [
     {
-      id: 'serial-update',
-      label: 'Update Serial Ports',
-      command: 'serial update',
-      description: 'Updates the list of available serial ports',
+      id: "serial-update",
+      label: "Update Serial Ports",
+      command: "serial update",
+      description: "Updates the list of available serial ports",
     },
     {
-      id: 'serial-connect',
-      label: 'Connect to Port',
-      command: 'serial rn2483_radio connect',
-      description: 'Connect to serial port',
+      id: "serial-connect",
+      label: "Connect to Port",
+      command: "serial rn2483_radio connect",
+      description: "Connect to serial port",
       needsInput: true,
-      placeholder: '<port>',
+      placeholder: "<port>",
     },
     {
-      id: 'serial-disconnect',
-      label: 'Disconnect',
-      command: 'serial rn2483_radio disconnect',
-      description: 'Terminates active connection',
+      id: "serial-disconnect",
+      label: "Disconnect",
+      command: "serial rn2483_radio disconnect",
+      description: "Terminates active connection",
     },
   ],
   telemetry: [
     {
-      id: 'telemetry-update',
-      label: 'Update Missions',
-      command: 'telemetry update',
-      description: 'Updates the list of missions',
+      id: "telemetry-update",
+      label: "Update Missions",
+      command: "telemetry update",
+      description: "Updates the list of missions",
     },
     {
-      id: 'telemetry-replay-play',
-      label: 'Play Mission',
-      command: 'telemetry replay play',
-      description: 'Starts mission replay',
+      id: "telemetry-replay-play",
+      label: "Play Mission",
+      command: "telemetry replay play",
+      description: "Starts mission replay",
       needsInput: true,
-      placeholder: '<mission file name>',
+      placeholder: "<mission file name>",
     },
     {
-      id: 'telemetry-replay-pause',
-      label: 'Pause Replay',
-      command: 'telemetry replay pause',
-      description: 'Pauses mission replay',
+      id: "telemetry-replay-pause",
+      label: "Pause Replay",
+      command: "telemetry replay pause",
+      description: "Pauses mission replay",
     },
     {
-      id: 'telemetry-replay-resume',
-      label: 'Resume Replay',
-      command: 'telemetry replay resume',
-      description: 'Resumes mission replay',
+      id: "telemetry-replay-resume",
+      label: "Resume Replay",
+      command: "telemetry replay resume",
+      description: "Resumes mission replay",
     },
     {
-      id: 'telemetry-replay-speed',
-      label: 'Set Replay Speed',
-      command: 'telemetry replay speed',
-      description: 'Sets replay speed',
+      id: "telemetry-replay-speed",
+      label: "Set Replay Speed",
+      command: "telemetry replay speed",
+      description: "Sets replay speed",
       needsInput: true,
-      placeholder: '<speed>',
+      placeholder: "<speed>",
     },
     {
-      id: 'telemetry-replay-stop',
-      label: 'Stop Replay',
-      command: 'telemetry replay stop',
-      description: 'Stops mission replay',
+      id: "telemetry-replay-stop",
+      label: "Stop Replay",
+      command: "telemetry replay stop",
+      description: "Stops mission replay",
     },
     {
-      id: 'telemetry-record-start',
-      label: 'Start Recording',
-      command: 'telemetry record start',
-      description: 'Starts recording (not implemented)',
+      id: "telemetry-record-start",
+      label: "Start Recording",
+      command: "telemetry record start",
+      description: "Starts recording (not implemented)",
       needsInput: true,
-      placeholder: '<mission file name>',
+      placeholder: "<mission file name>",
     },
     {
-      id: 'telemetry-record-stop',
-      label: 'Stop Recording',
-      command: 'telemetry record stop',
-      description: 'Stops recording (not implemented)',
+      id: "telemetry-record-stop",
+      label: "Stop Recording",
+      command: "telemetry record stop",
+      description: "Stops recording (not implemented)",
     },
   ],
 };
@@ -139,7 +139,7 @@ function CommandDialog({
   onCommandSelect,
 }: CommandDialogProps) {
   const [selectedCommand, setSelectedCommand] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [commandWithInput, setCommandWithInput] = useState<{
     command: string;
     needsInput: boolean;
@@ -149,7 +149,7 @@ function CommandDialog({
   // Reset input when dialog closes
   useEffect(() => {
     if (!open) {
-      setInputValue('');
+      setInputValue("");
       setSelectedCommand(null);
       setCommandWithInput(null);
     }
@@ -158,14 +158,14 @@ function CommandDialog({
   // Handle keyboard shortcut to open dialog
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
         event.preventDefault();
         onOpenChange(!open);
       }
     }
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open, onOpenChange]);
 
   function handleBackdropClick() {
@@ -173,7 +173,7 @@ function CommandDialog({
   }
 
   function handleBackdropKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       onOpenChange(false);
     }
   }
@@ -183,7 +183,7 @@ function CommandDialog({
   }
 
   function handleCloseKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       onOpenChange(false);
     }
   }
@@ -218,26 +218,26 @@ function CommandDialog({
   }
 
   function handleInputKeyDown(e: React.KeyboardEvent) {
-    if (e.key === 'Escape') {
+    if (e.key === "Escape") {
       setCommandWithInput(null);
       setSelectedCommand(null);
     }
   }
 
   function getCommandIcon(commandId: string) {
-    if (commandId.includes('shutdown'))
+    if (commandId.includes("shutdown"))
       return <IconDeviceDesktop className="w-4 h-4" />;
-    if (commandId.includes('update'))
+    if (commandId.includes("update"))
       return <IconRefresh className="w-4 h-4" />;
-    if (commandId.includes('connect'))
+    if (commandId.includes("connect"))
       return <IconTerminal className="w-4 h-4" />;
-    if (commandId.includes('play') || commandId.includes('resume'))
+    if (commandId.includes("play") || commandId.includes("resume"))
       return <IconPlayerPlay className="w-4 h-4" />;
-    if (commandId.includes('pause'))
+    if (commandId.includes("pause"))
       return <IconPlayerPause className="w-4 h-4" />;
-    if (commandId.includes('stop'))
+    if (commandId.includes("stop"))
       return <IconPlayerStop className="w-4 h-4" />;
-    if (commandId.includes('record'))
+    if (commandId.includes("record"))
       return <IconDeviceFloppy className="w-4 h-4" />;
     return <IconCommand className="w-4 h-4" />;
   }
@@ -271,7 +271,7 @@ function CommandDialog({
                   setSelectedCommand(null);
                 }}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
+                  if (e.key === "Enter" || e.key === " ") {
                     setCommandWithInput(null);
                     setSelectedCommand(null);
                   }
@@ -415,7 +415,7 @@ function CommandItem({
       value={value}
       onSelect={onSelect}
       className={`flex items-center gap-2 px-2 py-2 sm:py-2.5 text-sm rounded-md cursor-pointer ${
-        isSelected ? 'bg-[#F1F0EE]' : ''
+        isSelected ? "bg-[#F1F0EE]" : ""
       } data-[selected=true]:bg-[#F1F0EE] data-[selected=true]:outline-none`}
     >
       {icon && <span className="text-gray-500 flex-shrink-0">{icon}</span>}

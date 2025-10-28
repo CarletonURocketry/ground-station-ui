@@ -1,4 +1,4 @@
-import type * as React from 'react';
+import type * as React from "react";
 
 interface CardProps {
   title: string;
@@ -6,7 +6,7 @@ interface CardProps {
   className?: string;
 }
 
-function Card({ title, children, className = '' }: CardProps) {
+function Card({ title, children, className = "" }: CardProps) {
   return (
     <div
       className={`bg-white p-4 md:p-6 rounded-lg border border-[#D8DADA] min-h-[250px] h-[300px] ${className}`}

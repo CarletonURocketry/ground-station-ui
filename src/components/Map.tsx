@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   MapContainer,
   TileLayer,
@@ -6,25 +6,25 @@ import {
   Popup,
   useMap,
   Polyline,
-} from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 import {
   IconPlus,
   IconMinus,
   IconTarget,
   IconMaximize,
   IconMinimize,
-} from '@tabler/icons-react';
-import { useMapContext } from '../contexts/MapContext';
-import rocketIcon from '../assets/rocket.svg';
+} from "@tabler/icons-react";
+import { useMapContext } from "../contexts/MapContext";
+import rocketIcon from "../assets/rocket.svg";
 
 function fixLeafletMarker() {
   L.Icon.Default.mergeOptions({
     iconRetinaUrl:
-      'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+      "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png",
+    iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+    shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png",
   });
 }
 
@@ -55,7 +55,7 @@ function MapControls({ center }: { center: [number, number] }) {
   };
 
   const toggleFullscreen = () => {
-    const mapContainer = document.querySelector('.map-container');
+    const mapContainer = document.querySelector(".map-container");
     if (!mapContainer) return;
 
     if (!isFullscreen) {
@@ -75,9 +75,9 @@ function MapControls({ center }: { center: [number, number] }) {
       setIsFullscreen(!!document.fullscreenElement);
     };
 
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, []);
 
@@ -111,7 +111,7 @@ function MapControls({ center }: { center: [number, number] }) {
         type="button"
         onClick={toggleFullscreen}
         className="bg-white p-2 rounded-md shadow-md hover:bg-gray-100 transition-colors border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+        aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
       >
         {isFullscreen ? (
           <IconMinimize size={20} stroke={2} className="text-gray-700" />
@@ -141,7 +141,7 @@ function MapView({
   center = [51.505, -0.09],
   zoom = 18,
   telemetryData,
-  className = '',
+  className = "",
   useLocalTiles = false,
 }: MapViewProps) {
   React.useEffect(() => {
@@ -174,7 +174,7 @@ function MapView({
   }, [position, center, addPathPosition]);
 
   const pathOptions = {
-    color: 'blue',
+    color: "blue",
     weight: 5,
     opacity: 0.7,
     smoothFactor: 1,
@@ -195,7 +195,7 @@ function MapView({
       <MapContainer
         center={position}
         zoom={zoom}
-        style={{ height: '100%', width: '100%', minHeight: '500px' }}
+        style={{ height: "100%", width: "100%", minHeight: "500px" }}
         className="rounded-lg overflow-hidden"
         zoomControl={false} // Disable default zoom control
         attributionControl={true} // Keep attribution control

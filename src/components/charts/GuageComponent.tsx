@@ -1,5 +1,5 @@
-import React from 'react';
-import { useGauge } from 'use-gauge';
+import React from "react";
+import { useGauge } from "use-gauge";
 
 interface GaugeProps {
   guageValue: number;
