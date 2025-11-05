@@ -53,7 +53,8 @@ function TelemetryValue({ label, value }: TelemetryValueProps) {
 
 let apogee: number = -1;
 
-function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
+function TelemetryHeader() {
+// function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
   const { data } = useWebSocketContext();
 
   const getApogee = () => {
@@ -121,19 +122,19 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
     return ports[0] || "Unavailable";
   };
 
-  function handleCommandButtonClick() {
-    if (onCommandOpen) {
-      onCommandOpen();
-    }
-  }
+  // function handleCommandButtonClick() {
+  //   if (onCommandOpen) {
+  //     onCommandOpen();
+  //   }
+  // }
 
-  function handleCommandButtonKeyDown(event: React.KeyboardEvent) {
-    if (event.key === "Enter" || event.key === " ") {
-      if (onCommandOpen) {
-        onCommandOpen();
-      }
-    }
-  }
+  // function handleCommandButtonKeyDown(event: React.KeyboardEvent) {
+  //   if (event.key === "Enter" || event.key === " ") {
+  //     if (onCommandOpen) {
+  //       onCommandOpen();
+  //     }
+  //   }
+  // }
 
   return (
     <header className="rounded-lg bg-white border-b border-[#D8DADA] p-4">
@@ -169,7 +170,7 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
             </div>
 
             {/* Command Palette Button */}
-            {IS_ADMIN && (
+            {/* {IS_ADMIN && (
               <button
                 type="button"
                 onClick={handleCommandButtonClick}
@@ -183,7 +184,7 @@ function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
                   ⌘K
                 </kbd>
               </button>
-            )}
+            )} */}
           </div>
         </div>
       </div>

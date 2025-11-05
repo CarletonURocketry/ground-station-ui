@@ -30,6 +30,8 @@ The ground station UI by itself isn't all that useful as it requires the [ground
 3. Install dependencies with `bun install`
 4. Launch the development server using `bun run dev`
 
+Note: localhost:5174 is running admin, localhost:5173 is running general  
+
 ## Contribution
 
 To contribute to this project, please view the contribution guidelines in the project's GitHub wiki. Note that contributions are currently limited to _Carleton University students or CUInSpace members_.
