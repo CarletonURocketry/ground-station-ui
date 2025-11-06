@@ -1,4 +1,4 @@
-import { IconCommand } from "@tabler/icons-react";
+// import { IconCommand } from "@tabler/icons-react";
 import { useWebSocketContext } from "../contexts/WebSocketContext";
 import inspaceLogo from "../assets/logoandtexttransparent.png";
 
@@ -7,9 +7,9 @@ interface TelemetryValueProps {
   value: string | number;
 }
 
-interface TelemetryHeaderProps {
-  onCommandOpen?: () => void;
-}
+// interface TelemetryHeaderProps {
+//   onCommandOpen?: () => void;
+// }
 
 const missionStatusMap = (code: number) => {
   switch (code) {
