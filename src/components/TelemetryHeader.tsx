@@ -148,26 +148,27 @@ function TelemetryHeader() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:items-center gap-4 md:gap-8">
-          <TelemetryValue
+          {/* <TelemetryValue
             label="SPACECRAFT"
             value={data?.rocket || "No data"}
-          />
-          <TelemetryValue
+          /> */}
+          {/* <TelemetryValue
             label="MISSION"
             value={data?.status?.mission?.name || "No data"}
-          />
+          /> */}
           <TelemetryValue label="MISSION TIME" value={getMissionTime()} />
           <TelemetryValue label="ALTITUDE" value={getAltitude()} />
           <TelemetryValue label="APOGEE" value={getApogee()} />
-          <TelemetryValue label="STATUS" value={getMissionStatus()} />
-          <TelemetryValue label="ERROR" value={getErrorInfo()} />
+          <TelemetryValue label="MAX SPEED" value="No data" />
+          {/* <TelemetryValue label="STATUS" value={getMissionStatus()} /> */}
+          {/* <TelemetryValue label="ERROR" value={getErrorInfo()} /> */}
           {/* <TelemetryValue label="INCLINATION" value="No data" /> */}
 
           {/* Console */}
-          <div className="col-span-2 sm:col-span-3 md:col-span-1 md:ml-4 flex gap-2">
+          {/* <div className="col-span-2 sm:col-span-3 md:col-span-1 md:ml-4 flex gap-2">
             <div className="flex items-center space-x-2 border border-[#D8DADA] px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-sm md:text-base">
               <span>{getAvailablePorts()}</span>
-            </div>
+            </div> */}
 
             {/* Command Palette Button */}
             {/* {IS_ADMIN && (
@@ -185,7 +186,7 @@ function TelemetryHeader() {
                 </kbd>
               </button>
             )} */}
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </header>

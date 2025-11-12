@@ -7,8 +7,8 @@ import FloatingMenu from "./components/FloatingMenu";
 // import CommandDialog from "./components/CommandDialog";
 
 import { MapProvider } from "./contexts/MapContext";
-import SideBar from "./components/SideBar";
-import { useState } from "react";
+// useState left commented out in case command dialog wiring is re-enabled
+// import { useState } from "react";
 
 function App() {
   // const commandInterfaceRef = useRef<CommandInterfaceHandle>(null);
@@ -24,19 +24,19 @@ function App() {
   //   }
   // }
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // no overlay sidebar in this layout; keep floating menu popup
 
   return (
     <MapProvider>
       <div className="w-full h-full bg-[#F1F0EE] flex flex-col gap-2 p-2">
         <TelemetryHeader/>
         <div className="w-full h-full flex flex-row gap-4">
-          {/** Sidebar on the left; conditionally rendered */}
-          {isSidebarOpen && <SideBar />}
           <div className="flex-1">
             <TelemetryDashboard />
           </div>
-          <FloatingMenu onToggleSidebar={(nextOpen: boolean) => setIsSidebarOpen(nextOpen)} />
+          <FloatingMenu
+            
+          />
         </div>
         
         
