@@ -1,4 +1,3 @@
-// import { IconCommand } from "@tabler/icons-react";
 import { useWebSocketContext } from "../contexts/WebSocketContext";
 import inspaceLogo from "../assets/logoandtexttransparent.png";
 
@@ -6,10 +5,6 @@ interface TelemetryValueProps {
   label: string;
   value: string | number;
 }
-
-// interface TelemetryHeaderProps {
-//   onCommandOpen?: () => void;
-// }
 
 const missionStatusMap = (code: number) => {
   switch (code) {
@@ -54,7 +49,6 @@ function TelemetryValue({ label, value }: TelemetryValueProps) {
 let apogee: number = -1;
 
 function TelemetryHeader() {
-// function TelemetryHeader({ onCommandOpen }: TelemetryHeaderProps) {
   const { data } = useWebSocketContext();
 
   const getApogee = () => {
@@ -117,25 +111,6 @@ function TelemetryHeader() {
     return `T+${data.telemetry.last_mission_time.toFixed(3)}s`;
   };
 
-  const getAvailablePorts = () => {
-    const ports = data?.status?.serial?.available_ports || [];
-    return ports[0] || "Unavailable";
-  };
-
-  // function handleCommandButtonClick() {
-  //   if (onCommandOpen) {
-  //     onCommandOpen();
-  //   }
-  // }
-
-  // function handleCommandButtonKeyDown(event: React.KeyboardEvent) {
-  //   if (event.key === "Enter" || event.key === " ") {
-  //     if (onCommandOpen) {
-  //       onCommandOpen();
-  //     }
-  //   }
-  // }
-
   return (
     <header className="rounded-lg bg-white border-b border-[#D8DADA] p-4">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
@@ -148,45 +123,12 @@ function TelemetryHeader() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:items-center gap-4 md:gap-8">
-          {/* <TelemetryValue
-            label="SPACECRAFT"
-            value={data?.rocket || "No data"}
-          /> */}
-          {/* <TelemetryValue
-            label="MISSION"
-            value={data?.status?.mission?.name || "No data"}
-          /> */}
           <TelemetryValue label="MISSION TIME" value={getMissionTime()} />
+          <TelemetryValue label="STATUS" value={getMissionStatus()} />
           <TelemetryValue label="ALTITUDE" value={getAltitude()} />
           <TelemetryValue label="APOGEE" value={getApogee()} />
+          <TelemetryValue label="SPEED" value="No data" />
           <TelemetryValue label="MAX SPEED" value="No data" />
-          {/* <TelemetryValue label="STATUS" value={getMissionStatus()} /> */}
-          {/* <TelemetryValue label="ERROR" value={getErrorInfo()} /> */}
-          {/* <TelemetryValue label="INCLINATION" value="No data" /> */}
-
-          {/* Console */}
-          {/* <div className="col-span-2 sm:col-span-3 md:col-span-1 md:ml-4 flex gap-2">
-            <div className="flex items-center space-x-2 border border-[#D8DADA] px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-sm md:text-base">
-              <span>{getAvailablePorts()}</span>
-            </div> */}
-
-            {/* Command Palette Button */}
-            {/* {IS_ADMIN && (
-              <button
-                type="button"
-                onClick={handleCommandButtonClick}
-                onKeyDown={handleCommandButtonKeyDown}
-                className="flex items-center space-x-2 border border-[#D8DADA] px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-sm md:text-base bg-[#F1F0EE] hover:bg-[#E6E6E5] active:bg-[#D8DADA]"
-                aria-label="Open command palette"
-              >
-                <IconCommand className="w-4 h-4" />
-                <span className="hidden md:inline">Commands</span>
-                <kbd className="hidden md:inline-flex items-center justify-center h-5 px-1.5 text-xs font-mono rounded bg-white border border-[#D8DADA] ml-1">
-                  ⌘K
-                </kbd>
-              </button>
-            )} */}
-          {/* </div> */}
         </div>
       </div>
     </header>
