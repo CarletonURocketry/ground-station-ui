@@ -30,7 +30,7 @@ The ground station UI by itself isn't all that useful as it requires the [ground
 3. Install dependencies with `bun install`
 4. Launch the development server using `bun run dev`
 
-Note: localhost:5174 is running admin, localhost:5173 is running general  
+Note: localhost:5173 has admin permission, which allow recording, localhost:5174 has user permissions which only allow for replay
 
 ## Contribution
 
