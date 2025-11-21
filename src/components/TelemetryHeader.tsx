@@ -157,36 +157,11 @@ function TelemetryHeader() {
             value={data?.status?.mission?.name || "No data"}
           /> */}
           <TelemetryValue label="MISSION TIME" value={getMissionTime()} />
+          <TelemetryValue label="STATUS" value={getMissionStatus()} />
           <TelemetryValue label="ALTITUDE" value={getAltitude()} />
           <TelemetryValue label="APOGEE" value={getApogee()} />
+          <TelemetryValue label="SPEED" value="No data" />
           <TelemetryValue label="MAX SPEED" value="No data" />
-          {/* <TelemetryValue label="STATUS" value={getMissionStatus()} /> */}
-          {/* <TelemetryValue label="ERROR" value={getErrorInfo()} /> */}
-          {/* <TelemetryValue label="INCLINATION" value="No data" /> */}
-
-          {/* Console */}
-          {/* <div className="col-span-2 sm:col-span-3 md:col-span-1 md:ml-4 flex gap-2">
-            <div className="flex items-center space-x-2 border border-[#D8DADA] px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-sm md:text-base">
-              <span>{getAvailablePorts()}</span>
-            </div> */}
-
-            {/* Command Palette Button */}
-            {/* {IS_ADMIN && (
-              <button
-                type="button"
-                onClick={handleCommandButtonClick}
-                onKeyDown={handleCommandButtonKeyDown}
-                className="flex items-center space-x-2 border border-[#D8DADA] px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-sm md:text-base bg-[#F1F0EE] hover:bg-[#E6E6E5] active:bg-[#D8DADA]"
-                aria-label="Open command palette"
-              >
-                <IconCommand className="w-4 h-4" />
-                <span className="hidden md:inline">Commands</span>
-                <kbd className="hidden md:inline-flex items-center justify-center h-5 px-1.5 text-xs font-mono rounded bg-white border border-[#D8DADA] ml-1">
-                  ⌘K
-                </kbd>
-              </button>
-            )} */}
-          {/* </div> */}
         </div>
       </div>
     </header>
