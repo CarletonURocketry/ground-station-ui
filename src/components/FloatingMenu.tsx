@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import replayIcon from "../assets/replay.svg";
 import recordIcon from "../assets/record.svg";
@@ -33,10 +33,10 @@ export default function FloatingMenu({ onOpenReplay }: FloatingMenuProps) {
                   onClick={() => {
                     setOpen(false);
                     // Send the replay command for july_12th
-                    if (!playing){
+                    if (!playing) {
                       sendCommand("telemetry replay play july_12th");
                       setPlaying(true);
-                    }else{
+                    } else {
                       sendCommand("telemetry replay stop");
                       setPlaying(false);
                     }
@@ -57,7 +57,11 @@ export default function FloatingMenu({ onOpenReplay }: FloatingMenuProps) {
                       console.log("Record clicked");
                     }}
                   >
-                    <img src={recordIcon} alt="Record" className="w-4 h-4 mr-2" />
+                    <img
+                      src={recordIcon}
+                      alt="Record"
+                      className="w-4 h-4 mr-2"
+                    />
                     <span>Record</span>
                   </button>
                 </li>
@@ -73,7 +77,11 @@ export default function FloatingMenu({ onOpenReplay }: FloatingMenuProps) {
         onClick={handleToggle}
         className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white border border-[#D8DADA] shadow-md hover:bg-[#E6E6E5] active:bg-[#D8DADA] transition-colors"
       >
-        {open ? <IconX className="w-5 h-5" /> : <IconMenu2 className="w-5 h-5" />}
+        {open ? (
+          <IconX className="w-5 h-5" />
+        ) : (
+          <IconMenu2 className="w-5 h-5" />
+        )}
       </button>
     </div>
   );

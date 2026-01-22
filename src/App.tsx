@@ -7,18 +7,15 @@ import { MapProvider } from "./contexts/MapContext";
 // useState left commented out in case command dialog wiring is re-enabled
 
 function App() {
-
   return (
     <MapProvider>
       <div className="w-full h-full bg-[#F1F0EE] flex flex-col gap-2 p-2">
-        <TelemetryHeader/>
+        <TelemetryHeader />
         <div className="w-full h-full flex flex-row gap-4">
           <div className="flex-1">
             <TelemetryDashboard />
           </div>
-          <FloatingMenu
-            
-          />
+          <FloatingMenu />
         </div>
       </div>
     </MapProvider>
