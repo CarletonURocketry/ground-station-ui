@@ -1,3 +1,4 @@
+import path from "path";
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
@@ -8,5 +9,10 @@ export default defineConfig({
   plugins: [tailwindcss()],
   define: {
     IS_ADMIN: "true",
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
 });
