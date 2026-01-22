@@ -1,5 +1,5 @@
 // import { useState, useRef } from "react";
-import TelemetryHeader from "./components/TelemetryHeader";
+import TelemetryHeader from "./components/header/TelemetryHeader";
 // import TelemetryDashboard from "./components/TelemetryDashboard";
 // import FloatingMenu from "./components/FloatingMenu";
 
