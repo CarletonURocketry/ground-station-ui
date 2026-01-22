@@ -5,6 +5,7 @@ import TelemetryHeader from "./components/header/TelemetryHeader";
 
 import { MapProvider } from "./contexts/MapContext";
 import { Menu } from "./components/Menu";
+import { Dashboard } from "./components/Dashboard";
 // useState left commented out in case command dialog wiring is re-enabled
 
 function App() {
@@ -12,8 +13,11 @@ function App() {
     <MapProvider>
       <div className="w-full h-full bg-[#F1F0EE] flex flex-col gap-2 p-2">
         <TelemetryHeader />
-        <div className="w-full h-full flex flex-row gap-4">
-          <div className="flex-1">{/* <TelemetryDashboard /> */}</div>
+        <div className="w-full h-full flex flex-row space-y-4">
+          <div className="flex-1">
+            <Dashboard />
+            {/* <TelemetryDashboard /> */}
+          </div>
           {/* <FloatingMenu /> */}
           <div>
             <Menu />
