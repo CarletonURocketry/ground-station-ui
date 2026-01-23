@@ -24,7 +24,7 @@ export function MissionPlayControls() {
   };
 
   return (
-    <div className="rounded-lg bg-white/65 border sm:w-190 border-[#D8DADA] py-2 px-4 shadow-sm">
+    <div className="rounded-lg bg-white/90 border sm:w-190 border-[#D8DADA] py-2 px-4 shadow-sm">
       <div className="flex items-center gap-4">
         {/* Play/Pause Button */}
         <Button
