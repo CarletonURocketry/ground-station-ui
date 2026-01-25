@@ -12,7 +12,7 @@ function TelemetryHeader() {
   const { data } = useWebSocketContext();
 
   return (
-    <header className="rounded-lg bg-white border-b border-[#D8DADA] p-4">
+    <header className="rounded-lg bg-white border-b p-4">
       <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         {/* Left: Logo and Status */}
         <div className="flex items-center gap-6">

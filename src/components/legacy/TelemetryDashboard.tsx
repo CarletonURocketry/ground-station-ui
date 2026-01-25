@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useWebSocketContext } from "../contexts/WebSocketContext";
+import { useWebSocketContext } from "../../contexts/WebSocketContext";
 import Card from "./Card";
-import GeneralMultiLineChart from "./charts/GeneralMultiLineChart";
-import GuageComponent from "./charts/GuageComponent";
+import GeneralMultiLineChart from "../charts/GeneralMultiLineChart";
+import GuageComponent from "../charts/GuageComponent";
 import TabSwitcher from "./TabSwitcher";
 import MapView from "./Map";
 

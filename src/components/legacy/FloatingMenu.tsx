@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import replayIcon from "../assets/replay.svg";
 import recordIcon from "../assets/record.svg";
-import { useWebSocketContext } from "../contexts/WebSocketContext";
+import { useWebSocketContext } from "../../contexts/WebSocketContext";
 
 interface FloatingMenuProps {
   onOpenReplay?: () => void;

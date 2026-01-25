@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Play, Pause, FullscreenIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// TODO: Rewrite this. For now it's just placeholder to see how it looks on the UI
 export function MissionPlayControls() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -15,6 +16,7 @@ export function MissionPlayControls() {
   const handleTimelineChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentTime(Number(e.target.value));
     // Future: Implement seeking functionality
+    console.log(e.target.value);
   };
 
   const formatTime = (seconds: number) => {
@@ -24,7 +26,7 @@ export function MissionPlayControls() {
   };
 
   return (
-    <div className="rounded-lg bg-white/90 border sm:w-190 border-[#D8DADA] py-2 px-4 shadow-sm">
+    <div className="rounded-lg bg-white/90 border sm:w-190 py-2 px-4 shadow-sm">
       <div className="flex items-center gap-4">
         {/* Play/Pause Button */}
         <Button
@@ -42,7 +44,7 @@ export function MissionPlayControls() {
 
         {/* Timeline */}
         <div className="flex-1 flex items-center gap-3">
-          <span className="text-sm font-mono text-gray-600 min-w-12">
+          <span className="text-sm font-mono text-muted-foreground min-w-12">
             {formatTime(currentTime)}
           </span>
 
@@ -52,15 +54,10 @@ export function MissionPlayControls() {
             max={duration}
             value={currentTime}
             onChange={handleTimelineChange}
-            className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-            style={{
-              background: `linear-gradient(to right, #2563eb 0%, #2563eb ${
-                (currentTime / duration) * 100
-              }%, #e5e7eb ${(currentTime / duration) * 100}%, #e5e7eb 100%)`,
-            }}
+            className="flex-1 h-2 bg-background border rounded-lg appearance-none cursor-pointer accent-primary"
           />
 
-          <span className="text-sm font-mono text-gray-600 min-w-12">
+          <span className="text-sm font-mono text-muted-foreground min-w-12">
             {formatTime(duration)}
           </span>
         </div>

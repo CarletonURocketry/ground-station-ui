@@ -16,7 +16,7 @@ import {
   IconMaximize,
   IconMinimize,
 } from "@tabler/icons-react";
-import { useMapContext } from "../contexts/MapContext";
+import { useMapContext } from "../../contexts/MapContext";
 import rocketIcon from "../assets/rocket.svg";
 
 function fixLeafletMarker() {
