@@ -4,7 +4,7 @@
 
 HOLY VIBECODE!!
 
-
+CLEAN ALL THIS SHIT UP
 
 
 */
@@ -57,8 +57,6 @@ interface TelemetryData {
 export const Dashboard = () => {
   const viewerRef = useRef<CesiumViewer | null>(null);
   const rocketEntityRef = useRef<CesiumEntity | null>(null);
-  const [isTracking, setIsTracking] = useState(true);
-
   const [telemetry, setTelemetry] = useState<TelemetryData>({
     altitude: 0,
     velocity: 0,
@@ -159,7 +157,13 @@ export const Dashboard = () => {
         ),
       ]);
     }
-  }, [Math.floor(telemetry.missionTime * 2)]); // Update every 0.5 seconds
+  }, [
+    Math.floor(telemetry.missionTime * 2),
+    telemetry.altitude,
+    telemetry.lat,
+    telemetry.lon,
+    telemetry.missionTime,
+  ]);
 
   const rocketPosition = useMemo(
     () =>
@@ -186,22 +190,10 @@ export const Dashboard = () => {
 
   // Track the rocket entity
   useEffect(() => {
-    if (viewerRef.current && rocketEntityRef.current && isTracking) {
+    if (viewerRef.current && rocketEntityRef.current) {
       viewerRef.current.trackedEntity = rocketEntityRef.current;
     }
-  }, [isTracking, telemetry.missionTime]);
-
-  // Toggle tracking
-  const toggleTracking = useCallback(() => {
-    setIsTracking((prev) => {
-      if (!prev && viewerRef.current && rocketEntityRef.current) {
-        viewerRef.current.trackedEntity = rocketEntityRef.current;
-      } else if (prev && viewerRef.current) {
-        viewerRef.current.trackedEntity = undefined;
-      }
-      return !prev;
-    });
-  }, []);
+  }, [telemetry.missionTime]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -212,70 +204,39 @@ export const Dashboard = () => {
 
   return (
     <div className="flex-1 relative h-full bg-white rounded-lg border flex flex-col overflow-hidden">
-      {/* Live Telemetry Overlay */}
-      <div className="absolute top-4 left-4 z-10 bg-black/80 text-white p-4 rounded-lg font-mono text-sm space-y-1 min-w-[280px]">
-        <div className="text-center text-lg font-bold text-green-400 mb-2">
+      {/* Live Telemetry Overlay - TODO - Put this in a ShadCN card */}
+      <div className="absolute top-4 left-4 z-10 bg-white border shadow-lg p-5 rounded-xl font-mono min-w-[300px]">
+        <div className="text-center text-xl font-black text-green-700 mb-3 tracking-wide">
           {telemetry.phase}
         </div>
-        <div className="text-center text-xl font-bold text-cyan-400 mb-3">
+        <div className="text-center text-2xl font-black text-blue-800 mb-4">
           {formatTime(telemetry.missionTime)}
         </div>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-          <span className="text-gray-400">Altitude:</span>
-          <span className="text-right text-yellow-300">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-base">
+          <span className="font-bold text-gray-700">Altitude:</span>
+          <span className="text-right font-black text-amber-700">
             {telemetry.altitude.toFixed(1)} m
           </span>
-          <span className="text-gray-400">Velocity:</span>
-          <span className="text-right text-orange-300">
+          <span className="font-bold text-gray-700">Velocity:</span>
+          <span className="text-right font-black text-orange-700">
             {telemetry.velocity.toFixed(1)} m/s
           </span>
-          <span className="text-gray-400">Acceleration:</span>
-          <span className="text-right text-red-300">
+          <span className="font-bold text-gray-700">Acceleration:</span>
+          <span className="text-right font-black text-red-700">
             {telemetry.acceleration.toFixed(1)} m/s²
           </span>
-          <span className="text-gray-400">Temperature:</span>
-          <span className="text-right text-blue-300">
-            {telemetry.temperature.toFixed(1)} °C
+          <span className="font-bold text-gray-700">Latitude:</span>
+          <span className="text-right font-black text-gray-900">
+            {telemetry.lat.toFixed(6)}°
           </span>
-          <span className="text-gray-400">Pressure:</span>
-          <span className="text-right text-purple-300">
-            {telemetry.pressure.toFixed(2)} kPa
+          <span className="font-bold text-gray-700">Longitude:</span>
+          <span className="text-right font-black text-gray-900">
+            {telemetry.lon.toFixed(6)}°
           </span>
-          <span className="text-gray-400">Latitude:</span>
-          <span className="text-right">{telemetry.lat.toFixed(6)}°</span>
-          <span className="text-gray-400">Longitude:</span>
-          <span className="text-right">{telemetry.lon.toFixed(6)}°</span>
         </div>
       </div>
 
-      {/* Max Values Overlay */}
-      <div className="absolute top-4 right-4 z-10 bg-black/80 text-white p-3 rounded-lg font-mono text-xs">
-        <div className="text-center text-gray-400 mb-1">TARGET APOGEE</div>
-        <div className="text-center text-xl font-bold text-green-400">
-          {MAX_ALTITUDE} m
-        </div>
-        <div className="text-center text-gray-400 mt-2">PROGRESS</div>
-        <div className="w-full bg-gray-700 rounded-full h-2 mt-1">
-          <div
-            className="bg-green-500 h-2 rounded-full transition-all duration-100"
-            style={{ width: `${(telemetry.altitude / MAX_ALTITUDE) * 100}%` }}
-          />
-        </div>
-        <div className="text-center text-sm mt-1">
-          {((telemetry.altitude / MAX_ALTITUDE) * 100).toFixed(1)}%
-        </div>
-        <button
-          onClick={toggleTracking}
-          className={`mt-3 w-full px-2 py-1 rounded text-xs font-bold transition-colors ${
-            isTracking
-              ? "bg-green-600 hover:bg-green-700"
-              : "bg-gray-600 hover:bg-gray-700"
-          }`}
-        >
-          {isTracking ? "🎯 TRACKING ON" : "📍 TRACKING OFF"}
-        </button>
-      </div>
-
+      {/* Tracking Toggle Button in the future */}
       <Viewer
         full
         timeline={false}
