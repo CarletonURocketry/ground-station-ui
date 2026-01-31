@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import type { WebSocketData } from "../constants/websocket";
+import { useAppStore } from "@/store/appStore";
+import { TelemetryPacket, useTelemetryStore } from "@/store/telemetryStore";
 
 /**
  * Custom hook to manage WebSocket connections.
@@ -25,10 +27,16 @@ const useWebSocket = (url: string) => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [data, setData] = useState<WebSocketData | null>(null);
   const [error, setError] = useState<Event | null>(null);
+  const { setClientId } = useAppStore();
+  const { addPacket } = useTelemetryStore();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const ws = new WebSocket(url);
+    const clientId = crypto.randomUUID();
+    setClientId(clientId);
+
+    // Make the client ID inside of the app state
+    const ws = new WebSocket(url + "?X-Client-ID=" + clientId);
 
     ws.onopen = () => {
       console.log("WebSocket Connected"); // Add this log
@@ -38,8 +46,10 @@ const useWebSocket = (url: string) => {
 
     ws.onmessage = (event) => {
       try {
-        const parsedData: WebSocketData = JSON.parse(event.data);
-        setData(parsedData);
+        const parsedData: TelemetryPacket = JSON.parse(event.data);
+        // setData(parsedData);
+        addPacket(parsedData);
+        console.log(parsedData);
       } catch (e) {
         console.error("Error parsing WebSocket data:", e);
       }

@@ -6,7 +6,8 @@ import App from "./App.tsx";
 import { WebSocketProvider } from "./contexts/WebSocketContext.tsx";
 
 const hostname = window.location.hostname;
-const wsUrl = `ws://${hostname}:33845/websocket`;
+// const wsUrl = `ws://${hostname}:33845/websocket`;
+const wsUrl = `ws://${hostname}:8000/ws`;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

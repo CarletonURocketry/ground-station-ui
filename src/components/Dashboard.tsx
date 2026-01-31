@@ -9,9 +9,7 @@ CLEAN ALL THIS SHIT UP
 
 */
 
-// TODO: ADD ZUSTAND FOR RECORDING/REPLAY STATE MANAGEMENT
-
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { useMemo, useRef, useCallback, useEffect } from "react";
 import {
   Viewer,
   Entity,
@@ -29,141 +27,86 @@ import {
   Entity as CesiumEntity,
 } from "cesium";
 import MissionPlayControls from "./MissionPlayControls";
+import { useTelemetryStore } from "../store/telemetryStore";
 
 // Path to your 3D rocket model (place .glb or .gltf file in public folder)
 const ROCKET_MODEL_URL = "/rocket.glb";
 
-const LAUNCH_LAT = 45.3876;
-const LAUNCH_LON = -75.6972;
-const MAX_ALTITUDE = 3000; // meters
-const ASCENT_DURATION = 60; // seconds to reach max altitude
-
-interface TelemetryData {
-  altitude: number;
-  velocity: number;
-  acceleration: number;
-  temperature: number;
-  pressure: number;
-  lat: number;
-  lon: number;
-  missionTime: number;
-  phase: string;
-  // Orientation angles (in degrees)
-  pitch: number;
-  heading: number;
-  roll: number;
-}
+const LAUNCH_LAT = 47.98701492723335;
+const LAUNCH_LON = -81.84848442698328;
 
 export const Dashboard = () => {
   const viewerRef = useRef<CesiumViewer | null>(null);
   const rocketEntityRef = useRef<CesiumEntity | null>(null);
-  const [telemetry, setTelemetry] = useState<TelemetryData>({
-    altitude: 0,
-    velocity: 0,
-    acceleration: 0,
-    temperature: 20,
-    pressure: 101.325,
-    lat: LAUNCH_LAT,
-    lon: LAUNCH_LON,
-    missionTime: 0,
-    phase: "PRE-LAUNCH",
-    pitch: 90, // Start pointing straight up
-    heading: 0,
-    roll: 0,
-  });
 
-  const [flightHistory, setFlightHistory] = useState<Cartesian3[]>([
-    Cartesian3.fromDegrees(LAUNCH_LON, LAUNCH_LAT, 0),
-  ]);
+  // Get telemetry data from Zustand store
+  const { data } = useTelemetryStore();
 
-  // Simulate ascending rocket telemetry
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTelemetry((prev) => {
-        const newTime = prev.missionTime + 0.1;
-        const progress = Math.min(newTime / ASCENT_DURATION, 1);
+  // Derive current telemetry values from store
+  const telemetry = useMemo(() => {
+    const altitude = data.altitude_launch_level.metres.at(-1) ?? 0;
+    const temperature = data.temperature.celsius.at(-1) ?? 20;
+    const pressure = data.pressure.pascals.at(-1) ?? 101325;
+    const lat = data.gnss.latitude.at(-1) ?? LAUNCH_LAT;
+    const lon = data.gnss.longitude.at(-1) ?? LAUNCH_LON;
+    const missionTime = data.altitude_launch_level.mission_time.at(-1) ?? 0;
+    const acceleration = data.linear_acceleration.magnitude.at(-1) ?? 0;
+    const statusCode = data.flight_status.status_code.at(-1) ?? 0;
 
-        // Simulate ascent trajectory (parabolic-ish)
-        const altitudeProgress = Math.sin(progress * Math.PI * 0.5); // ease-out curve
-        const newAltitude = altitudeProgress * MAX_ALTITUDE;
+    // Map status code to phase name (adjust mapping as needed)
+    const phaseMap: Record<number, string> = {
+      0: "PRE-LAUNCH",
+      1: "IGNITION",
+      2: "POWERED ASCENT",
+      3: "COASTING",
+      4: "APOGEE",
+      5: "DESCENT",
+      6: "LANDED",
+    };
+    const phase = phaseMap[statusCode] ?? "UNKNOWN";
 
-        // Velocity peaks mid-flight then decreases
-        const velocityMultiplier = Math.cos(progress * Math.PI * 0.5);
-        const newVelocity = velocityMultiplier * 350 + (1 - progress) * 50;
+    // Calculate velocity from acceleration history (simplified)
+    // In reality you might want to store velocity separately or compute from altitude changes
+    const velocity = 0; // Would need velocity data or integration
 
-        // Acceleration decreases over time
-        const newAcceleration = Math.max(0, 40 - progress * 45);
+    return {
+      altitude,
+      velocity,
+      acceleration,
+      temperature,
+      pressure: pressure / 1000, // Convert Pa to kPa for display
+      lat,
+      lon,
+      missionTime,
+      phase,
+      // Default orientation - could be computed from angular velocity/magnetic field
+      pitch: 90,
+      heading: 0,
+      roll: 0,
+    };
+  }, [data]);
 
-        // Temperature drops with altitude (lapse rate ~6.5°C per 1000m)
-        const newTemperature = 20 - (newAltitude / 1000) * 6.5;
+  // Build flight path history from all GNSS data
+  const flightHistory = useMemo(() => {
+    const history: Cartesian3[] = [
+      Cartesian3.fromDegrees(LAUNCH_LON, LAUNCH_LAT, 0),
+    ];
 
-        // Pressure drops exponentially with altitude
-        const newPressure = 101.325 * Math.exp(-newAltitude / 8500);
+    // Combine GNSS and altitude data to build path
+    const { latitude, longitude } = data.gnss;
+    const { metres } = data.altitude_launch_level;
 
-        // Slight drift in position during ascent
-        const drift = Math.sin(newTime * 0.5) * 0.0005;
-        const newLat = LAUNCH_LAT + progress * 0.002 + drift;
-        const newLon = LAUNCH_LON + progress * 0.001;
-
-        // Calculate rocket orientation based on flight phase
-        // Pitch: 90° = pointing up, 0° = horizontal
-        // During ascent, rocket tilts slightly in direction of travel
-        const pitchFromVertical = Math.min(progress * 15, 10); // Max 10° tilt from vertical
-        const newPitch = 90 - pitchFromVertical;
-
-        // Heading based on direction of travel (towards northeast)
-        const newHeading = 45 + Math.sin(newTime * 0.3) * 5; // Slight wobble
-
-        // Roll oscillation (simulates spin stabilization)
-        const newRoll = Math.sin(newTime * 2) * 3;
-
-        // Determine flight phase
-        let phase = "PRE-LAUNCH";
-        if (newTime > 0 && newTime < 3) phase = "IGNITION";
-        else if (newTime >= 3 && newTime < 10) phase = "POWERED ASCENT";
-        else if (newTime >= 10 && newTime < 45) phase = "COASTING";
-        else if (newTime >= 45 && progress < 1) phase = "APPROACHING APOGEE";
-        else if (progress >= 1) phase = "APOGEE";
-
-        return {
-          altitude: newAltitude,
-          velocity: Math.max(0, newVelocity),
-          acceleration: newAcceleration,
-          temperature: newTemperature,
-          pressure: newPressure,
-          lat: newLat,
-          lon: newLon,
-          missionTime: newTime,
-          phase,
-          pitch: newPitch,
-          heading: newHeading,
-          roll: newRoll,
-        };
-      });
-    }, 100);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Update flight path history
-  useEffect(() => {
-    if (telemetry.missionTime > 0) {
-      setFlightHistory((prev) => [
-        ...prev,
-        Cartesian3.fromDegrees(
-          telemetry.lon,
-          telemetry.lat,
-          telemetry.altitude
-        ),
-      ]);
+    for (let i = 0; i < latitude.length; i++) {
+      const lat = latitude[i];
+      const lon = longitude[i];
+      const alt = metres[i] ?? 0;
+      if (lat !== undefined && lon !== undefined) {
+        history.push(Cartesian3.fromDegrees(lon, lat, alt));
+      }
     }
-  }, [
-    Math.floor(telemetry.missionTime * 2),
-    telemetry.altitude,
-    telemetry.lat,
-    telemetry.lon,
-    telemetry.missionTime,
-  ]);
+
+    return history;
+  }, [data.gnss, data.altitude_launch_level]);
 
   const rocketPosition = useMemo(
     () =>
@@ -175,7 +118,7 @@ export const Dashboard = () => {
   const rocketOrientation = useMemo(() => {
     const hpr = new HeadingPitchRoll(
       CesiumMath.toRadians(telemetry.heading),
-      CesiumMath.toRadians(telemetry.pitch - 90), // Cesium pitch: 0 = horizontal, adjust from our 90 = up convention
+      CesiumMath.toRadians(telemetry.pitch - 90),
       CesiumMath.toRadians(telemetry.roll)
     );
     return Transforms.headingPitchRollQuaternion(rocketPosition, hpr);
