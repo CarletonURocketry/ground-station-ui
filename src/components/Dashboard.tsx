@@ -41,7 +41,7 @@ const LAUNCH_LON = -81.84848442698328;
 export const Dashboard = () => {
   const viewerRef = useRef<CesiumViewer | null>(null);
   const rocketEntityRef = useRef<CesiumEntity | null>(null);
-  const { replay, isRecording } = useAppStore();
+  const { currentState } = useAppStore();
 
   // Get telemetry data from Zustand store
   const { data } = useTelemetryStore();
@@ -153,8 +153,8 @@ export const Dashboard = () => {
     <div
       className={cn(
         "flex-1 relative h-full bg-white rounded-lg border flex flex-col overflow-hidden",
-        replay.isPlaying && "border-0 outline-3 outline-primary",
-        isRecording && "border-0 outline-4 outline-recording"
+        currentState === "recording" && "outline-4 outline-recording border-0",
+        currentState === "replay" && "outline-4 outline-primary border-0"
       )}
     >
       <StatsOverlay

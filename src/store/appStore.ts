@@ -10,10 +10,14 @@ interface ReplayState {
   speed: number;
 }
 
+type CurrentState = "replay" | "recording" | "live";
+
 interface AppState {
   // WebSocket & Api Client ID
   clientId: string | null;
   setClientId: (id: string | null) => void;
+
+  currentState: CurrentState;
 
   // Recording
   isRecording: boolean;
@@ -46,6 +50,8 @@ export const useAppStore = create<AppState>((set) => ({
   // WebSocket & Api Client ID
   clientId: null,
   setClientId: (id) => set({ clientId: id }),
+
+  currentState: "live",
 
   // Recording
   isRecording: false,
