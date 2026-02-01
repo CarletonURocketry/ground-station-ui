@@ -28,6 +28,9 @@ import {
 } from "cesium";
 import MissionPlayControls from "./MissionPlayControls";
 import { useTelemetryStore } from "../store/telemetryStore";
+import { cn } from "@/lib/utils";
+import { StatsOverlay } from "./StatsOverlay";
+import { useAppStore } from "@/store/appStore";
 
 // Path to your 3D rocket model (place .glb or .gltf file in public folder)
 const ROCKET_MODEL_URL = "/rocket.glb";
@@ -38,6 +41,7 @@ const LAUNCH_LON = -81.84848442698328;
 export const Dashboard = () => {
   const viewerRef = useRef<CesiumViewer | null>(null);
   const rocketEntityRef = useRef<CesiumEntity | null>(null);
+  const { replay, isRecording } = useAppStore();
 
   // Get telemetry data from Zustand store
   const { data } = useTelemetryStore();
@@ -146,38 +150,22 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="flex-1 relative h-full bg-white rounded-lg border flex flex-col overflow-hidden">
-      {/* Live Telemetry Overlay - TODO - Put this in a ShadCN card */}
-      <div className="absolute top-4 left-4 z-10 bg-white border shadow-lg p-5 rounded-xl font-mono min-w-[300px]">
-        <div className="text-center text-xl font-black text-green-700 mb-3 tracking-wide">
-          {telemetry.phase}
-        </div>
-        <div className="text-center text-2xl font-black text-blue-800 mb-4">
-          {formatTime(telemetry.missionTime)}
-        </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-base">
-          <span className="font-bold text-gray-700">Altitude:</span>
-          <span className="text-right font-black text-amber-700">
-            {telemetry.altitude.toFixed(1)} m
-          </span>
-          <span className="font-bold text-gray-700">Velocity:</span>
-          <span className="text-right font-black text-orange-700">
-            {telemetry.velocity.toFixed(1)} m/s
-          </span>
-          <span className="font-bold text-gray-700">Acceleration:</span>
-          <span className="text-right font-black text-red-700">
-            {telemetry.acceleration.toFixed(1)} m/s²
-          </span>
-          <span className="font-bold text-gray-700">Latitude:</span>
-          <span className="text-right font-black text-gray-900">
-            {telemetry.lat.toFixed(6)}°
-          </span>
-          <span className="font-bold text-gray-700">Longitude:</span>
-          <span className="text-right font-black text-gray-900">
-            {telemetry.lon.toFixed(6)}°
-          </span>
-        </div>
-      </div>
+    <div
+      className={cn(
+        "flex-1 relative h-full bg-white rounded-lg border flex flex-col overflow-hidden",
+        replay.isPlaying && "border-0 outline-3 outline-primary",
+        isRecording && "border-0 outline-4 outline-recording"
+      )}
+    >
+      <StatsOverlay
+        phase={telemetry.phase}
+        missionTime={formatTime(telemetry.missionTime)}
+        altitude={telemetry.altitude}
+        velocity={telemetry.velocity}
+        acceleration={telemetry.acceleration}
+        lat={telemetry.lat}
+        lon={telemetry.lon}
+      />
 
       {/* Tracking Toggle Button in the future */}
       <Viewer
