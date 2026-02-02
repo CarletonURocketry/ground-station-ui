@@ -41,7 +41,7 @@ const LAUNCH_LON = -81.84848442698328;
 export const Dashboard = () => {
   const viewerRef = useRef<CesiumViewer | null>(null);
   const rocketEntityRef = useRef<CesiumEntity | null>(null);
-  const { currentState } = useAppStore();
+  const { currentState, isStatsOpen } = useAppStore();
 
   // Get telemetry data from Zustand store
   const { data } = useTelemetryStore();
@@ -157,15 +157,20 @@ export const Dashboard = () => {
         currentState === "replay" && "outline-4 outline-primary border-0"
       )}
     >
-      <StatsOverlay
-        phase={telemetry.phase}
-        missionTime={formatTime(telemetry.missionTime)}
-        altitude={telemetry.altitude}
-        velocity={telemetry.velocity}
-        acceleration={telemetry.acceleration}
-        lat={telemetry.lat}
-        lon={telemetry.lon}
-      />
+      {
+        // Change stats to look like youtube stats for nerds
+        isStatsOpen && (
+          <StatsOverlay
+            phase={telemetry.phase}
+            missionTime={formatTime(telemetry.missionTime)}
+            altitude={telemetry.altitude}
+            velocity={telemetry.velocity}
+            acceleration={telemetry.acceleration}
+            lat={telemetry.lat}
+            lon={telemetry.lon}
+          />
+        )
+      }
 
       {/* Tracking Toggle Button in the future */}
       <Viewer
@@ -233,9 +238,11 @@ export const Dashboard = () => {
       </Viewer>
 
       {/* Mission Play Controls Overlay */}
-      <div className="flex justify-center absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
-        <MissionPlayControls />
-      </div>
+      {currentState === "replay" && (
+        <div className="flex justify-center absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
+          <MissionPlayControls />
+        </div>
+      )}
     </div>
   );
 };

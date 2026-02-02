@@ -4,6 +4,17 @@ import { useAppStore } from "@/store/appStore";
 import { TelemetryPacket, useTelemetryStore } from "@/store/telemetryStore";
 
 /**
+ *
+ *
+ * TODO: CLEAN THIS FUNCTION UP!!
+ * Remove uneeded functions and returns/remove this hook entireley and just make it a context
+ *
+ *
+ *
+ *
+ */
+
+/**
  * Custom hook to manage WebSocket connections.
  * @param {string} url - The WebSocket URL to connect to.
  * @returns {Object} The WebSocket connection data, error, and a function to send commands.
@@ -36,7 +47,7 @@ const useWebSocket = (url: string) => {
     setClientId(clientId);
 
     // Make the client ID inside of the app state
-    const ws = new WebSocket(url + "?X-Client-ID=" + clientId);
+    const ws = new WebSocket(url + "?client_id=" + clientId);
 
     ws.onopen = () => {
       console.log("WebSocket Connected"); // Add this log

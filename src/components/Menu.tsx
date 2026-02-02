@@ -11,8 +11,11 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAppStore } from "@/store/appStore";
 
 export const Menu = () => {
+  const { toggleStats, isStatsOpen } = useAppStore();
+
   // Mock data for previous missions - replace with actual data later
   const previousMissions = [
     { id: 1, name: "Mission Alpha - 2025-01-15" },
@@ -60,9 +63,12 @@ export const Menu = () => {
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem className="px-4 py-3 text-base cursor-pointer">
+          <DropdownMenuItem
+            className="px-4 py-3 text-base cursor-pointer"
+            onClick={toggleStats}
+          >
             <ActivityIcon />
-            Stats for Nerds
+            {isStatsOpen ? "Hide" : "Show"} Stats for Nerds
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
