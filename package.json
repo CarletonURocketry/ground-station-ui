@@ -17,6 +17,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@tabler/icons-react": "^3.31.0",
     "@tailwindcss/vite": "^4.0.0",
+    "@tanstack/react-query": "^5.90.20",
     "@types/leaflet": "^1.9.16",
     "@visx/axis": "^3.12.0",
     "@visx/visx": "^3.12.0",

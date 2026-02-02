@@ -12,17 +12,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAppStore } from "@/store/appStore";
+import { useMissions } from "@/lib/api/query";
+import { MissionsLoadingSkeleton } from "@/components/skeletons/MissionsLoadingSkeleton";
+import { useWebSocketContext } from "@/contexts/WebSocketContext";
 
 export const Menu = () => {
-  const { toggleStats, isStatsOpen } = useAppStore();
-
-  // Mock data for previous missions - replace with actual data later
-  const previousMissions = [
-    { id: 1, name: "Mission Alpha - 2025-01-15" },
-    { id: 2, name: "Mission Beta - 2025-01-10" },
-    { id: 3, name: "Mission Gamma - 2025-01-05" },
-    { id: 4, name: "Mission Delta - 2024-12-20" },
-  ];
+  const { toggleStats, isStatsOpen, clientId } = useAppStore();
+  const { isConnected } = useWebSocketContext();
+  const { isPending, data: missions } = useMissions(
+    {
+      clientId: clientId || "",
+    },
+    {
+      enabled: isConnected && !!clientId,
+    }
+  );
 
   return (
     <DropdownMenu>
@@ -43,14 +47,22 @@ export const Menu = () => {
               Previous Missions
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
-              {previousMissions.map((mission) => (
-                <DropdownMenuItem
-                  key={mission.id}
-                  className="px-4 py-3 text-sm cursor-pointer"
-                >
-                  {mission.name}
+              {isPending ? (
+                <MissionsLoadingSkeleton />
+              ) : missions && missions.length > 0 ? (
+                missions.map((mission) => (
+                  <DropdownMenuItem
+                    key={mission.path}
+                    className="px-4 py-3 text-sm cursor-pointer"
+                  >
+                    {mission.name}
+                  </DropdownMenuItem>
+                ))
+              ) : (
+                <DropdownMenuItem className="px-4 py-3 text-sm" disabled>
+                  No missions available
                 </DropdownMenuItem>
-              ))}
+              )}
             </DropdownMenuSubContent>
           </DropdownMenuSub>
 
