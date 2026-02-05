@@ -12,14 +12,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAppStore } from "@/store/appStore";
-import { useMissions } from "@/lib/api/query";
+import { useMissions, useStartReplay, useStopReplay } from "@/lib/api/query";
 import { MissionsLoadingSkeleton } from "@/components/skeletons/MissionsLoadingSkeleton";
 import { useWebSocketContext } from "@/contexts/WebSocketContext";
+import { useTelemetryStore } from "@/store/telemetryStore";
 
 export const Menu = () => {
-  const { toggleStats, isStatsOpen, clientId } = useAppStore();
+  const {
+    toggleStats,
+    isStatsOpen,
+    clientId,
+    replay,
+    setReplayPlaying,
+    setCurrentState,
+    resetReplay,
+  } = useAppStore();
+  const { clearState } = useTelemetryStore();
   const { isConnected } = useWebSocketContext();
-  const { isPending, data: missions } = useMissions(
+  const { isPending: isMissionsPending, data: missions } = useMissions(
     {
       clientId: clientId || "",
     },
@@ -27,6 +37,24 @@ export const Menu = () => {
       enabled: isConnected && !!clientId,
     }
   );
+  const { mutate: startReplay } = useStartReplay({ clientId: clientId || "" });
+  const { mutate: stopReplay } = useStopReplay({ clientId: clientId || "" });
+
+  function handleStartReplay(replayPath: string) {
+    if (replay.isPlaying) return;
+    startReplay(replayPath);
+    setReplayPlaying(true);
+    setCurrentState("replay");
+  }
+
+  function handleStopReplay() {
+    if (!replay.isPlaying) return;
+    stopReplay();
+    resetReplay();
+    clearState();
+    setReplayPlaying(false);
+    setCurrentState("live");
+  }
 
   return (
     <DropdownMenu>
@@ -41,30 +69,41 @@ export const Menu = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64">
         <DropdownMenuGroup>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="px-4 py-3 text-base">
+          {replay.isPlaying ? (
+            <DropdownMenuItem
+              className="px-4 py-3 text-base cursor-pointer"
+              onClick={handleStopReplay}
+            >
               <HistoryIcon />
-              Previous Missions
-            </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent>
-              {isPending ? (
-                <MissionsLoadingSkeleton />
-              ) : missions && missions.length > 0 ? (
-                missions.map((mission) => (
-                  <DropdownMenuItem
-                    key={mission.path}
-                    className="px-4 py-3 text-sm cursor-pointer"
-                  >
-                    {mission.name}
+              Stop Replay
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger className="px-4 py-3 text-base">
+                <HistoryIcon />
+                Previous Missions
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent>
+                {isMissionsPending ? (
+                  <MissionsLoadingSkeleton />
+                ) : missions && missions.length > 0 ? (
+                  missions.map((mission) => (
+                    <DropdownMenuItem
+                      key={mission.path}
+                      className="px-4 py-3 text-sm cursor-pointer"
+                      onClick={() => handleStartReplay(mission.path)}
+                    >
+                      {mission.name}
+                    </DropdownMenuItem>
+                  ))
+                ) : (
+                  <DropdownMenuItem className="px-4 py-3 text-sm" disabled>
+                    No missions available
                   </DropdownMenuItem>
-                ))
-              ) : (
-                <DropdownMenuItem className="px-4 py-3 text-sm" disabled>
-                  No missions available
-                </DropdownMenuItem>
-              )}
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
+                )}
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+          )}
 
           <DropdownMenuSeparator />
 

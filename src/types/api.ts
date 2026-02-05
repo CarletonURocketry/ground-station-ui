@@ -14,3 +14,10 @@ export type Mission = {
 export type MissionApiResponse = BaseApiResponse & {
   missions: Mission[];
 };
+
+export type StartReplayApiResponse = BaseApiResponse & {
+  replay_path: string;
+  speed: number;
+};
+
+export type StopReplayApiResponse = BaseApiResponse;

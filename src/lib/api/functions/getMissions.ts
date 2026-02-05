@@ -2,7 +2,7 @@ import { MissionApiResponse } from "@/types/api";
 import { getApiUrl } from "../util/getApiUrl";
 
 export const getMissions = async ({ clientId }: { clientId?: string }) => {
-  const apiUrl = getApiUrl("getMissions", clientId);
+  const apiUrl = getApiUrl("getMissions", { clientId });
 
   const response = await fetch(apiUrl);
 

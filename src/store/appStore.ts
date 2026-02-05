@@ -2,6 +2,8 @@ import { create } from "zustand";
 
 // TODO: Split into multiple stores, and make a telemetry store for telemetry data from web socket
 
+// TODO: REMOVE SO MANY REDUNDANT STATES
+
 interface ReplayState {
   isPlaying: boolean;
   currentReplayId: string | null;
@@ -18,6 +20,7 @@ interface AppState {
   setClientId: (id: string | null) => void;
 
   currentState: CurrentState;
+  setCurrentState: (state: CurrentState) => void;
 
   // Recording
   isRecording: boolean;
@@ -52,6 +55,7 @@ export const useAppStore = create<AppState>((set) => ({
   setClientId: (id) => set({ clientId: id }),
 
   currentState: "live",
+  setCurrentState: (state) => set({ currentState: state }),
 
   // Recording
   isRecording: false,
