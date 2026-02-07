@@ -100,26 +100,27 @@ export const StatsForNerds = () => {
         data.altitude_sea_level.mission_time.at(-1) ?? 0;
     const gpsStale = currentMissionTime - lastGpsTime > 10; // Stale if >10s old
 
-    // Note: RSSI, SNR, and Battery data are not available in the current telemetry
-    // These fields will show "N/A" in the UI
+    // Current coordinates
+    const currentLat = data.gnss.latitude.at(-1);
+    const currentLon = data.gnss.longitude.at(-1);
 
     return (
-        <div className="absolute top-4 right-4 z-20 w-[380px] bg-black/85 backdrop-blur-sm text-white rounded-lg shadow-2xl font-mono text-xs overflow-hidden border border-white/10">
+        <div className="absolute top-4 right-4 z-20 w-[340px] bg-white/80 backdrop-blur-md text-slate-900 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] font-mono text-xs overflow-hidden border border-white/20 flex flex-col max-h-[calc(100vh-2rem)]">
             {/* Header */}
-            <div className="flex items-center justify-between px-3 py-2 bg-white/5 border-b border-white/10">
-                <span className="text-[11px] font-semibold tracking-wide text-white/90">
+            <div className="flex-shrink-0 flex items-center justify-between px-2.5 py-1.5 bg-slate-50/50 border-b border-slate-200/50">
+                <span className="text-[9px] font-black tracking-widest text-slate-800">
                     STATS FOR NERDS
                 </span>
                 <button
                     onClick={() => setIsStatsOpen(false)}
-                    className="text-white/60 hover:text-white transition-colors p-0.5 hover:bg-white/10 rounded"
+                    className="text-slate-400 hover:text-slate-900 transition-colors p-0.5 hover:bg-slate-200/50 rounded-lg"
                 >
                     <X size={14} />
                 </button>
             </div>
 
-            {/* Content */}
-            <div className="p-3 space-y-3">
+            {/* Content - Scrollable */}
+            <div className="overflow-y-auto p-2 space-y-2 custom-scrollbar">
                 {/* Altitude Card */}
                 <StatCard
                     label="Altitude"
@@ -127,9 +128,9 @@ export const StatsForNerds = () => {
                     chart={
                         <MiniSparkline
                             data={filteredData.altitudes}
-                            color="#10B981"
+                            color="#059669"
                             width={100}
-                            height={28}
+                            height={30}
                         />
                     }
                     trend={
@@ -150,13 +151,27 @@ export const StatsForNerds = () => {
                     chart={
                         <MiniSparkline
                             data={velocity}
-                            color="#3B82F6"
+                            color="#2563eb"
                             width={100}
-                            height={28}
+                            height={30}
                         />
                     }
                     subtext="Derived from altitude"
                 />
+
+                {/* Coordinates Row */}
+                <div className="grid grid-cols-2 gap-2">
+                    <MiniStatCard
+                        label="Latitude"
+                        value={currentLat !== undefined ? currentLat.toFixed(6) : "—"}
+                        subtext="Degrees"
+                    />
+                    <MiniStatCard
+                        label="Longitude"
+                        value={currentLon !== undefined ? currentLon.toFixed(6) : "—"}
+                        subtext="Degrees"
+                    />
+                </div>
 
                 {/* Two-column grid for smaller stats */}
                 <div className="grid grid-cols-2 gap-2">
@@ -165,7 +180,7 @@ export const StatsForNerds = () => {
                         label="G-Force"
                         value={`${currentGForce.toFixed(2)} g`}
                         subtext={`Max: ${maxGForce.toFixed(2)} g`}
-                        color={currentGForce > 3 ? "#EF4444" : "#10B981"}
+                        color={currentGForce > 3 ? "#e11d48" : "#059669"}
                     />
 
                     {/* Spin Rate */}
@@ -175,9 +190,9 @@ export const StatsForNerds = () => {
                         chart={
                             <MiniSparkline
                                 data={filteredData.angularVelocity}
-                                color="#F59E0B"
-                                width={60}
-                                height={20}
+                                color="#d97706"
+                                width={70}
+                                height={25}
                                 showArea={false}
                             />
                         }
@@ -196,10 +211,10 @@ export const StatsForNerds = () => {
                         label="GPS Lock"
                         value={
                             <span
-                                className={`inline-flex items-center gap-1 ${hasGpsLock && !gpsStale ? "text-green-400" : "text-red-400"}`}
+                                className={`inline-flex items-center gap-1.5 ${hasGpsLock && !gpsStale ? "text-emerald-600" : "text-rose-600"}`}
                             >
                                 <span
-                                    className={`w-2 h-2 rounded-full ${hasGpsLock && !gpsStale ? "bg-green-400" : "bg-red-400"}`}
+                                    className={`w-2 h-2 rounded-full ${hasGpsLock && !gpsStale ? "bg-emerald-500" : "bg-rose-500"}`}
                                 />
                                 {hasGpsLock && !gpsStale ? "LOCKED" : gpsStale ? "STALE" : "NO FIX"}
                             </span>
@@ -215,7 +230,7 @@ export const StatsForNerds = () => {
                                 ? "—"
                                 : `${timeSincePacket}s ago`
                         }
-                        color={timeSincePacket > 5 ? "#EF4444" : "#10B981"}
+                        color={timeSincePacket > 5 ? "#e11d48" : "#059669"}
                     />
 
                     {/* State of Charge */}
@@ -229,10 +244,10 @@ export const StatsForNerds = () => {
             </div>
 
             {/* Footer */}
-            <div className="px-3 py-1.5 bg-white/5 border-t border-white/10 text-[9px] text-white/40 flex justify-between">
+            <div className="flex-shrink-0 px-2.5 py-1 bg-slate-50/50 border-t border-slate-200/50 text-[9px] text-slate-500 flex justify-between font-bold">
                 <span>Ground Station UI</span>
                 <span>
-                    {data.altitude_launch_level.mission_time.length} data points
+                    {data.altitude_sea_level.mission_time.length} data points
                 </span>
             </div>
         </div>
@@ -249,26 +264,26 @@ interface StatCardProps {
 }
 
 const StatCard = ({ label, value, chart, subtext, trend }: StatCardProps) => (
-    <div className="bg-white/5 rounded-md p-2.5 flex items-center justify-between">
+    <div className="bg-slate-50/40 border border-slate-100/50 rounded-xl p-2 flex items-center justify-between">
         <div className="flex-1">
-            <div className="text-[10px] text-white/50 uppercase tracking-wide mb-0.5">
+            <div className="text-[8px] text-slate-500 font-black uppercase tracking-widest mb-0.5">
                 {label}
             </div>
-            <div className="text-lg font-bold text-white flex items-center gap-1.5">
+            <div className="text-xl font-black text-slate-900 flex items-center gap-1.5">
                 {value}
                 {trend && trend !== "flat" && (
                     <span
-                        className={`text-xs ${trend === "up" ? "text-green-400" : "text-red-400"}`}
+                        className={`text-sm ${trend === "up" ? "text-emerald-600" : "text-rose-600"}`}
                     >
                         {trend === "up" ? "↑" : "↓"}
                     </span>
                 )}
             </div>
             {subtext && (
-                <div className="text-[9px] text-white/40 mt-0.5">{subtext}</div>
+                <div className="text-[8px] text-slate-400 mt-0.5 font-bold">{subtext}</div>
             )}
         </div>
-        {chart && <div className="ml-3">{chart}</div>}
+        {chart && <div className="ml-2">{chart}</div>}
     </div>
 );
 
@@ -287,22 +302,22 @@ const MiniStatCard = ({
     value,
     subtext,
     chart,
-    color = "#FFFFFF",
+    color = "#0f172a",
     mocked,
 }: MiniStatCardProps) => (
-    <div className="bg-white/5 rounded-md p-2 relative">
+    <div className="bg-slate-50/40 border border-slate-100/50 rounded-xl p-1.5 relative">
         {mocked && (
-            <span className="absolute top-1 right-1 text-[8px] text-yellow-500/70 uppercase">
+            <span className="absolute top-1 right-1 text-[7px] text-amber-600 font-black uppercase tracking-tighter">
                 mock
             </span>
         )}
-        <div className="text-[9px] text-white/50 uppercase tracking-wide mb-0.5">
+        <div className="text-[8px] text-slate-500 font-black uppercase tracking-widest mb-0.5">
             {label}
         </div>
-        <div className="text-sm font-bold" style={{ color }}>
+        <div className="text-base font-black" style={{ color }}>
             {value}
         </div>
-        {subtext && <div className="text-[9px] text-white/40 mt-0.5">{subtext}</div>}
+        {subtext && <div className="text-[8px] text-slate-400 mt-0.5 font-bold">{subtext}</div>}
         {chart && <div className="mt-1">{chart}</div>}
     </div>
 );

@@ -78,14 +78,14 @@ export const MiniSparkline = ({
                 x={(d) => xScale(d.x)}
                 y={(d) => yScale(d.y)}
                 stroke={color}
-                strokeWidth={1.5}
+                strokeWidth={2.5}
                 curve={curveMonotoneX}
             />
             {/* Current value dot */}
             <circle
                 cx={xScale(points.length - 1)}
                 cy={yScale(points[points.length - 1].y)}
-                r={2.5}
+                r={4}
                 fill={color}
             />
         </svg>

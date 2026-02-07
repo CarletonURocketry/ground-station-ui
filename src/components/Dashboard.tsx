@@ -48,12 +48,12 @@ export const Dashboard = () => {
 
   // Derive current telemetry values from store
   const telemetry = useMemo(() => {
-    const altitude = data.altitude_launch_level.metres.at(-1) ?? 0;
+    const altitude = data.altitude_sea_level.metres.at(-1) ?? 0;
     const temperature = data.temperature.celsius.at(-1) ?? 20;
     const pressure = data.pressure.pascals.at(-1) ?? 101325;
     const lat = data.gnss.latitude.at(-1) ?? LAUNCH_LAT;
     const lon = data.gnss.longitude.at(-1) ?? LAUNCH_LON;
-    const missionTime = data.altitude_launch_level.mission_time.at(-1) ?? 0;
+    const missionTime = data.altitude_sea_level.mission_time.at(-1) ?? 0;
     const acceleration = data.linear_acceleration.magnitude.at(-1) ?? 0;
     const statusCode = data.flight_status.status_code.at(-1) ?? 0;
 
@@ -98,7 +98,7 @@ export const Dashboard = () => {
 
     // Combine GNSS and altitude data to build path
     const { latitude, longitude } = data.gnss;
-    const { metres } = data.altitude_launch_level;
+    const { metres } = data.altitude_sea_level;
 
     for (let i = 0; i < latitude.length; i++) {
       const lat = latitude[i];
@@ -110,7 +110,7 @@ export const Dashboard = () => {
     }
 
     return history;
-  }, [data.gnss, data.altitude_launch_level]);
+  }, [data.gnss, data.altitude_sea_level]);
 
   const rocketPosition = useMemo(
     () =>
@@ -142,12 +142,7 @@ export const Dashboard = () => {
     }
   }, [telemetry.missionTime]);
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    const ms = Math.floor((seconds % 1) * 10);
-    return `T+${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}.${ms}`;
-  };
+
 
   return (
     <div
