@@ -119,6 +119,7 @@ interface TelemetryData {
 interface TelemetryState {
   data: TelemetryData;
   lastMissionTime: number;
+  lastPacketWallTime: number; // Wall-clock time when last packet was received (Date.now())
   addPacket: (packet: TelemetryPacket) => void;
   clearState: () => void;
 }
@@ -272,6 +273,7 @@ function getMaxMissionTime(packet: TelemetryPacket): number {
 export const useTelemetryStore = create<TelemetryState>((set) => ({
   data: initialData,
   lastMissionTime: 0,
+  lastPacketWallTime: 0,
 
   addPacket: (packet: TelemetryPacket) => {
     set((state) => {
@@ -279,11 +281,12 @@ export const useTelemetryStore = create<TelemetryState>((set) => ({
       return {
         data: mergeTelemetryData(state.data, packet),
         lastMissionTime: Math.max(state.lastMissionTime, packetMaxTime),
+        lastPacketWallTime: Date.now(),
       };
     });
   },
 
   clearState: () => {
-    set({ data: initialData, lastMissionTime: 0 });
+    set({ data: initialData, lastMissionTime: 0, lastPacketWallTime: 0 });
   },
 }));

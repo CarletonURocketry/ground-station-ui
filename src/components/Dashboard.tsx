@@ -29,7 +29,7 @@ import {
 import MissionPlayControls from "./MissionPlayControls";
 import { useTelemetryStore } from "../store/telemetryStore";
 import { cn } from "@/lib/utils";
-import { StatsOverlay } from "./StatsOverlay";
+import { StatsForNerds } from "./StatsForNerds";
 import { useAppStore } from "@/store/appStore";
 
 // Path to your 3D rocket model (place .glb or .gltf file in public folder)
@@ -157,20 +157,7 @@ export const Dashboard = () => {
         currentState === "replay" && "outline-4 outline-primary border-0"
       )}
     >
-      {
-        // Change stats to look like youtube stats for nerds
-        isStatsOpen && (
-          <StatsOverlay
-            phase={telemetry.phase}
-            missionTime={formatTime(telemetry.missionTime)}
-            altitude={telemetry.altitude}
-            velocity={telemetry.velocity}
-            acceleration={telemetry.acceleration}
-            lat={telemetry.lat}
-            lon={telemetry.lon}
-          />
-        )
-      }
+      {isStatsOpen && <StatsForNerds />}
 
       {/* Tracking Toggle Button in the future */}
       <Viewer
