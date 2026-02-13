@@ -139,112 +139,85 @@ const initialData: TelemetryData = {
   flight_error: { mission_time: [], proc_id: [], error_code: [] },
 };
 
+// Helper to merge and sort telemetry arrays based on mission_time
+function mergeSorted<T>(
+  existing: T,
+  incoming: Partial<T> | undefined
+): T {
+  const e = existing as any;
+  const p = incoming as any;
+
+  if (!p || !p.mission_time || p.mission_time.length === 0) {
+    return existing;
+  }
+
+  // Fast path: if new data is strictly after existing data, we can just concat
+  const lastExistingTime = e.mission_time.length > 0
+    ? e.mission_time[e.mission_time.length - 1]
+    : -Infinity;
+
+  if (p.mission_time[0] >= lastExistingTime) {
+    const result: any = { ...e };
+    for (const key in e) {
+      if (Array.isArray(e[key])) {
+        result[key] = e[key].concat(p[key] || []);
+      }
+    }
+    return result as T;
+  }
+
+  // Slow path: merge and sort
+  const keys = Object.keys(e).filter(k => Array.isArray(e[k]));
+  const combined = [];
+
+  // Add old items
+  for (let i = 0; i < e.mission_time.length; i++) {
+    const item: any = {};
+    for (const key of keys) {
+      item[key] = e[key][i];
+    }
+    combined.push(item);
+  }
+
+  // Add new items
+  for (let i = 0; i < p.mission_time.length; i++) {
+    const item: any = {};
+    for (const key of keys) {
+      item[key] = p[key][i];
+    }
+    combined.push(item);
+  }
+
+  // Sort by mission_time
+  combined.sort((a, b) => a.mission_time - b.mission_time);
+
+  // Unzip back into arrays
+  const result: any = { ...e };
+  for (const key of keys) {
+    result[key] = combined.map(item => item[key]);
+  }
+
+  return result as T;
+}
+
 // Helper to merge telemetry data
 function mergeTelemetryData(
   e: TelemetryData,
   p: TelemetryPacket
 ): TelemetryData {
   return {
-    altitude_sea_level: {
-      mission_time: e.altitude_sea_level.mission_time.concat(
-        p.altitude_sea_level?.mission_time ?? []
-      ),
-      metres: e.altitude_sea_level.metres.concat(
-        p.altitude_sea_level?.metres ?? []
-      ),
-    },
-    altitude_launch_level: {
-      mission_time: e.altitude_launch_level.mission_time.concat(
-        p.altitude_launch_level?.mission_time ?? []
-      ),
-      metres: e.altitude_launch_level.metres.concat(
-        p.altitude_launch_level?.metres ?? []
-      ),
-    },
-    temperature: {
-      mission_time: e.temperature.mission_time.concat(
-        p.temperature?.mission_time ?? []
-      ),
-      celsius: e.temperature.celsius.concat(p.temperature?.celsius ?? []),
-    },
-    pressure: {
-      mission_time: e.pressure.mission_time.concat(
-        p.pressure?.mission_time ?? []
-      ),
-      pascals: e.pressure.pascals.concat(p.pressure?.pascals ?? []),
-    },
-    linear_acceleration: {
-      mission_time: e.linear_acceleration.mission_time.concat(
-        p.linear_acceleration?.mission_time ?? []
-      ),
-      x: e.linear_acceleration.x.concat(p.linear_acceleration?.x ?? []),
-      y: e.linear_acceleration.y.concat(p.linear_acceleration?.y ?? []),
-      z: e.linear_acceleration.z.concat(p.linear_acceleration?.z ?? []),
-      magnitude: e.linear_acceleration.magnitude.concat(
-        p.linear_acceleration?.magnitude ?? []
-      ),
-    },
-    angular_velocity: {
-      mission_time: e.angular_velocity.mission_time.concat(
-        p.angular_velocity?.mission_time ?? []
-      ),
-      x: e.angular_velocity.x.concat(p.angular_velocity?.x ?? []),
-      y: e.angular_velocity.y.concat(p.angular_velocity?.y ?? []),
-      z: e.angular_velocity.z.concat(p.angular_velocity?.z ?? []),
-      magnitude: e.angular_velocity.magnitude.concat(
-        p.angular_velocity?.magnitude ?? []
-      ),
-    },
-    humidity: {
-      mission_time: e.humidity.mission_time.concat(
-        p.humidity?.mission_time ?? []
-      ),
-      percentage: e.humidity.percentage.concat(p.humidity?.percentage ?? []),
-    },
-    gnss: {
-      mission_time: e.gnss.mission_time.concat(p.gnss?.mission_time ?? []),
-      latitude: e.gnss.latitude.concat(p.gnss?.latitude ?? []),
-      longitude: e.gnss.longitude.concat(p.gnss?.longitude ?? []),
-    },
-    voltage: {
-      ...e.voltage,
-      mission_time: e.voltage.mission_time.concat(
-        p.voltage?.mission_time ?? []
-      ),
-      ...Object.fromEntries(
-        Object.entries(p.voltage ?? {})
-          .filter(([k]) => k !== "mission_time")
-          .map(([k, v]) => [k, (e.voltage[k] ?? []).concat(v)])
-      ),
-    },
-    magnetic_field: {
-      mission_time: e.magnetic_field.mission_time.concat(
-        p.magnetic_field?.mission_time ?? []
-      ),
-      x: e.magnetic_field.x.concat(p.magnetic_field?.x ?? []),
-      y: e.magnetic_field.y.concat(p.magnetic_field?.y ?? []),
-      z: e.magnetic_field.z.concat(p.magnetic_field?.z ?? []),
-      magnitude: e.magnetic_field.magnitude.concat(
-        p.magnetic_field?.magnitude ?? []
-      ),
-    },
-    flight_status: {
-      mission_time: e.flight_status.mission_time.concat(
-        p.flight_status?.mission_time ?? []
-      ),
-      status_code: e.flight_status.status_code.concat(
-        p.flight_status?.status_code ?? []
-      ),
-    },
-    flight_error: {
-      mission_time: e.flight_error.mission_time.concat(
-        p.flight_error?.mission_time ?? []
-      ),
-      proc_id: e.flight_error.proc_id.concat(p.flight_error?.proc_id ?? []),
-      error_code: e.flight_error.error_code.concat(
-        p.flight_error?.error_code ?? []
-      ),
-    },
+    altitude_sea_level: mergeSorted(e.altitude_sea_level, p.altitude_sea_level),
+    altitude_launch_level: mergeSorted(e.altitude_launch_level, p.altitude_launch_level),
+    temperature: mergeSorted(e.temperature, p.temperature),
+    pressure: mergeSorted(e.pressure, p.pressure),
+    linear_acceleration: mergeSorted(e.linear_acceleration, p.linear_acceleration),
+    angular_velocity: mergeSorted(e.angular_velocity, p.angular_velocity),
+    humidity: mergeSorted(e.humidity, p.humidity),
+    gnss: mergeSorted(e.gnss, p.gnss),
+    voltage: mergeSorted(e.voltage, p.voltage),
+    magnetic_field: mergeSorted(e.magnetic_field, p.magnetic_field),
+    flight_status: mergeSorted(e.flight_status, p.flight_status),
+    flight_error: mergeSorted(e.flight_error, p.flight_error),
   };
 }
 

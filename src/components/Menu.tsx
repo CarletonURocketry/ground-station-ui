@@ -42,10 +42,12 @@ export const Menu = () => {
 
   function handleStartReplay(replayPath: string) {
     if (replay.isPlaying) return;
+    clearState(); // Reset charts before starting replay
     startReplay(replayPath);
     setReplayPlaying(true);
     setCurrentState("replay");
   }
+
 
   function handleStopReplay() {
     if (!replay.isPlaying) return;
