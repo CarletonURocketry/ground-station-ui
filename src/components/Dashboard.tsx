@@ -29,7 +29,7 @@ import {
 import MissionPlayControls from "./MissionPlayControls";
 import { useTelemetryStore } from "../store/telemetryStore";
 import { cn } from "@/lib/utils";
-import { StatsForNerds } from "./StatsForNerds";
+import { StatsForNerds } from "./stats-for-nerds";
 import { useAppStore } from "@/store/appStore";
 
 // Path to your 3D rocket model (place .glb or .gltf file in public folder)
@@ -141,8 +141,6 @@ export const Dashboard = () => {
       viewerRef.current.trackedEntity = rocketEntityRef.current;
     }
   }, [telemetry.missionTime]);
-
-
 
   return (
     <div
