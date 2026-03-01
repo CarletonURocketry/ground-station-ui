@@ -6,13 +6,13 @@ export type BaseApiResponse = {
   status: string;
 };
 
-export type Mission = {
+export type Recording = {
   name: string;
   path: string;
 };
 
-export type MissionApiResponse = BaseApiResponse & {
-  missions: Mission[];
+export type RecordingApiResponse = BaseApiResponse & {
+  recordings: Recording[];
 };
 
 export type StartReplayApiResponse = BaseApiResponse & {

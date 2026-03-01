@@ -1,4 +1,4 @@
-export * from "./getMissions";
+export * from "./getRecordings";
 export * from "./startReplay";
 export * from "./stopReplay";
 export * from "./pauseReplay";

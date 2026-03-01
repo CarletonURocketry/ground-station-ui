@@ -12,8 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAppStore } from "@/store/appStore";
-import { useMissions, useStartReplay, useStopReplay } from "@/lib/api/query";
-import { MissionsLoadingSkeleton } from "@/components/skeletons/MissionsLoadingSkeleton";
+import { useRecordings, useStartReplay, useStopReplay } from "@/lib/api/query";
+import { RecordingsLoadingSkeleton } from "@/components/skeletons/RecordingsLoadingSkeleton";
 import { useWebSocketContext } from "@/contexts/WebSocketContext";
 import { useTelemetryStore } from "@/store/telemetryStore";
 
@@ -29,7 +29,7 @@ export const Menu = () => {
   } = useAppStore();
   const { clearState } = useTelemetryStore();
   const { isConnected } = useWebSocketContext();
-  const { isPending: isMissionsPending, data: missions } = useMissions(
+  const { isPending: isRecordingsPending, data: recordings } = useRecordings(
     {
       clientId: clientId || "",
     },
@@ -83,24 +83,24 @@ export const Menu = () => {
             <DropdownMenuSub>
               <DropdownMenuSubTrigger className="px-4 py-3 text-base">
                 <HistoryIcon />
-                Previous Missions
+                Previous Recordings
               </DropdownMenuSubTrigger>
               <DropdownMenuSubContent>
-                {isMissionsPending ? (
-                  <MissionsLoadingSkeleton />
-                ) : missions && missions.length > 0 ? (
-                  missions.map((mission) => (
+                {isRecordingsPending ? (
+                  <RecordingsLoadingSkeleton />
+                ) : recordings && recordings.length > 0 ? (
+                  recordings.map((recording) => (
                     <DropdownMenuItem
-                      key={mission.path}
+                      key={recording.path}
                       className="px-4 py-3 text-sm cursor-pointer"
-                      onClick={() => handleStartReplay(mission.path)}
+                      onClick={() => handleStartReplay(recording.path)}
                     >
-                      {mission.name}
+                      {recording.name}
                     </DropdownMenuItem>
                   ))
                 ) : (
                   <DropdownMenuItem className="px-4 py-3 text-sm" disabled>
-                    No missions available
+                    No recordings available
                   </DropdownMenuItem>
                 )}
               </DropdownMenuSubContent>
