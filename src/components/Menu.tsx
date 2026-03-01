@@ -60,7 +60,7 @@ export const Menu = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="fixed bottom-0 left-0 sm:bottom-4 sm:left-4">
+      <DropdownMenuTrigger asChild className="fixed bottom-0 left-0 sm:bottom-4 sm:left-4">
         <Button
           variant="default"
           size={"icon-xl"}
