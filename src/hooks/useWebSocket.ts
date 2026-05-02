@@ -57,10 +57,12 @@ const useWebSocket = (url: string) => {
 
     ws.onmessage = (event) => {
       try {
-        const parsedData: TelemetryPacket = JSON.parse(event.data);
-        // setData(parsedData);
-        addPacket(parsedData);
-        console.log(parsedData);
+        const raw = JSON.parse(event.data);
+        const { sensor_type, measurement_time, data } = raw;
+        const packet: TelemetryPacket = {
+          [sensor_type]: { mission_time: [measurement_time], ...data },
+        };
+        addPacket(packet);
       } catch (e) {
         console.error("Error parsing WebSocket data:", e);
       }
