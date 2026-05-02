@@ -1,7 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Ion } from "cesium";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import "./index.css";
+
+Ion.defaultAccessToken = import.meta.env.VITE_CESIUM_TOKEN;
 import App from "./App.tsx";
 import { WebSocketProvider } from "./contexts/WebSocketContext.tsx";
 
