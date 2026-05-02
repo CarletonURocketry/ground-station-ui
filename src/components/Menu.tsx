@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAppStore } from "@/store/appStore";
-import { useMissions, useStartReplay, useStopReplay } from "@/lib/api/query";
+import { useRecordings, useStartReplay, useStopReplay } from "@/lib/api/query";
 import { MissionsLoadingSkeleton } from "@/components/skeletons/MissionsLoadingSkeleton";
 import { useWebSocketContext } from "@/contexts/WebSocketContext";
 import { useTelemetryStore } from "@/store/telemetryStore";
@@ -29,7 +29,7 @@ export const Menu = () => {
   } = useAppStore();
   const { clearState } = useTelemetryStore();
   const { isConnected } = useWebSocketContext();
-  const { isPending: isMissionsPending, data: missions } = useMissions(
+  const { isPending: isMissionsPending, data: missions } = useRecordings(
     {
       clientId: clientId || "",
     },
@@ -87,13 +87,13 @@ export const Menu = () => {
                 {isMissionsPending ? (
                   <MissionsLoadingSkeleton />
                 ) : missions && missions.length > 0 ? (
-                  missions.map((mission) => (
+                  missions.map((recording) => (
                     <DropdownMenuItem
-                      key={mission.path}
+                      key={recording}
                       className="px-4 py-3 text-sm cursor-pointer"
-                      onClick={() => handleStartReplay(mission.path)}
+                      onClick={() => handleStartReplay(recording)}
                     >
-                      {mission.name}
+                      {recording}
                     </DropdownMenuItem>
                   ))
                 ) : (

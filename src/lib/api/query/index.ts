@@ -4,20 +4,16 @@ import {
   UseMutationOptions,
   UseQueryOptions,
 } from "@tanstack/react-query";
-import { getMissions, startReplay, stopReplay } from "../functions";
-import {
-  Mission,
-  StartReplayApiResponse,
-  StopReplayApiResponse,
-} from "@/types/api";
+import { getRecordings, startReplay, stopReplay } from "../functions";
+import { StartReplayApiResponse, StopReplayApiResponse } from "@/types/api";
 
-export const useMissions = (
+export const useRecordings = (
   { clientId }: { clientId?: string } = {},
-  options?: Omit<UseQueryOptions<Mission[], Error>, "queryKey" | "queryFn">
+  options?: Omit<UseQueryOptions<string[], Error>, "queryKey" | "queryFn">
 ) => {
-  return useQuery<Mission[], Error>({
-    queryKey: ["missions", clientId || ""],
-    queryFn: () => getMissions({ clientId }),
+  return useQuery<string[], Error>({
+    queryKey: ["recordings", clientId || ""],
+    queryFn: () => getRecordings({ clientId }),
     ...options,
   });
 };
