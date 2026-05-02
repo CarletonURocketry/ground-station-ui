@@ -4,8 +4,12 @@ import {
   UseMutationOptions,
   UseQueryOptions,
 } from "@tanstack/react-query";
-import { getRecordings, startReplay, stopReplay } from "../functions";
-import { StartReplayApiResponse, StopReplayApiResponse } from "@/types/api";
+import { getRecordings, startReplay, stopReplay, replaySeek } from "../functions";
+import {
+  StartReplayApiResponse,
+  StopReplayApiResponse,
+  ReplaySeekApiResponse,
+} from "@/types/api";
 
 export const useRecordings = (
   { clientId }: { clientId?: string } = {},
@@ -41,6 +45,19 @@ export const useStopReplay = (
   return useMutation<StopReplayApiResponse, Error, void>({
     mutationKey: ["stopReplay", resolvedClientId],
     mutationFn: () => stopReplay({ clientId: resolvedClientId }),
+    ...options,
+  });
+};
+
+export const useReplaySeek = (
+  { clientId }: { clientId?: string } = {},
+  options?: UseMutationOptions<ReplaySeekApiResponse, Error, number>
+) => {
+  const resolvedClientId = clientId || "";
+
+  return useMutation<ReplaySeekApiResponse, Error, number>({
+    mutationKey: ["replaySeek", resolvedClientId],
+    mutationFn: (position) => replaySeek({ position, clientId: resolvedClientId }),
     ...options,
   });
 };

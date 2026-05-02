@@ -21,3 +21,18 @@ export type StartReplayApiResponse = BaseApiResponse & {
 };
 
 export type StopReplayApiResponse = BaseApiResponse;
+
+export type ReplayStatusApiResponse = BaseApiResponse & {
+  is_playing: boolean;
+  is_paused: boolean;
+  current_line: number;
+  total_lines: number;
+  progress: number;
+  speed: number;
+  replay_path: string | null;
+};
+
+export type ReplaySeekApiResponse = BaseApiResponse & {
+  position: number;
+  total: number;
+};

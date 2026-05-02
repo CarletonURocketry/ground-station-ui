@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAppStore } from "@/store/appStore";
 import { useRecordings, useStartReplay, useStopReplay } from "@/lib/api/query";
+import { replayStatus } from "@/lib/api/functions";
 import { MissionsLoadingSkeleton } from "@/components/skeletons/MissionsLoadingSkeleton";
 import { useWebSocketContext } from "@/contexts/WebSocketContext";
 import { useTelemetryStore } from "@/store/telemetryStore";
@@ -26,6 +27,7 @@ export const Menu = () => {
     setReplayPlaying,
     setCurrentState,
     resetReplay,
+    setReplayLength,
   } = useAppStore();
   const { clearState } = useTelemetryStore();
   const { isConnected } = useWebSocketContext();
@@ -37,12 +39,14 @@ export const Menu = () => {
       enabled: isConnected && !!clientId,
     }
   );
-  const { mutate: startReplay } = useStartReplay({ clientId: clientId || "" });
+  const { mutateAsync: startReplayAsync } = useStartReplay({ clientId: clientId || "" });
   const { mutate: stopReplay } = useStopReplay({ clientId: clientId || "" });
 
-  function handleStartReplay(replayPath: string) {
+  async function handleStartReplay(replayPath: string) {
     if (replay.isPlaying) return;
-    startReplay(replayPath);
+    await startReplayAsync(replayPath);
+    const status = await replayStatus({ clientId: clientId || "" });
+    setReplayLength(status.total_lines);
     setReplayPlaying(true);
     setCurrentState("replay");
   }

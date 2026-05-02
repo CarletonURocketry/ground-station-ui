@@ -38,7 +38,7 @@ const useWebSocket = (url: string) => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [data, setData] = useState<WebSocketData | null>(null);
   const [error, setError] = useState<Event | null>(null);
-  const { setClientId } = useAppStore();
+  const { setClientId, setReplayProgress } = useAppStore();
   const { addPacket } = useTelemetryStore();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -58,11 +58,14 @@ const useWebSocket = (url: string) => {
     ws.onmessage = (event) => {
       try {
         const raw = JSON.parse(event.data);
-        const { sensor_type, measurement_time, data } = raw;
+        const { sensor_type, measurement_time, data, ix } = raw;
         const packet: TelemetryPacket = {
           [sensor_type]: { mission_time: [measurement_time], ...data },
         };
         addPacket(packet);
+        if (ix !== undefined) {
+          setReplayProgress(ix);
+        }
       } catch (e) {
         console.error("Error parsing WebSocket data:", e);
       }
