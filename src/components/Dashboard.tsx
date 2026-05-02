@@ -61,8 +61,6 @@ export const Dashboard = () => {
     [telemetry.lat, telemetry.lon, telemetry.altitude]
   );
 
-  const launchSitePosition = Cartesian3.fromDegrees(LAUNCH_LON, LAUNCH_LAT, 0);
-
   const handleViewerReady = useCallback((viewer: CesiumViewer) => {
     viewerRef.current = viewer;
   }, []);
@@ -103,9 +101,9 @@ export const Dashboard = () => {
           }
         }}
       >
-        <Entity position={launchSitePosition} name="Launch Site">
+        {/* <Entity position={launchSitePosition} name="Launch Site">
           <PointGraphics pixelSize={12} color={Color.GREEN} />
-        </Entity>
+        </Entity> */}
 
         <Entity
           position={rocketPosition}
@@ -116,7 +114,7 @@ export const Dashboard = () => {
             }
           }}
         >
-          <PointGraphics pixelSize={14} color={Color.RED} />
+          <PointGraphics pixelSize={14} color={Color.YELLOW} />
         </Entity>
 
         {flightHistory.length > 1 && (
@@ -124,7 +122,7 @@ export const Dashboard = () => {
             <PolylineGraphics
               positions={flightHistory}
               width={3}
-              material={Color.ORANGE}
+              material={Color.YELLOW}
             />
           </Entity>
         )}
