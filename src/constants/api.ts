@@ -6,6 +6,7 @@ export const REPLAY_PLAY_ENDPOINT = `${API_BASE_URL}/replay_play`;
 export const REPLAY_STOP_ENDPOINT = `${API_BASE_URL}/replay_stop`;
 export const REPLAY_STATUS_ENDPOINT = `${API_BASE_URL}/replay_status`;
 export const REPLAY_SEEK_ENDPOINT = `${API_BASE_URL}/replay_seek`;
+export const REPLAY_PAUSE_ENDPOINT = `${API_BASE_URL}/replay_pause`;
 
 export const API_ACTIONS_MAP = {
   recordings: RECORDINGS_ENDPOINT,
@@ -13,4 +14,5 @@ export const API_ACTIONS_MAP = {
   stopReplay: REPLAY_STOP_ENDPOINT,
   replayStatus: REPLAY_STATUS_ENDPOINT,
   replaySeek: REPLAY_SEEK_ENDPOINT,
+  replayPause: REPLAY_PAUSE_ENDPOINT,
 } as const;

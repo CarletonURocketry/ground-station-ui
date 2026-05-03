@@ -17,9 +17,6 @@ import { cn } from "@/lib/utils";
 import { StatsForNerds } from "./stats-for-nerds";
 import { useAppStore } from "@/store/appStore";
 
-const LAUNCH_LAT = 47.98701492723335;
-const LAUNCH_LON = -81.84848442698328;
-
 export const Dashboard = () => {
   const viewerRef = useRef<CesiumViewer | null>(null);
   const rocketEntityRef = useRef<CesiumEntity | null>(null);
@@ -29,17 +26,15 @@ export const Dashboard = () => {
 
   const telemetry = useMemo(() => {
     const altitude = data.altitude_sea_level.metres.at(-1) ?? 0;
-    const lat = data.gnss.latitude.at(-1) ?? LAUNCH_LAT;
-    const lon = data.gnss.longitude.at(-1) ?? LAUNCH_LON;
+    const lat = data.gnss.latitude.at(-1) ?? null;
+    const lon = data.gnss.longitude.at(-1) ?? null;
     const missionTime = data.altitude_sea_level.mission_time.at(-1) ?? 0;
 
     return { altitude, lat, lon, missionTime };
   }, [data]);
 
   const flightHistory = useMemo(() => {
-    const history: Cartesian3[] = [
-      Cartesian3.fromDegrees(LAUNCH_LON, LAUNCH_LAT, 0),
-    ];
+    const history: Cartesian3[] = [];
 
     const { latitude, longitude } = data.gnss;
     const { metres } = data.altitude_sea_level;
@@ -47,8 +42,8 @@ export const Dashboard = () => {
     for (let i = 0; i < latitude.length; i++) {
       const lat = latitude[i];
       const lon = longitude[i];
-      const alt = metres[i] ?? 0;
-      if (lat !== undefined && lon !== undefined) {
+      const alt = metres[i];
+      if (lat !== undefined && lon !== undefined && alt !== undefined) {
         history.push(Cartesian3.fromDegrees(lon, lat, alt));
       }
     }
@@ -57,7 +52,9 @@ export const Dashboard = () => {
   }, [data.gnss, data.altitude_sea_level]);
 
   const rocketPosition = useMemo(
-    () => Cartesian3.fromDegrees(telemetry.lon, telemetry.lat, telemetry.altitude),
+    () => telemetry.lat !== null && telemetry.lon !== null
+      ? Cartesian3.fromDegrees(telemetry.lon, telemetry.lat, telemetry.altitude)
+      : null,
     [telemetry.lat, telemetry.lon, telemetry.altitude]
   );
 
@@ -105,17 +102,19 @@ export const Dashboard = () => {
           <PointGraphics pixelSize={12} color={Color.GREEN} />
         </Entity> */}
 
-        <Entity
-          position={rocketPosition}
-          name="Rocket"
-          ref={(ref) => {
-            if (ref?.cesiumElement) {
-              rocketEntityRef.current = ref.cesiumElement;
-            }
-          }}
-        >
-          <PointGraphics pixelSize={14} color={Color.YELLOW} />
-        </Entity>
+        {rocketPosition && (
+          <Entity
+            position={rocketPosition}
+            name="Rocket"
+            ref={(ref) => {
+              if (ref?.cesiumElement) {
+                rocketEntityRef.current = ref.cesiumElement;
+              }
+            }}
+          >
+            <PointGraphics pixelSize={14} color={Color.YELLOW} />
+          </Entity>
+        )}
 
         {flightHistory.length > 1 && (
           <Entity name="Flight Path">

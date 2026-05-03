@@ -6,10 +6,12 @@ import { create } from "zustand";
 
 interface ReplayState {
   isPlaying: boolean;
+  isPaused: boolean;
   currentReplayId: string | null;
   replayLength: number;
   progress: number;
   speed: number;
+  seekingTo: number | null;
 }
 
 type CurrentState = "replay" | "recording" | "live";
@@ -38,15 +40,19 @@ interface AppState {
   setReplayLength: (length: number) => void;
   setReplayProgress: (progress: number) => void;
   setReplaySpeed: (speed: number) => void;
+  setReplayPaused: (paused: boolean) => void;
+  setSeekingTo: (ix: number | null) => void;
   resetReplay: () => void;
 }
 
 const initialReplayState: ReplayState = {
   isPlaying: false,
+  isPaused: false,
   currentReplayId: null,
   replayLength: 0,
   progress: 0,
   speed: 1,
+  seekingTo: null,
 };
 
 export const useAppStore = create<AppState>((set) => ({
@@ -78,5 +84,9 @@ export const useAppStore = create<AppState>((set) => ({
     set((state) => ({ replay: { ...state.replay, progress } })),
   setReplaySpeed: (speed) =>
     set((state) => ({ replay: { ...state.replay, speed } })),
+  setReplayPaused: (isPaused) =>
+    set((state) => ({ replay: { ...state.replay, isPaused } })),
+  setSeekingTo: (seekingTo) =>
+    set((state) => ({ replay: { ...state.replay, seekingTo } })),
   resetReplay: () => set({ replay: initialReplayState }),
 }));

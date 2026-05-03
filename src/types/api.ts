@@ -36,3 +36,7 @@ export type ReplaySeekApiResponse = BaseApiResponse & {
   position: number;
   total: number;
 };
+
+export type ReplayPauseApiResponse = BaseApiResponse & {
+  paused: boolean;
+};
