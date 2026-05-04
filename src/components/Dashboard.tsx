@@ -7,6 +7,7 @@ import {
 } from "resium";
 import {
   Cartesian3,
+  CallbackProperty,
   Color,
   Viewer as CesiumViewer,
   Entity as CesiumEntity,
@@ -20,6 +21,18 @@ import { useAppStore } from "@/store/appStore";
 export const Dashboard = () => {
   const viewerRef = useRef<CesiumViewer | null>(null);
   const rocketEntityRef = useRef<CesiumEntity | null>(null);
+  const flightHistoryRef = useRef<Cartesian3[]>([]);
+  const currentPositionRef = useRef<Cartesian3 | null>(null);
+  const positionsCallback = useMemo(
+    () =>
+      new CallbackProperty(() => {
+        const current = currentPositionRef.current;
+        return current
+          ? [...flightHistoryRef.current, current]
+          : flightHistoryRef.current;
+      }, false),
+    []
+  );
   const { currentState, isStatsOpen } = useAppStore();
 
   const { data } = useTelemetryStore();
@@ -35,28 +48,35 @@ export const Dashboard = () => {
 
   const flightHistory = useMemo(() => {
     const history: Cartesian3[] = [];
+    const { latitude, longitude, mission_time: gnssTimes } = data.gnss;
+    const { metres, mission_time: altTimes } = data.altitude_sea_level;
 
-    const { latitude, longitude } = data.gnss;
-    const { metres } = data.altitude_sea_level;
-
+    let altIdx = 0;
     for (let i = 0; i < latitude.length; i++) {
       const lat = latitude[i];
       const lon = longitude[i];
-      const alt = metres[i];
-      if (lat !== undefined && lon !== undefined && alt !== undefined) {
-        history.push(Cartesian3.fromDegrees(lon, lat, alt));
+      if (lat === undefined || lon === undefined) continue;
+
+      const t = gnssTimes[i];
+      while (altIdx + 1 < altTimes.length && altTimes[altIdx + 1] <= t) {
+        altIdx++;
       }
+
+      history.push(Cartesian3.fromDegrees(lon, lat, metres[altIdx] ?? 0));
     }
 
+    flightHistoryRef.current = history;
     return history;
   }, [data.gnss, data.altitude_sea_level]);
 
-  const rocketPosition = useMemo(
-    () => telemetry.lat !== null && telemetry.lon !== null
-      ? Cartesian3.fromDegrees(telemetry.lon, telemetry.lat, telemetry.altitude)
-      : null,
-    [telemetry.lat, telemetry.lon, telemetry.altitude]
-  );
+  const rocketPosition = useMemo(() => {
+    const pos =
+      telemetry.lat !== null && telemetry.lon !== null
+        ? Cartesian3.fromDegrees(telemetry.lon, telemetry.lat, telemetry.altitude)
+        : null;
+    currentPositionRef.current = pos;
+    return pos;
+  }, [telemetry.lat, telemetry.lon, telemetry.altitude]);
 
   const handleViewerReady = useCallback((viewer: CesiumViewer) => {
     viewerRef.current = viewer;
@@ -119,7 +139,7 @@ export const Dashboard = () => {
         {flightHistory.length > 1 && (
           <Entity name="Flight Path">
             <PolylineGraphics
-              positions={flightHistory}
+              positions={positionsCallback}
               width={3}
               material={Color.YELLOW}
             />
