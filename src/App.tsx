@@ -1,19 +1,9 @@
-// import { useState, useRef } from "react";
 import TelemetryHeader from "./components/header/TelemetryHeader";
-// import TelemetryDashboard from "./components/TelemetryDashboard";
-// import FloatingMenu from "./components/FloatingMenu";
-
-// import { MapProvider } from "./contexts/MapContext";
 import { Menu } from "./components/Menu";
-import { useTelemetryStore } from "./store/telemetryStore";
 import { Dashboard } from "./components/Dashboard";
 import { QueryProvider } from "./contexts/QueryProvider";
-// useState left commented out in case command dialog wiring is re-enabled
 
 function App() {
-  const { data } = useTelemetryStore();
-
-  console.log("Telemetry packets:", data);
   return (
     <QueryProvider>
       {/* <MapProvider> */}
