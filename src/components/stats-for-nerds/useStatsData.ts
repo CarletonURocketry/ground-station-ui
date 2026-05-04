@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { useTelemetryStore } from "@/store/telemetryStore";
 import { G } from "@/lib/constants/science";
 import { TIME_WINDOW_SECONDS } from "@/lib/constants/graphs";
@@ -75,7 +75,34 @@ export function useStatsData() {
   }, [data.linear_acceleration.magnitude]);
 
   const currentSpinRate = data.angular_velocity.magnitude.at(-1) ?? 0;
-  const currentVelocity = velocity.at(-1) ?? 0;
+
+  const tempAltRef = useRef<{ alt: number; time: number }[]>([]);
+  const lastSecondRef = useRef(-1);
+  const [currentVelocity, setCurrentVelocity] = useState(0);
+
+  useEffect(() => {
+    const metres = data.altitude_sea_level.metres;
+    const times = data.altitude_sea_level.mission_time;
+    if (metres.length === 0) return;
+
+    const latestAlt = metres.at(-1)!;
+    const latestTime = times.at(-1)!;
+    const second = Math.floor(latestTime * 4);
+
+    if (lastSecondRef.current === -1) lastSecondRef.current = second;
+
+    if (second !== lastSecondRef.current) {
+      const temp = tempAltRef.current;
+      if (temp.length >= 2) {
+        const dt = temp.at(-1)!.time - temp[0].time;
+        if (dt > 0) setCurrentVelocity((temp.at(-1)!.alt - temp[0].alt) / dt);
+      }
+      tempAltRef.current = [];
+      lastSecondRef.current = second;
+    }
+
+    tempAltRef.current.push({ alt: latestAlt, time: latestTime });
+  }, [data.altitude_sea_level]);
 
   const hasGpsLock = data.gnss.latitude.length > 0;
   const lastGpsTime = data.gnss.mission_time.at(-1) ?? 0;
