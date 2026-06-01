@@ -1,11 +1,16 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Ion } from "cesium";
+import "cesium/Build/Cesium/Widgets/widgets.css";
 import "./index.css";
+
+Ion.defaultAccessToken = import.meta.env.VITE_CESIUM_TOKEN;
 import App from "./App.tsx";
 import { WebSocketProvider } from "./contexts/WebSocketContext.tsx";
 
 const hostname = window.location.hostname;
-const wsUrl = `ws://${hostname}:33845/websocket`;
+// const wsUrl = `ws://${hostname}:33845/websocket`;
+const wsUrl = `ws://${hostname}:8000/ws`;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

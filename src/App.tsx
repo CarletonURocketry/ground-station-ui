@@ -1,27 +1,28 @@
-// import { useState, useRef } from "react";
-import TelemetryHeader from "./components/TelemetryHeader";
-import TelemetryDashboard from "./components/TelemetryDashboard";
-import FloatingMenu from "./components/FloatingMenu";
-
-import { MapProvider } from "./contexts/MapContext";
-// useState left commented out in case command dialog wiring is re-enabled
+import TelemetryHeader from "./components/header/TelemetryHeader";
+import { Menu } from "./components/Menu";
+import { Dashboard } from "./components/Dashboard";
+import { QueryProvider } from "./contexts/QueryProvider";
 
 function App() {
-
   return (
-    <MapProvider>
-      <div className="w-full h-full bg-[#F1F0EE] flex flex-col gap-2 p-2">
-        <TelemetryHeader/>
-        <div className="w-full h-full flex flex-row gap-4">
+    <QueryProvider>
+      {/* <MapProvider> */}
+      <div className="w-full h-full flex flex-col gap-2 p-2">
+        <TelemetryHeader />
+        <div className="w-full h-full flex flex-row space-y-4">
           <div className="flex-1">
-            <TelemetryDashboard />
+            <Dashboard />
+            {/* <TelemetryDashboard /> */}
           </div>
-          <FloatingMenu
-            
-          />
+          {/* <FloatingMenu /> */}
+          <div>
+            <Menu />
+          </div>
         </div>
       </div>
-    </MapProvider>
+
+      {/* </MapProvider> */}
+    </QueryProvider>
   );
 }
 

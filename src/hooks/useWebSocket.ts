@@ -1,5 +1,18 @@
 import { useState, useEffect } from "react";
 import type { WebSocketData } from "../constants/websocket";
+import { useAppStore } from "@/store/appStore";
+import { TelemetryPacket, useTelemetryStore } from "@/store/telemetryStore";
+
+/**
+ *
+ *
+ * TODO: CLEAN THIS FUNCTION UP!!
+ * Remove uneeded functions and returns/remove this hook entireley and just make it a context
+ *
+ *
+ *
+ *
+ */
 
 /**
  * Custom hook to manage WebSocket connections.
@@ -25,10 +38,16 @@ const useWebSocket = (url: string) => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [data, setData] = useState<WebSocketData | null>(null);
   const [error, setError] = useState<Event | null>(null);
+  const { setClientId } = useAppStore();
+  const { addPacket } = useTelemetryStore();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const ws = new WebSocket(url);
+    const clientId = crypto.randomUUID();
+    setClientId(clientId);
+
+    // Make the client ID inside of the app state
+    const ws = new WebSocket(url + "?client_id=" + clientId);
 
     ws.onopen = () => {
       console.log("WebSocket Connected"); // Add this log
@@ -38,8 +57,22 @@ const useWebSocket = (url: string) => {
 
     ws.onmessage = (event) => {
       try {
-        const parsedData: WebSocketData = JSON.parse(event.data);
-        setData(parsedData);
+        const raw = JSON.parse(event.data);
+        const { sensor_type, measurement_time, data, ix } = raw;
+
+        if (ix !== undefined) {
+          const { replay, setReplayProgress, setSeekingTo } = useAppStore.getState();
+          if (replay.seekingTo !== null) {
+            if (ix < replay.seekingTo) return;
+            setSeekingTo(null);
+          }
+          setReplayProgress(ix);
+        }
+
+        const packet: TelemetryPacket = {
+          [sensor_type]: { mission_time: [measurement_time], ...data },
+        };
+        addPacket(packet);
       } catch (e) {
         console.error("Error parsing WebSocket data:", e);
       }

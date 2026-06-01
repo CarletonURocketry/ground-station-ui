@@ -6,6 +6,7 @@ interface WebSocketContextType {
   data: WebSocketData | null;
   error: Event | null;
   sendCommand: (command: string) => void;
+  isConnected: boolean;
 }
 
 const WebSocketContext = createContext<WebSocketContextType | null>(null);
@@ -38,10 +39,12 @@ export const WebSocketProvider = ({
   children: ReactNode;
   url: string;
 }) => {
-  const { data, error, sendCommand } = useWebSocket(url);
+  const { data, error, sendCommand, isConnected } = useWebSocket(url);
 
   return (
-    <WebSocketContext.Provider value={{ data, error, sendCommand }}>
+    <WebSocketContext.Provider
+      value={{ data, error, sendCommand, isConnected }}
+    >
       {children}
     </WebSocketContext.Provider>
   );
