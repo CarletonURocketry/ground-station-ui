@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { WebSocketData } from "../constants/websocket";
 import { useAppStore } from "@/store/appStore";
 import { TelemetryPacket, useTelemetryStore } from "@/store/telemetryStore";
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  *
@@ -36,14 +37,14 @@ import { TelemetryPacket, useTelemetryStore } from "@/store/telemetryStore";
  */
 const useWebSocket = (url: string) => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [data, setData] = useState<WebSocketData | null>(null);
+  const [data] = useState<WebSocketData | null>(null);
   const [error, setError] = useState<Event | null>(null);
   const { setClientId } = useAppStore();
   const { addPacket } = useTelemetryStore();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const clientId = crypto.randomUUID();
+    const clientId = uuidv4();
     setClientId(clientId);
 
     // Make the client ID inside of the app state

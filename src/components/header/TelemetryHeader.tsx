@@ -7,6 +7,7 @@ import {
   getMissionTime,
 } from "./telemetryHelpers";
 import { useTelemetryStore } from "@/store/telemetryStore";
+// import { useWebSocketContext } from "@/contexts/WebSocketContext";
 
 function TelemetryHeader() {
   // const { data } = useWebSocketContext();

@@ -13,9 +13,9 @@ const hostname = window.location.hostname;
 const wsUrl = `ws://${hostname}:8000/ws`;
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <WebSocketProvider url={wsUrl}>
-      <App />
-    </WebSocketProvider>
-  </StrictMode>
+  // <StrictMode>
+  <WebSocketProvider url={wsUrl}>
+    <App />
+  </WebSocketProvider>
+  // </StrictMode>
 );

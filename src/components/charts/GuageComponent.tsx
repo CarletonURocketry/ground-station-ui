@@ -80,6 +80,9 @@ function GuageComponent({
         <g id="ticks">
           {ticks.map((angle) => {
             const value = angleToValue(angle);
+            const labelProps = getLabelProps({ angle, offset: 20 });
+            const baseline = labelProps.dominantBaseline as any;
+            const textAnchor = labelProps.textAnchor as any;
             return (
               <React.Fragment key={`tick-group-${angle}`}>
                 <line
@@ -88,7 +91,9 @@ function GuageComponent({
                 />
                 <text
                   className="text-sm fill-stone-500 font-medium"
-                  {...getLabelProps({ angle, offset: 20 })}
+                  {...labelProps}
+                  textAnchor={textAnchor}
+                  dominantBaseline={baseline}
                 >
                   {value}
                   {valueLabel}
